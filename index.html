@@ -1,1065 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>6-Day Push Pull Legs | Classic Physique</title>
-    <style>
-        :root {
-            --bg-dark: #0d1117;
-            --bg-card: #161b22;
-            --bg-hover: #21262d;
-            --border: #30363d;
-            --text: #e6edf3;
-            --text-muted: #8b949e;
-            --accent: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-yellow: #d29922;
-            --accent-red: #f85149;
-            --accent-purple: #a371f7;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 16px;
-            padding-bottom: 100px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 4px;
-        }
-
-        .header .subtitle {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 24px;
-            position: sticky;
-            top: 0;
-            background: var(--bg-dark);
-            padding: 12px 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: var(--text);
-            border-color: var(--accent);
-        }
-
-        .day {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .day-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .day-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .day-focus {
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            background: rgba(63, 185, 80, 0.15);
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .exercise {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .exercise:last-child {
-            border-bottom: none;
-        }
-
-        .exercise-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 6px;
-        }
-
-        .exercise-num {
-            color: var(--accent);
-            font-weight: 700;
-            margin-right: 8px;
-            font-size: 0.85rem;
-        }
-
-        .exercise-name {
-            font-weight: 600;
-            flex: 1;
-        }
-
-        .exercise-sets {
-            color: var(--accent-yellow);
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            margin-left: 12px;
-        }
-
-        .exercise-note {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-            font-style: italic;
-        }
-
-        .variants {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border);
-        }
-
-        .variants-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .variant-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .variant {
-            font-size: 0.75rem;
-            background: var(--bg-hover);
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: var(--text-muted);
-        }
-
-        .variant:first-child {
-            color: var(--accent-green);
-            background: rgba(63, 185, 80, 0.1);
-        }
-
-        .intensifier {
-            display: inline-block;
-            font-size: 0.65rem;
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin-left: 6px;
-            font-weight: 600;
-        }
-
-        .ds {
-            background: rgba(248, 81, 73, 0.2);
-            color: var(--accent-red);
-        }
-
-        .rp {
-            background: rgba(163, 113, 247, 0.2);
-            color: var(--accent-purple);
-        }
-
-        .cardio {
-            background: rgba(88, 166, 255, 0.1);
-            padding: 12px 16px;
-            color: var(--accent);
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 32px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .rules-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .rules-card h3 {
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-
-        .rules-card ul {
-            list-style: none;
-            font-size: 0.85rem;
-        }
-
-        .rules-card li {
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-muted);
-        }
-
-        .rules-card li:last-child {
-            border-bottom: none;
-        }
-
-        .rules-card strong {
-            color: var(--text);
-        }
-
-        .giant-set {
-            background: rgba(163, 113, 247, 0.05);
-            border-left: 3px solid var(--accent-purple);
-            margin: 0;
-            padding-left: 13px;
-        }
-
-        .superset-label {
-            font-size: 0.7rem;
-            color: var(--accent-purple);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        @media (max-width: 400px) {
-            body { padding: 12px; }
-            .day-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .nav a { font-size: 0.7rem; padding: 5px 8px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0d1117">
+  <title>6-Day Classic Split</title>
+  <style>
+    :root {
+      --bg: #0d1117; --card: #161b22; --border: #30363d;
+      --text: #e6edf3; --muted: #8b949e;
+      --blue: #58a6ff; --green: #3fb950; --yellow: #d29922;
+      --red: #f85149; --purple: #a371f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font: 15px/1.5 -apple-system, system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      padding: 12px; padding-bottom: 80px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    h1 { font-size: 1.3rem; }
+    .sub { color: var(--muted); font-size: .8rem; }
+    nav {
+      display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+      position: sticky; top: 0; background: var(--bg);
+      padding: 10px 0; z-index: 99; border-bottom: 1px solid var(--border);
+    }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: .75rem; font-weight: 500;
+      padding: 5px 10px; border-radius: 6px;
+      background: var(--card); border: 1px solid var(--border);
+    }
+    nav a:active { border-color: var(--blue); color: var(--text); }
+    .day {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 16px; overflow: hidden;
+    }
+    .day-head {
+      padding: 12px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .day-title { font-size: 1rem; font-weight: 600; }
+    .tag {
+      font-size: .65rem; color: var(--green); background: rgba(63,185,80,.15);
+      padding: 3px 7px; border-radius: 4px;
+    }
+    .ex { padding: 12px; border-bottom: 1px solid var(--border); }
+    .ex:last-child { border-bottom: none; }
+    .ex-row { display: flex; justify-content: space-between; align-items: start; }
+    .num { color: var(--blue); font-weight: 700; margin-right: 6px; font-size: .8rem; }
+    .name { font-weight: 600; flex: 1; }
+    .sets { color: var(--yellow); font-weight: 600; font-size: .8rem; white-space: nowrap; }
+    .note { font-size: .75rem; color: var(--muted); margin-top: 3px; font-style: italic; }
+    .alts { margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border); }
+    .alts-label { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .alt-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .alt {
+      font-size: .7rem; background: #21262d; padding: 3px 6px; border-radius: 4px; color: var(--muted);
+    }
+    .alt:first-child { color: var(--green); background: rgba(63,185,80,.1); }
+    .badge {
+      display: inline-block; font-size: .6rem; padding: 2px 4px;
+      border-radius: 3px; margin-left: 5px; font-weight: 600;
+    }
+    .ds { background: rgba(248,81,73,.2); color: var(--red); }
+    .rp { background: rgba(163,113,247,.2); color: var(--purple); }
+    .cardio {
+      background: rgba(88,166,255,.1); padding: 10px 12px;
+      color: var(--blue); font-size: .8rem;
+      display: flex; justify-content: space-between;
+    }
+    .section { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px; margin-bottom: 12px;
+    }
+    .card h3 { font-size: .85rem; margin-bottom: 8px; color: var(--blue); }
+    .card ul { list-style: none; font-size: .8rem; }
+    .card li { padding: 4px 0; border-bottom: 1px solid var(--border); color: var(--muted); }
+    .card li:last-child { border-bottom: none; }
+    .card strong { color: var(--text); }
+    .giant { background: rgba(163,113,247,.05); border-left: 3px solid var(--purple); padding-left: 9px; }
+    .gs-label { font-size: .65rem; color: var(--purple); text-transform: uppercase; letter-spacing: .5px; }
+    footer { text-align: center; padding: 24px 0; color: var(--muted); font-size: .7rem; }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>6-Day Classic Physique Split</h1>
-        <div class="subtitle">Upper Chest / Delts / Back Density Priority</div>
-    </div>
 
-    <nav class="nav">
-        <a href="#monday">Mon</a>
-        <a href="#tuesday">Tue</a>
-        <a href="#wednesday">Wed</a>
-        <a href="#thursday">Thu</a>
-        <a href="#friday">Fri</a>
-        <a href="#saturday">Sat</a>
-        <a href="#rules">Rules</a>
-        <a href="#tips">Tips</a>
-    </nav>
-
-    <!-- MONDAY -->
-    <div class="day" id="monday">
-        <div class="day-header">
-            <div class="day-title">Monday — Chest + Side Delts</div>
-            <div class="day-focus">Upper Chest Bias</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Incline Press</span>
-                <span class="exercise-sets">1x6-8 + 2x8-12</span>
-            </div>
-            <div class="exercise-note">Feeder sets: 20, 12-15, 8-10, 4-6 then work sets</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Smith Incline</span>
-                    <span class="variant">Hammer Strength Incline</span>
-                    <span class="variant">Plate-Loaded Incline</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Flat / Converging Press</span>
-                <span class="exercise-sets">3x8-12</span>
-            </div>
-            <div class="exercise-note">Squeeze at contraction, control negative</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Hammer Strength Chest Press</span>
-                    <span class="variant">Smith Flat Press</span>
-                    <span class="variant">Dual Cable Press</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Low-to-High Cable Fly</span>
-                <span class="exercise-sets">3x12-15 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">2-3 sec squeeze at top</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Incline DB Fly</span>
-                    <span class="variant">Pec Deck (high)</span>
-                    <span class="variant">Machine Fly</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Lateral Raise</span>
-                <span class="exercise-sets">4x12-20 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Slight forward lean, lead with elbows</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Cable Lateral (behind back)</span>
-                    <span class="variant">Lateral Raise Machine</span>
-                    <span class="variant">Seated DB Lateral</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">5</span>
-                <span class="exercise-name">Straight-Arm Pulldown</span>
-                <span class="exercise-sets">2x12-15</span>
-            </div>
-            <div class="exercise-note">Serratus engagement for posing</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Cable Pullover</span>
-                    <span class="variant">Machine Pullover</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>25-40 min LISS</span>
-        </div>
-    </div>
-
-    <!-- TUESDAY -->
-    <div class="day" id="tuesday">
-        <div class="day-header">
-            <div class="day-title">Tuesday — Back + Rear Delts</div>
-            <div class="day-focus">Thickness + Lower Lats</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Chest-Supported Row</span>
-                <span class="exercise-sets">1x6-8 + 2x8-12</span>
-            </div>
-            <div class="exercise-note">Heavy anchor. Full stretch, hard squeeze.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Hammer Strength Row</span>
-                    <span class="variant">T-Bar Row (chest pad)</span>
-                    <span class="variant">Seal Row</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Lat Pulldown (neutral)</span>
-                <span class="exercise-sets">3x8-12</span>
-            </div>
-            <div class="exercise-note">Lean back slightly, drive elbows to hips</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Wide Grip Pulldown</span>
-                    <span class="variant">Assisted Pull-Up</span>
-                    <span class="variant">Hammer High Row</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Seated Cable Row (close neutral)</span>
-                <span class="exercise-sets">3x8-12</span>
-            </div>
-            <div class="exercise-note">Pull to lower chest, squeeze shoulder blades</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Machine Seated Row</span>
-                    <span class="variant">Single-Arm Cable Row</span>
-                    <span class="variant">Plate-Loaded Row</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Wide Cable Row (elbows flared)</span>
-                <span class="exercise-sets">3x10-12</span>
-            </div>
-            <div class="exercise-note">Pull to upper chest. Mid-trap/rhomboid focus.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Chest-Supported DB Row (elbows out)</span>
-                    <span class="variant">Smith Row to Chest</span>
-                    <span class="variant">Wide Hammer Row</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">5</span>
-                <span class="exercise-name">Straight-Arm Pulldown</span>
-                <span class="exercise-sets">3x12-15</span>
-            </div>
-            <div class="exercise-note">Lower lat sweep. Pull to thighs.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Cable Pullover</span>
-                    <span class="variant">Single-Arm Pulldown (to hip)</span>
-                    <span class="variant">Machine Pullover</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">6</span>
-                <span class="exercise-name">Rear Delt Fly</span>
-                <span class="exercise-sets">3x12-20 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Lead with pinkies, control the movement</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Rear Delt Machine</span>
-                    <span class="variant">Face Pulls</span>
-                    <span class="variant">High Cable Rear Fly</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>25-40 min LISS</span>
-        </div>
-    </div>
-
-    <!-- WEDNESDAY -->
-    <div class="day" id="wednesday">
-        <div class="day-header">
-            <div class="day-title">Wednesday — Arms + Side Delts</div>
-            <div class="day-focus">Pump Day</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Overhead Triceps Extension</span>
-                <span class="exercise-sets">3x10-12</span>
-            </div>
-            <div class="exercise-note">Full stretch at bottom. Long head focus.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Rope Overhead Extension</span>
-                    <span class="variant">Dual Cable Overhead</span>
-                    <span class="variant">EZ Bar Overhead</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Triceps Pressdown</span>
-                <span class="exercise-sets">3x10-12 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Lock out hard, keep elbows pinned</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">V-Bar Pressdown</span>
-                    <span class="variant">Rope Pressdown</span>
-                    <span class="variant">Single-Arm Pressdown</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Barbell / EZ Curl</span>
-                <span class="exercise-sets">3x8-12 + partials</span>
-            </div>
-            <div class="exercise-note">Full ROM then 4-5 partials from bottom</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Cable Curl (bar)</span>
-                    <span class="variant">Machine Curl</span>
-                    <span class="variant">DB Curl</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Incline DB Curl</span>
-                <span class="exercise-sets">2x10-12</span>
-            </div>
-            <div class="exercise-note">Stretch position, let arms hang back</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Bayesian Cable Curl</span>
-                    <span class="variant">Preacher Machine</span>
-                    <span class="variant">Spider Curl</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">5</span>
-                <span class="exercise-name">Lateral Raise</span>
-                <span class="exercise-sets">3x15-20 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Pump set. Light weight, chase the burn.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Cable Lateral</span>
-                    <span class="variant">Machine Lateral</span>
-                    <span class="variant">Leaning Cable Lateral</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">6</span>
-                <span class="exercise-name">Machine Crunch</span>
-                <span class="exercise-sets">3x12-15</span>
-            </div>
-            <div class="exercise-note">Controlled, exhale and squeeze</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Decline Crunch</span>
-                    <span class="variant">Ab Wheel</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">7</span>
-                <span class="exercise-name">Seated Calf Raise</span>
-                <span class="exercise-sets">4x15-20</span>
-            </div>
-            <div class="exercise-note">Full stretch, pause at top</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Standing Calf</span>
-                    <span class="variant">Leg Press Calf</span>
-                    <span class="variant">Smith Calf Raise</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>20-30 min LISS</span>
-        </div>
-    </div>
-
-    <!-- THURSDAY -->
-    <div class="day" id="thursday">
-        <div class="day-header">
-            <div class="day-title">Thursday — Legs</div>
-            <div class="day-focus">Main Leg Day</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Seated Leg Curl</span>
-                <span class="exercise-sets">4x10-15 <span class="intensifier rp">RP</span></span>
-            </div>
-            <div class="exercise-note">Hams first. Rest-pause final set: 10+5+3</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Lying Leg Curl</span>
-                    <span class="variant">Single-Leg Curl</span>
-                    <span class="variant">Prone Leg Curl</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Leg Press</span>
-                <span class="exercise-sets">1x8-12 + 2x10-15</span>
-            </div>
-            <div class="exercise-note">Feet shoulder width, don't lock out</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Belt Squat</span>
-                    <span class="variant">Pendulum Squat</span>
-                    <span class="variant">Smith Box Squat</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Belt Squat / Secondary Quad</span>
-                <span class="exercise-sets">3x8-12</span>
-            </div>
-            <div class="exercise-note">Full ROM quad volume</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Single-Leg Press</span>
-                    <span class="variant">Smith Front Squat</span>
-                    <span class="variant">Lever Squat</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Leg Extension</span>
-                <span class="exercise-sets">3x12-15 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Squeeze at top, drop set final set</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Single-Leg Extension</span>
-                    <span class="variant">Sissy Squat</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">5</span>
-                <span class="exercise-name">Standing Calf Raise</span>
-                <span class="exercise-sets">3x15-20</span>
-            </div>
-            <div class="exercise-note">Full stretch, hard contraction</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Leg Press Calf</span>
-                    <span class="variant">Smith Calf Raise</span>
-                    <span class="variant">Donkey Calf</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">6</span>
-                <span class="exercise-name">Lying Leg Raise</span>
-                <span class="exercise-sets">3x10-15</span>
-            </div>
-            <div class="exercise-note">Lower abs, keep back pressed down</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Captain's Chair</span>
-                    <span class="variant">Decline Reverse Crunch</span>
-                    <span class="variant">Ab Wheel</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>15-30 min easy</span>
-        </div>
-    </div>
-
-    <!-- FRIDAY -->
-    <div class="day" id="friday">
-        <div class="day-header">
-            <div class="day-title">Friday — Chest + Back + Delts</div>
-            <div class="day-focus">Pump + Lower Lats</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Incline Press (machine)</span>
-                <span class="exercise-sets">3x8-12</span>
-            </div>
-            <div class="exercise-note">Second upper chest hit of the week</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Smith Incline</span>
-                    <span class="variant">Incline DB Press</span>
-                    <span class="variant">Hammer Incline</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Cable Fly (flat/decline angle)</span>
-                <span class="exercise-sets">3x12-15 <span class="intensifier ds">DS</span></span>
-            </div>
-            <div class="exercise-note">Different angle than Monday</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Pec Deck</span>
-                    <span class="variant">DB Fly</span>
-                    <span class="variant">High-to-Low Cable Fly</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Single-Arm Pulldown (to hip)</span>
-                <span class="exercise-sets">3x10-15/side</span>
-            </div>
-            <div class="exercise-note">Lower lat sweep. Pull to hip pocket.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Neutral Pulldown</span>
-                    <span class="variant">Straight-Arm Pulldown</span>
-                    <span class="variant">Single-Arm Machine</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Chest-Supported Row (light)</span>
-                <span class="exercise-sets">3x12-15</span>
-            </div>
-            <div class="exercise-note">Pump work, full ROM</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Machine Row</span>
-                    <span class="variant">Cable Row</span>
-                    <span class="variant">DB Row</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise giant-set">
-            <div class="superset-label">Giant Set x3 Rounds</div>
-            <div class="exercise-main">
-                <span class="exercise-num">5a</span>
-                <span class="exercise-name">Lateral Raises</span>
-                <span class="exercise-sets">15-20</span>
-            </div>
-        </div>
-
-        <div class="exercise giant-set">
-            <div class="exercise-main">
-                <span class="exercise-num">5b</span>
-                <span class="exercise-name">Rear Delt Fly</span>
-                <span class="exercise-sets">15-20</span>
-            </div>
-            <div class="exercise-note">No rest between. 60-90s after each round.</div>
-            <div class="variants">
-                <div class="variants-label">Grab whatever's open:</div>
-                <div class="variant-list">
-                    <span class="variant">DBs</span>
-                    <span class="variant">Cables</span>
-                    <span class="variant">Machines</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>20-30 min LISS</span>
-        </div>
-    </div>
-
-    <!-- SATURDAY -->
-    <div class="day" id="saturday">
-        <div class="day-header">
-            <div class="day-title">Saturday — Weak Points + Leg Touch</div>
-            <div class="day-focus">Rear Delts + Recovery</div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">1</span>
-                <span class="exercise-name">Lying Leg Curl (light)</span>
-                <span class="exercise-sets">2x12-15</span>
-            </div>
-            <div class="exercise-note">Blood flow, not to failure</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Seated Leg Curl</span>
-                    <span class="variant">Single-Leg Curl</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">2</span>
-                <span class="exercise-name">Leg Extension (light)</span>
-                <span class="exercise-sets">2x12-15</span>
-            </div>
-            <div class="exercise-note">Keep quads active, easy work</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Single-Leg Extension</span>
-                    <span class="variant">Bodyweight Sissy</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">3</span>
-                <span class="exercise-name">Calf Raises</span>
-                <span class="exercise-sets">4x15-20</span>
-            </div>
-            <div class="exercise-note">Alternate seated/standing weekly</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Seated Calf</span>
-                    <span class="variant">Standing Calf</span>
-                    <span class="variant">Leg Press Calf</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">4</span>
-                <span class="exercise-name">Rear Delt Fly</span>
-                <span class="exercise-sets">3x15-20</span>
-            </div>
-            <div class="exercise-note">3rd rear delt session. Critical for back poses.</div>
-            <div class="variants">
-                <div class="variants-label">Alternatives:</div>
-                <div class="variant-list">
-                    <span class="variant">Rear Delt Machine</span>
-                    <span class="variant">Face Pulls</span>
-                    <span class="variant">Cable Rear Fly</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise">
-            <div class="exercise-main">
-                <span class="exercise-num">5</span>
-                <span class="exercise-name">Vacuums</span>
-                <span class="exercise-sets">3x25-30 sec</span>
-            </div>
-            <div class="exercise-note">Practice in mirror</div>
-        </div>
-
-        <div class="cardio">
-            <span>Cardio</span>
-            <span>15-20 min easy</span>
-        </div>
-    </div>
-
-    <!-- RULES SECTION -->
-    <div class="section-title" id="rules">Training Notes</div>
-
-    <div class="rules-card">
-        <h3>Warm-Up Protocol</h3>
-        <ul>
-            <li><strong>First movement:</strong> 20 → 12-15 → 8-10 → 4-6 (feeders)</li>
-            <li><strong>Work sets:</strong> 1 top set RPE 9-10 + 1-2 back-offs</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Intensifiers</h3>
-        <ul>
-            <li><span class="intensifier ds">DS</span> Drop set final set only (machines/cables)</li>
-            <li><span class="intensifier rp">RP</span> Rest-pause: 10 reps → 10s → 5 → 10s → 3</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Rest Periods</h3>
-        <ul>
-            <li><strong>Compounds:</strong> 90-150 sec</li>
-            <li><strong>Legs:</strong> 120-180 sec</li>
-            <li><strong>Isolation:</strong> 60-90 sec</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Progression</h3>
-        <ul>
-            <li>Add reps first within range</li>
-            <li>Increase load after hitting top of range 2x</li>
-        </ul>
-    </div>
-
-    <div class="section-title" id="tips">Execution Tips</div>
-
-    <div class="rules-card">
-        <h3>Incline Press</h3>
-        <ul>
-            <li><strong>Bench angle:</strong> 30-35°, not 45° (less front delt takeover)</li>
-            <li><strong>Touch point:</strong> High on chest near clavicle</li>
-            <li><strong>Lockout:</strong> Don't fully lock - keep tension on pecs</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Lateral Raises</h3>
-        <ul>
-            <li><strong>Weight:</strong> 15-20 lb max - ego kills this movement</li>
-            <li><strong>Form:</strong> Lead with elbows, slight forward lean</li>
-            <li><strong>Tempo:</strong> Pause 1 sec at top, no momentum</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Lower Lat Pulldowns</h3>
-        <ul>
-            <li><strong>Technique:</strong> Pull to hip pocket, not chest</li>
-            <li><strong>Setup:</strong> Single-arm, stand offset from stack</li>
-            <li><strong>Feel:</strong> Full stretch at top, squeeze at hip</li>
-        </ul>
-    </div>
-
-    <div class="rules-card">
-        <h3>Rear Delt Fly</h3>
-        <ul>
-            <li><strong>Cue:</strong> Lead with pinkies, not thumbs</li>
-            <li><strong>Control:</strong> No swinging - go lighter if needed</li>
-        </ul>
-    </div>
-
-    <div class="section-title">Cardio</div>
-
-    <div class="rules-card">
-        <h3>Recumbent Bike</h3>
-        <ul>
-            <li><strong>Resistance:</strong> Low to moderate</li>
-            <li><strong>Heart rate:</strong> 120-135 bpm zone</li>
-            <li><strong>Tip:</strong> Watch something - makes 30-40 min easy</li>
-        </ul>
-    </div>
-
-    <div class="section-title">Posing</div>
-
-    <div class="rules-card">
-        <h3>Daily Practice (3-5 min)</h3>
-        <ul>
-            <li><strong>Vacuums:</strong> 3 x 25-30 sec holds</li>
-            <li><strong>Front double bi:</strong> Vacuum while holding</li>
-            <li><strong>Rear lat spread:</strong> Where lower lat sweep shows</li>
-            <li><strong>Side chest:</strong> Gut in, chest out, twist into it</li>
-            <li><strong>Film weekly:</strong> Track changes as you lean out</li>
-        </ul>
-    </div>
-
-    <div class="section-title">Recovery</div>
-
-    <div class="rules-card">
-        <h3>If Recovery Tanks</h3>
-        <ul>
-            <li><strong>Cut first:</strong> Saturday rear delts</li>
-            <li><strong>Cut second:</strong> Wednesday laterals</li>
-            <li><strong>Cut third:</strong> One back-off set per compound</li>
-        </ul>
-    </div>
-
-    <div style="text-align: center; padding: 32px 0; color: var(--text-muted); font-size: 0.75rem;">
-        <p>6-Day Classic Physique Split</p>
-    </div>
+<header>
+  <h1>6-Day Classic Split</h1>
+  <p class="sub">Upper Chest / Delts / Back Density</p>
+</header>
+
+<nav>
+  <a href="#mon">Mon</a><a href="#tue">Tue</a><a href="#wed">Wed</a>
+  <a href="#thu">Thu</a><a href="#fri">Fri</a><a href="#sat">Sat</a>
+  <a href="#rules">Rules</a><a href="#tips">Tips</a>
+</nav>
+
+<!-- MON -->
+<div class="day" id="mon">
+  <div class="day-head">
+    <span class="day-title">Monday — Chest + Side Delts</span>
+    <span class="tag">Upper Chest</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Incline Press</span><span class="sets">1×6-8 + 2×8-12</span></div>
+    <p class="note">Feeders: 20→12→8→4 then work sets</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Smith Incline</span><span class="alt">Hammer Incline</span><span class="alt">Plate-Loaded</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Flat Press</span><span class="sets">3×8-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Hammer Chest</span><span class="alt">Smith Flat</span><span class="alt">Cable Press</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">Low-to-High Fly</span><span class="sets">3×12-15<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Incline DB Fly</span><span class="alt">Pec Deck</span><span class="alt">Machine Fly</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Lateral Raise</span><span class="sets">4×12-20<span class="badge ds">DS</span></span></div>
+    <p class="note">Slight lean, lead with elbows</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Cable Lateral</span><span class="alt">Machine Lateral</span><span class="alt">Seated DB</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">5</span><span class="name">Straight-Arm Pulldown</span><span class="sets">2×12-15</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Cable Pullover</span><span class="alt">Machine Pullover</span></div></div>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>25-40 min</span></div>
+</div>
+
+<!-- TUE -->
+<div class="day" id="tue">
+  <div class="day-head">
+    <span class="day-title">Tuesday — Back + Rear Delts</span>
+    <span class="tag">Thickness</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Chest-Supported Row</span><span class="sets">1×6-8 + 2×8-12</span></div>
+    <p class="note">Heavy anchor movement</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Hammer Row</span><span class="alt">T-Bar</span><span class="alt">Seal Row</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Lat Pulldown</span><span class="sets">3×8-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Wide Pulldown</span><span class="alt">Assisted Pull-Up</span><span class="alt">High Row</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">Seated Cable Row</span><span class="sets">3×8-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Machine Row</span><span class="alt">Single-Arm Cable</span><span class="alt">Plate-Loaded</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Wide Cable Row</span><span class="sets">3×10-12</span></div>
+    <p class="note">Elbows flared, pull to upper chest</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">DB Row Elbows Out</span><span class="alt">Smith Row</span><span class="alt">Wide Hammer</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">5</span><span class="name">Straight-Arm Pulldown</span><span class="sets">3×12-15</span></div>
+    <p class="note">Lower lat sweep focus</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Pullover</span><span class="alt">Single-Arm to Hip</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">6</span><span class="name">Rear Delt Fly</span><span class="sets">3×12-20<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Rear Delt Machine</span><span class="alt">Face Pulls</span><span class="alt">High Cable</span></div></div>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>25-40 min</span></div>
+</div>
+
+<!-- WED -->
+<div class="day" id="wed">
+  <div class="day-head">
+    <span class="day-title">Wednesday — Arms + Side Delts</span>
+    <span class="tag">Pump</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Overhead Triceps</span><span class="sets">3×10-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Rope OH</span><span class="alt">Dual Cable OH</span><span class="alt">EZ Bar OH</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Pressdown</span><span class="sets">3×10-12<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">V-Bar</span><span class="alt">Rope</span><span class="alt">Single-Arm</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">EZ Curl</span><span class="sets">3×8-12 + partials</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Cable Curl</span><span class="alt">Machine Curl</span><span class="alt">DB Curl</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Incline DB Curl</span><span class="sets">2×10-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Bayesian Cable</span><span class="alt">Preacher</span><span class="alt">Spider Curl</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">5</span><span class="name">Lateral Raise</span><span class="sets">3×15-20<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Cable</span><span class="alt">Machine</span><span class="alt">Leaning Cable</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">6</span><span class="name">Machine Crunch</span><span class="sets">3×12-15</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Decline Crunch</span><span class="alt">Ab Wheel</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">7</span><span class="name">Seated Calf</span><span class="sets">4×15-20</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Standing</span><span class="alt">Leg Press</span><span class="alt">Smith</span></div></div>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>20-30 min</span></div>
+</div>
+
+<!-- THU -->
+<div class="day" id="thu">
+  <div class="day-head">
+    <span class="day-title">Thursday — Legs</span>
+    <span class="tag">Main Day</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Seated Leg Curl</span><span class="sets">4×10-15<span class="badge rp">RP</span></span></div>
+    <p class="note">Hams first. RP last set: 10+5+3</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Lying Curl</span><span class="alt">Single-Leg</span><span class="alt">Prone</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Leg Press</span><span class="sets">1×8-12 + 2×10-15</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Belt Squat</span><span class="alt">Pendulum</span><span class="alt">Smith Box</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">Belt Squat</span><span class="sets">3×8-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Single-Leg Press</span><span class="alt">Smith Front</span><span class="alt">Lever Squat</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Leg Extension</span><span class="sets">3×12-15<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Single-Leg</span><span class="alt">Sissy Squat</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">5</span><span class="name">Standing Calf</span><span class="sets">3×15-20</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Leg Press Calf</span><span class="alt">Smith</span><span class="alt">Donkey</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">6</span><span class="name">Lying Leg Raise</span><span class="sets">3×10-15</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Captain's Chair</span><span class="alt">Decline Crunch</span><span class="alt">Ab Wheel</span></div></div>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>15-30 min easy</span></div>
+</div>
+
+<!-- FRI -->
+<div class="day" id="fri">
+  <div class="day-head">
+    <span class="day-title">Friday — Chest + Back + Delts</span>
+    <span class="tag">Pump</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Incline Press</span><span class="sets">3×8-12</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Smith Incline</span><span class="alt">Incline DB</span><span class="alt">Hammer</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Cable Fly</span><span class="sets">3×12-15<span class="badge ds">DS</span></span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Pec Deck</span><span class="alt">DB Fly</span><span class="alt">High-to-Low</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">Single-Arm Pulldown</span><span class="sets">3×10-15/side</span></div>
+    <p class="note">Pull to hip for lower lat sweep</p>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Neutral Pulldown</span><span class="alt">Straight-Arm</span></div></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Chest-Supported Row</span><span class="sets">3×12-15</span></div>
+    <div class="alts"><span class="alts-label">Alts:</span><div class="alt-list"><span class="alt">Machine Row</span><span class="alt">Cable Row</span><span class="alt">DB Row</span></div></div>
+  </div>
+  <div class="ex giant">
+    <p class="gs-label">Giant Set ×3</p>
+    <div class="ex-row"><span class="num">5a</span><span class="name">Lateral Raise</span><span class="sets">15-20</span></div>
+  </div>
+  <div class="ex giant">
+    <div class="ex-row"><span class="num">5b</span><span class="name">Rear Delt Fly</span><span class="sets">15-20</span></div>
+    <p class="note">No rest between. 60-90s after round.</p>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>20-30 min</span></div>
+</div>
+
+<!-- SAT -->
+<div class="day" id="sat">
+  <div class="day-head">
+    <span class="day-title">Saturday — Weak Points</span>
+    <span class="tag">Recovery</span>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">1</span><span class="name">Lying Leg Curl</span><span class="sets">2×12-15</span></div>
+    <p class="note">Light, blood flow only</p>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">2</span><span class="name">Leg Extension</span><span class="sets">2×12-15</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">3</span><span class="name">Calf Raises</span><span class="sets">4×15-20</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">4</span><span class="name">Rear Delt Fly</span><span class="sets">3×15-20</span></div>
+    <p class="note">3rd session — key for back poses</p>
+  </div>
+  <div class="ex">
+    <div class="ex-row"><span class="num">5</span><span class="name">Vacuums</span><span class="sets">3×25-30s</span></div>
+  </div>
+  <div class="cardio"><span>Cardio</span><span>15-20 min</span></div>
+</div>
+
+<!-- RULES -->
+<p class="section" id="rules">Training Rules</p>
+
+<div class="card">
+  <h3>Warm-Up</h3>
+  <ul>
+    <li><strong>First move:</strong> 20→12→8→4 feeders</li>
+    <li><strong>Work sets:</strong> Top set RPE 9-10 + back-offs</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Intensifiers</h3>
+  <ul>
+    <li><span class="badge ds">DS</span> Drop set final set only</li>
+    <li><span class="badge rp">RP</span> Rest-pause: 10→5→3</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Rest</h3>
+  <ul>
+    <li><strong>Compounds:</strong> 90-150s</li>
+    <li><strong>Legs:</strong> 120-180s</li>
+    <li><strong>Isolation:</strong> 60-90s</li>
+  </ul>
+</div>
+
+<!-- TIPS -->
+<p class="section" id="tips">Execution Tips</p>
+
+<div class="card">
+  <h3>Incline Press</h3>
+  <ul>
+    <li><strong>Angle:</strong> 30-35° not 45°</li>
+    <li><strong>Touch:</strong> High on chest near clavicle</li>
+    <li><strong>Lockout:</strong> Don't — keep tension</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Lateral Raise</h3>
+  <ul>
+    <li><strong>Weight:</strong> 15-20 lb max</li>
+    <li><strong>Form:</strong> Lead with elbows, lean forward</li>
+    <li><strong>Tempo:</strong> Pause 1s at top, no momentum</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Lower Lat Pulldown</h3>
+  <ul>
+    <li><strong>Pull to:</strong> Hip pocket, not chest</li>
+    <li><strong>Setup:</strong> Single-arm, offset stance</li>
+    <li><strong>Feel:</strong> Stretch top, squeeze bottom</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Rear Delt Fly</h3>
+  <ul>
+    <li><strong>Cue:</strong> Lead with pinkies</li>
+    <li><strong>Control:</strong> No swing — go lighter</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Cardio</h3>
+  <ul>
+    <li><strong>Resistance:</strong> Low-moderate</li>
+    <li><strong>HR:</strong> 120-135 bpm</li>
+    <li><strong>Tip:</strong> Watch something</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Posing (Daily 3-5 min)</h3>
+  <ul>
+    <li><strong>Vacuums:</strong> 3×25-30s</li>
+    <li><strong>Front double bi:</strong> Hold vacuum</li>
+    <li><strong>Rear lat spread:</strong> Show lower lats</li>
+    <li><strong>Side chest:</strong> Gut in, twist</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>If Recovery Tanks</h3>
+  <ul>
+    <li><strong>Cut 1st:</strong> Saturday rear delts</li>
+    <li><strong>Cut 2nd:</strong> Wednesday laterals</li>
+    <li><strong>Cut 3rd:</strong> One back-off set per compound</li>
+  </ul>
+</div>
+
+<footer>6-Day Classic Split</footer>
 
 </body>
 </html>
