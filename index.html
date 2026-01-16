@@ -5,302 +5,246 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0d1117">
-  <title>6-Day Classic Split</title>
+  <title>Classic Split</title>
   <style>
     :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#a371f7}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font:15px/1.5 -apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);padding:12px 12px 80px;-webkit-tap-highlight-color:transparent}
-    header{text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:16px}
-    h1{font-size:1.3rem}.sub{color:var(--muted);font-size:.8rem}
-    nav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:99;border-bottom:1px solid var(--border)}
-    nav a{color:var(--muted);text-decoration:none;font-size:.75rem;font-weight:500;padding:5px 10px;border-radius:6px;background:var(--card);border:1px solid var(--border)}
-    nav a:active{border-color:var(--blue);color:var(--text)}
-    .day{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
-    .day-head{padding:12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-    .day-title{font-size:1rem;font-weight:600}
-    .tag{font-size:.65rem;color:var(--green);background:rgba(63,185,80,.15);padding:3px 7px;border-radius:4px}
-    .ex{padding:12px;border-bottom:1px solid var(--border)}.ex:last-child{border-bottom:none}
-    .ex-row{display:flex;justify-content:space-between;align-items:start}
-    .num{color:var(--blue);font-weight:700;margin-right:6px;font-size:.8rem}
-    .name{font-weight:600;flex:1}.sets{color:var(--yellow);font-weight:600;font-size:.8rem;white-space:nowrap}
-    .note{font-size:.75rem;color:var(--muted);margin-top:4px;line-height:1.4}
+    body{font:14px/1.4 -apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);padding-bottom:60px;-webkit-tap-highlight-color:transparent}
+    nav{display:flex;gap:4px;justify-content:center;position:sticky;top:0;background:var(--bg);padding:8px 6px;z-index:100;border-bottom:1px solid var(--border)}
+    nav a{color:var(--muted);text-decoration:none;font-size:.7rem;font-weight:600;padding:6px 8px;border-radius:6px;background:var(--card)}
+    nav a:active{color:var(--text);background:var(--border)}
+    .day{margin-bottom:2px}
+    .dh{position:sticky;top:40px;z-index:50;background:linear-gradient(var(--card),var(--card) 90%,transparent);padding:10px 12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+    .dh h2{font-size:.85rem;font-weight:700}.dh .tag{font-size:.6rem;color:var(--green);background:rgba(63,185,80,.12);padding:2px 6px;border-radius:3px}
+    .ex{padding:10px 12px;border-bottom:1px solid var(--border);background:var(--card)}
+    .ex:last-of-type{border-bottom:none}
+    .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+    .nm{font-weight:600;font-size:.9rem}.st{color:var(--yellow);font-size:.75rem;font-weight:600}
+    .nt{font-size:.72rem;color:var(--muted);line-height:1.35}
     .cue{color:var(--green)}.warn{color:var(--yellow)}
-    .alts{margin-top:6px;padding-top:6px;border-top:1px dashed var(--border)}
-    .alts-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-    .alt-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-    .alt{font-size:.7rem;background:#21262d;padding:3px 6px;border-radius:4px;color:var(--muted);cursor:pointer;transition:all .15s;border:1px solid transparent}
-    .alt:hover{border-color:var(--border);color:var(--text)}
-    .alt.active{color:var(--green);background:rgba(63,185,80,.1);border-color:var(--green)}
-    .badge{display:inline-block;font-size:.6rem;padding:2px 4px;border-radius:3px;margin-left:5px;font-weight:600}
-    .ds{background:rgba(248,81,73,.2);color:var(--red)}.rp{background:rgba(163,113,247,.2);color:var(--purple)}
-    .cardio{background:rgba(88,166,255,.1);padding:10px 12px;color:var(--blue);font-size:.8rem;display:flex;justify-content:space-between}
-    .section{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
-    .card h3{font-size:.85rem;margin-bottom:8px;color:var(--blue)}
-    .card ul{list-style:none;font-size:.8rem}.card li{padding:4px 0;border-bottom:1px solid var(--border);color:var(--muted)}.card li:last-child{border-bottom:none}.card strong{color:var(--text)}
-    .giant{background:rgba(163,113,247,.05);border-left:3px solid var(--purple);padding-left:9px}
-    .gs-label{font-size:.65rem;color:var(--purple);text-transform:uppercase;letter-spacing:.5px}
-    footer{text-align:center;padding:24px 0;color:var(--muted);font-size:.7rem}
+    .al{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+    .al span{font-size:.65rem;padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;border:1px solid transparent;transition:all .12s}
+    .al span:active,.al span.on{color:var(--green);background:rgba(63,185,80,.1);border-color:rgba(63,185,80,.3)}
+    .badge{font-size:.55rem;padding:2px 4px;border-radius:3px;margin-left:6px;font-weight:700;vertical-align:middle}
+    .ds{background:rgba(248,81,73,.15);color:var(--red)}.rp{background:rgba(163,113,247,.15);color:var(--purple)}
+    .cd{background:rgba(88,166,255,.08);padding:8px 12px;color:var(--blue);font-size:.75rem;display:flex;justify-content:space-between}
+    .sec{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:16px 12px 8px;border-bottom:1px solid var(--border)}
+    .card{background:var(--card);padding:10px 12px;border-bottom:1px solid var(--border)}
+    .card:last-child{border-bottom:none}
+    .card h3{font-size:.75rem;color:var(--blue);margin-bottom:6px}
+    .card li{font-size:.72rem;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--border);list-style:none}
+    .card li:last-child{border-bottom:none}
+    .card strong{color:var(--text)}
+    .gi{background:rgba(163,113,247,.04);border-left:2px solid var(--purple);margin-left:0;padding-left:10px}
+    .gi-tag{font-size:.6rem;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
   </style>
 </head>
 <body>
-<header><h1>6-Day Classic Split</h1><p class="sub">Upper Chest / Delts / Back Density</p></header>
-<nav><a href="#mon">Mon</a><a href="#tue">Tue</a><a href="#wed">Wed</a><a href="#thu">Thu</a><a href="#fri">Fri</a><a href="#sat">Sat</a><a href="#rules">Rules</a></nav>
-<div id="schedule"></div>
-<p class="section" id="rules">Training Rules</p>
-<div class="card"><h3>Warm-Up Protocol</h3><ul><li><strong>First movement:</strong> 20→12→8→4 rep feeder sets</li><li><strong>Work sets:</strong> Top set RPE 9-10 + back-off sets</li><li><strong>Purpose:</strong> Prep joints, build to working weight safely</li></ul></div>
-<div class="card"><h3>Intensity Techniques</h3><ul><li><span class="badge ds">DS</span> <strong>Drop Set:</strong> Final set only — drop weight 20-30%, continue to failure</li><li><span class="badge rp">RP</span> <strong>Rest-Pause:</strong> Hit failure, rest 10-15 sec, continue (10→5→3 reps)</li><li><strong>Partials:</strong> After failure on full reps, do partial reps in stretched position</li></ul></div>
-<div class="card"><h3>Rest Periods</h3><ul><li><strong>Compounds:</strong> 90-150 seconds</li><li><strong>Leg Compounds:</strong> 120-180 seconds</li><li><strong>Isolation:</strong> 60-90 seconds</li><li><strong>Giant Sets:</strong> No rest between exercises, 60-90s after round</li></ul></div>
-<div class="card"><h3>Weak Point Priorities</h3><ul><li><strong>Upper Chest:</strong> Incline 2×/week (Mon + Fri), low-to-high cables, 30-35° only</li><li><strong>Side Delts:</strong> 3×/week across split, light weight, strict form</li><li><strong>Rear Delts:</strong> 3×/week (Tue + Fri + Sat), high frequency brings them up</li><li><strong>Lower Lats:</strong> Single-arm pulldowns to hip, straight-arm work 2×/week</li><li><strong>Mid-Back:</strong> Wide-grip rows with elbows flared, squeeze shoulder blades</li></ul></div>
-<div class="card"><h3>Recovery Management</h3><ul><li><strong>If beat up, cut in order:</strong></li><li>1. Saturday session → make it rest day</li><li>2. Wednesday laterals → hit Mon + Fri anyway</li><li>3. One back-off set per compound → top sets still stimulate</li></ul></div>
-<footer>6-Day Classic Split</footer>
+<nav><a href="#d0">M</a><a href="#d1">T</a><a href="#d2">W</a><a href="#d3">Th</a><a href="#d4">F</a><a href="#d5">S</a><a href="#rules">?</a></nav>
+<div id="app"></div>
+<p class="sec" id="rules">Rules</p>
+<div class="card"><h3>Warm-Up</h3><ul><li><strong>First lift:</strong> 20→12→8→4 feeders</li><li><strong>Work sets:</strong> RPE 9-10 top set + back-offs</li></ul></div>
+<div class="card"><h3>Intensity</h3><ul><li><span class="badge ds">DS</span> Drop 20-30%, go to failure</li><li><span class="badge rp">RP</span> Rest-pause: 10+5+3</li></ul></div>
+<div class="card"><h3>Rest</h3><ul><li><strong>Compounds:</strong> 90-150s</li><li><strong>Isolation:</strong> 60-90s</li></ul></div>
+<div class="card"><h3>Weak Points</h3><ul><li><strong>Upper chest:</strong> Incline 2×/wk, 30-35° only</li><li><strong>Side delts:</strong> 3×/wk, light, strict</li><li><strong>Rear delts:</strong> 3×/wk, high frequency</li><li><strong>Lower lats:</strong> Pull to hip, not chest</li></ul></div>
 
 <script>
-const data = {
-  days: [
-    { id: "mon", title: "Monday — Chest + Side Delts", tag: "Upper Chest", cardio: "25-40 min", exercises: [
-      { num: "1", badge: null, variants: [
-        { name: "Incline Press", sets: "1×6-8 + 2×8-12", note: "<span class='cue'>Feeders: 20→12→8→4 then work sets.</span> Set bench 30-35° not 45°. Touch high on chest near clavicle. Don't lock out — keep tension. Control negative 2-3 sec." },
-        { name: "Smith Incline", sets: "1×6-8 + 2×8-12", note: "<span class='cue'>Fixed path = safer to failure.</span> Same 30-35° angle. Bar path slightly in front of shoulders. Excellent for pushing past failure with safeties." },
-        { name: "Hammer Incline", sets: "3×8-12", note: "<span class='cue'>Converging arms hit inner chest.</span> Adjust seat so handles align with upper chest. Press up and slightly inward. Great for squeezing at contraction." },
-        { name: "Incline DB", sets: "3×8-12", note: "<span class='cue'>Greater ROM and stretch.</span> Dumbbells allow deeper stretch at bottom. Bring DBs together at top without clanking. Control the descent." }
-      ]},
-      { num: "2", badge: null, variants: [
-        { name: "Flat Press", sets: "3×8-12", note: "<span class='cue'>Squeeze hard at contraction.</span> Slight arch, shoulders back and down. Drive through chest not front delts. Control negative, explode up." },
-        { name: "Hammer Chest", sets: "3×8-12", note: "<span class='cue'>Machine stability = push to failure.</span> Adjust seat for handles at mid-chest. Focus on the squeeze. Great for drop sets." },
-        { name: "Smith Flat", sets: "3×8-12", note: "<span class='cue'>Fixed bar path for isolation.</span> Touch mid-chest. No need to stabilize = more focus on contraction. Use safeties for failure." },
-        { name: "Flat DB", sets: "3×8-12", note: "<span class='cue'>Full stretch at bottom.</span> Bring DBs down until deep stretch. Press up and slightly inward. Don't clank at top — stop just before." }
-      ]},
-      { num: "3", badge: "ds", variants: [
-        { name: "Low-to-High Fly", sets: "3×12-15", note: "<span class='cue'>2-3 sec squeeze at top — feel upper chest burn.</span> Cables from low position, arc up to eye level. Slight elbow bend. Think 'hugging a barrel.'" },
-        { name: "Incline DB Fly", sets: "3×12-15", note: "<span class='cue'>Deep stretch at bottom.</span> Set bench 30°. Lower DBs until deep pec stretch. Bring together at top with slight bend in elbows throughout." },
-        { name: "Pec Deck", sets: "3×12-15", note: "<span class='cue'>Constant tension throughout.</span> Adjust seat so handles at chest level. Bring arms together, squeeze 1-2 sec. Control the return." },
-        { name: "Machine Fly", sets: "3×12-15", note: "<span class='cue'>Isolate the squeeze.</span> Machine takes stabilization out. Focus purely on chest contraction. Great for finishing pump." }
-      ]},
-      { num: "4", badge: "ds", variants: [
-        { name: "Lateral Raise", sets: "4×12-20", note: "<span class='cue'>Lead with elbows, not hands.</span> Slight forward lean. Thumbs slightly down. Pause 1 sec at top. <span class='warn'>15-20 lb max — ego kills this movement.</span>" },
-        { name: "Cable Lateral", sets: "4×12-20", note: "<span class='cue'>Constant tension from cable.</span> Stand sideways to stack. Pull across body and up. Tension at bottom unlike DBs. Great for control." },
-        { name: "Machine Lateral", sets: "4×12-20", note: "<span class='cue'>Fixed path = strict form.</span> Adjust pads to sit on outside of elbows. Press out and up. Machine eliminates cheating." },
-        { name: "Seated DB", sets: "4×12-20", note: "<span class='cue'>No momentum possible.</span> Seated removes leg drive. Strict form only. Light weight, feel every rep. Hold at top." }
-      ]},
-      { num: "5", badge: null, variants: [
-        { name: "Straight-Arm Pulldown", sets: "2×12-15", note: "<span class='cue'>Feel serratus engage — key for posing.</span> Keep arms straight, slight elbow bend. Pull bar to thighs. Squeeze lats at bottom." },
-        { name: "Cable Pullover", sets: "2×12-15", note: "<span class='cue'>Deeper lat stretch.</span> Face away from cable, arms overhead. Pull down in arc to hips. Full stretch at top, squeeze at bottom." },
-        { name: "Machine Pullover", sets: "2×12-15", note: "<span class='cue'>Nautilus-style isolation.</span> Elbows on pads. Pull through full ROM. Amazing lat stretch and contraction. If your gym has one, use it." }
-      ]}
-    ]},
-    { id: "tue", title: "Tuesday — Back + Rear Delts", tag: "Thickness", cardio: "25-40 min", exercises: [
-      { num: "1", badge: null, variants: [
-        { name: "Chest-Supported Row", sets: "1×6-8 + 2×8-12", note: "<span class='cue'>Heavy anchor movement — go hard here.</span> Full stretch at bottom, drive elbows back. Squeeze shoulder blades at top. Chest stays on pad." },
-        { name: "Hammer Row", sets: "1×6-8 + 2×8-12", note: "<span class='cue'>Plate-loaded power.</span> Independent arms allow unilateral focus. Drive elbow back, squeeze, control return. Heavy and effective." },
-        { name: "T-Bar Row", sets: "1×6-8 + 2×8-12", note: "<span class='cue'>Classic thickness builder.</span> Chest on pad version preferred for spine. Neutral grip, pull to lower chest, squeeze hard at top." },
-        { name: "Seal Row", sets: "3×8-12", note: "<span class='cue'>Zero momentum possible.</span> Lying flat eliminates all cheating. Lighter weight but pure back work. Full stretch, full squeeze." }
-      ]},
-      { num: "2", badge: null, variants: [
-        { name: "Lat Pulldown", sets: "3×8-12", note: "<span class='cue'>Drive elbows to hips, not behind you.</span> Lean back 15-20°. Initiate with lats — think 'elbows down' not 'pull bar down.'" },
-        { name: "Wide Pulldown", sets: "3×8-12", note: "<span class='cue'>Wider grip = more lat stretch.</span> Grip outside shoulder width. Pull to upper chest. Emphasizes lat width over thickness." },
-        { name: "Assisted Pull-Up", sets: "3×8-12", note: "<span class='cue'>Natural movement pattern.</span> Set assistance to hit 8-12 reps. Full hang at bottom, chin over bar at top. Best lat builder." },
-        { name: "Neutral Pulldown", sets: "3×8-12", note: "<span class='cue'>Neutral grip = more bicep friendly.</span> V-bar or neutral handles. Pull to sternum. Good for lower lat emphasis." }
-      ]},
-      { num: "3", badge: null, variants: [
-        { name: "Seated Cable Row", sets: "3×8-12", note: "<span class='cue'>Pull to lower chest, not belly button.</span> Chest up, slight lean forward at stretch. Squeeze shoulder blades at contraction." },
-        { name: "Machine Row", sets: "3×8-12", note: "<span class='cue'>Fixed path for strict form.</span> Chest against pad. Pull handles to sides, squeeze back hard. Great for isolating lats." },
-        { name: "Single-Arm Cable", sets: "3×10-12/side", note: "<span class='cue'>Unilateral for imbalances.</span> One arm at a time. Allows rotation at stretch for extra ROM. Pull to hip pocket." },
-        { name: "Plate-Loaded Row", sets: "3×8-12", note: "<span class='cue'>Load it up heavy.</span> Hammer or similar plate-loaded. Drive elbows back, chest stays on pad. Pure back thickness." }
-      ]},
-      { num: "4", badge: null, variants: [
-        { name: "Wide Cable Row", sets: "3×10-12", note: "<span class='cue'>Elbows flared 45-60° — targets mid-traps/rhomboids.</span> Pull to upper chest. Think 'spread the bar apart.' Builds Christmas tree detail." },
-        { name: "DB Row Elbows Out", sets: "3×10-12/side", note: "<span class='cue'>Unilateral with elbow flare.</span> Row with elbow pointing out, not back. Hits upper back differently than standard row." },
-        { name: "Wide Hammer Row", sets: "3×10-12", note: "<span class='cue'>Machine version of wide row.</span> Use wide grip handles if available. Elbows out, pull to upper chest, squeeze rhomboids." },
-        { name: "Face Pull Row", sets: "3×12-15", note: "<span class='cue'>Hybrid row/face pull.</span> Cable at chest height. Pull to face with elbows high. Hits rear delts and upper back together." }
-      ]},
-      { num: "5", badge: null, variants: [
-        { name: "Straight-Arm Pulldown", sets: "3×12-15", note: "<span class='cue'>Lower lat sweep focus — pull to THIGHS not waist.</span> Creates the V-taper. Keep arms straight, squeeze lats hard at bottom." },
-        { name: "Pullover", sets: "3×12-15", note: "<span class='cue'>Machine or cable pullover.</span> Full stretch overhead, pull through to hips. Excellent for serratus and lower lat tie-in." },
-        { name: "SA to Hip", sets: "3×12-15/side", note: "<span class='cue'>Pull to hip pocket for lower lat.</span> Stand offset, pull handle in arc toward hip. This builds the sweep that wins shows." }
-      ]},
-      { num: "6", badge: "ds", variants: [
-        { name: "Rear Delt Fly", sets: "3×12-20", note: "<span class='cue'>Lead with pinkies, not thumbs.</span> Slight elbow bend, maintain throughout. Don't swing — if swinging, drop the weight." },
-        { name: "Rear Delt Machine", sets: "3×12-20", note: "<span class='cue'>Reverse pec deck.</span> Chest against pad, pull handles back. Squeeze at contraction 1-2 sec. Consistent tension." },
-        { name: "Face Pulls", sets: "3×15-20", note: "<span class='cue'>Pull to forehead, elbows high.</span> Rope attachment. External rotate at end. Hits rear delts + rotator cuff." },
-        { name: "High Cable Fly", sets: "3×15-20", note: "<span class='cue'>Cables high, cross over.</span> Stand between stacks. Pull handles across and back. Constant cable tension." }
-      ]}
-    ]},
-    { id: "wed", title: "Wednesday — Arms + Side Delts", tag: "Pump", cardio: "20-30 min", exercises: [
-      { num: "1", badge: null, variants: [
-        { name: "Overhead Triceps", sets: "3×10-12", note: "<span class='cue'>Full stretch at bottom — long head emphasis.</span> Elbows pointed up, don't let them flare. Lower behind head until deep stretch." },
-        { name: "Rope Overhead", sets: "3×10-12", note: "<span class='cue'>Cable version with rope.</span> Face away from stack. Elbows by ears. Extend and spread rope at top for extra contraction." },
-        { name: "Dual Cable OH", sets: "3×10-12", note: "<span class='cue'>Two handles for balance.</span> Between two stacks. Allows natural arm path. Great stretch at bottom." },
-        { name: "EZ Bar OH", sets: "3×10-12", note: "<span class='cue'>Heavier option.</span> Seated for back support. Lower bar behind head, press up. Don't flare elbows out." }
-      ]},
-      { num: "2", badge: "ds", variants: [
-        { name: "Pressdown", sets: "3×10-12", note: "<span class='cue'>Lock out HARD — squeeze triceps at bottom.</span> Pin elbows to sides. Slight forward lean is fine. Focus on contraction." },
-        { name: "V-Bar Pressdown", sets: "3×10-12", note: "<span class='cue'>Neutral grip variation.</span> V-bar allows heavier loads. Same cues — elbows pinned, full lockout, squeeze hard." },
-        { name: "Rope Pressdown", sets: "3×10-12", note: "<span class='cue'>Spread rope at bottom.</span> Pull apart at contraction for extra lateral head work. Slightly lighter than bar." },
-        { name: "Single-Arm Press", sets: "3×10-12/side", note: "<span class='cue'>Unilateral focus.</span> One arm at a time. Can rotate wrist for extra contraction. Address imbalances." }
-      ]},
-      { num: "3", badge: null, variants: [
-        { name: "EZ Curl", sets: "3×8-12 + partials", note: "<span class='cue'>Full ROM then 4-5 partials from stretched position.</span> Don't swing. Elbows slightly forward. Squeeze at top." },
-        { name: "Cable Curl", sets: "3×10-12", note: "<span class='cue'>Constant tension from cable.</span> Bar or EZ attachment. Tension at bottom unlike free weights. Great for pump." },
-        { name: "Machine Curl", sets: "3×10-12", note: "<span class='cue'>Isolated bicep work.</span> Preacher-style machine. Eliminates momentum. Full stretch, full squeeze." },
-        { name: "DB Curl", sets: "3×10-12", note: "<span class='cue'>Alternating or together.</span> Supinate at top for peak contraction. Control the negative. No swinging." }
-      ]},
-      { num: "4", badge: null, variants: [
-        { name: "Incline DB Curl", sets: "2×10-12", note: "<span class='cue'>Let arms hang straight back — maximum stretch.</span> Bench 45-60°. Arms behind torso at bottom. Long head emphasis." },
-        { name: "Bayesian Cable", sets: "2×10-12/side", note: "<span class='cue'>Cable behind you for stretch.</span> Face away from low cable. Arm starts behind body. Maximum bicep stretch." },
-        { name: "Preacher Curl", sets: "2×10-12", note: "<span class='cue'>Pad eliminates momentum.</span> Arms against pad throughout. Short head emphasis. Full ROM, don't hyperextend at bottom." },
-        { name: "Spider Curl", sets: "2×10-12", note: "<span class='cue'>Chest on incline, arms hang.</span> Opposite of incline curl. Peak contraction focus. Arms perpendicular to floor." }
-      ]},
-      { num: "5", badge: "ds", variants: [
-        { name: "Lateral Raise", sets: "3×15-20", note: "<span class='cue'>Pump set — chase the burn, not the weight.</span> Light weight, constant tension. Don't rest at bottom." },
-        { name: "Cable Lateral", sets: "3×15-20", note: "<span class='cue'>Constant cable tension.</span> Behind back or cross-body. No dead spot at bottom like DBs." },
-        { name: "Machine Lateral", sets: "3×15-20", note: "<span class='cue'>Zero cheating possible.</span> Machine enforces strict form. Just focus on feeling the contraction." },
-        { name: "Leaning Cable", sets: "3×15-20/side", note: "<span class='cue'>Grab pole, lean away.</span> Increases ROM at bottom. Brutal stretch and burn. Light weight only." }
-      ]},
-      { num: "6", badge: null, variants: [
-        { name: "Machine Crunch", sets: "3×12-15", note: "<span class='cue'>Exhale fully and squeeze — ribs to hips.</span> Controlled, no jerking. Don't pull with arms. <span class='warn'>Don't go heavy — avoid thickening waist.</span>" },
-        { name: "Decline Crunch", sets: "3×15-20", note: "<span class='cue'>Bodyweight ab work.</span> Decline bench. Hands across chest. Curl up, squeeze, control down. No momentum." },
-        { name: "Ab Wheel", sets: "3×10-15", note: "<span class='cue'>Roll out, stay tight.</span> Don't let hips sag. Core braced throughout. Excellent for overall core stability." }
-      ]},
-      { num: "7", badge: null, variants: [
-        { name: "Seated Calf", sets: "4×15-20", note: "<span class='cue'>Full stretch at bottom, hard squeeze at top.</span> Pause 1 sec each position. Soleus focus (bent knee). Don't bounce." },
-        { name: "Standing Calf", sets: "4×15-20", note: "<span class='cue'>Gastroc focus (straight legs).</span> Full stretch, come up on big toe. Pause at top. Don't bounce." },
-        { name: "Leg Press Calf", sets: "4×15-20", note: "<span class='cue'>Toes on edge of platform.</span> Full ROM possible. Press through balls of feet. Control the stretch." },
-        { name: "Smith Calf", sets: "4×15-20", note: "<span class='cue'>Bar on shoulders, step on block.</span> Full ROM. Control the negative. Can go heavy safely." }
-      ]}
-    ]},
-    { id: "thu", title: "Thursday — Legs", tag: "Main Day", cardio: "15-30 min easy", exercises: [
-      { num: "1", badge: "rp", variants: [
-        { name: "Seated Leg Curl", sets: "4×10-15", note: "<span class='cue'>Hams first while fresh. RP last set: 10+5+3.</span> Point toes down for more hamstring. Full stretch, squeeze hard at bottom." },
-        { name: "Lying Leg Curl", sets: "4×10-15", note: "<span class='cue'>Prone position ham work.</span> Hips flat on pad. Curl up, squeeze, control down. Don't let hips rise." },
-        { name: "Single-Leg Curl", sets: "4×10-15/leg", note: "<span class='cue'>Address imbalances.</span> One leg at a time. Full focus on each hamstring. Great for lagging side." },
-        { name: "Prone Curl", sets: "4×10-15", note: "<span class='cue'>Face down variation.</span> Similar to lying. Keep hips down, squeeze at contraction. Full ROM." }
-      ]},
-      { num: "2", badge: null, variants: [
-        { name: "Leg Press", sets: "1×8-12 + 2×10-15", note: "<span class='cue'>Feet shoulder width, mid-height on platform.</span> Don't lock knees. Lower until 90°. Drive through whole foot." },
-        { name: "Belt Squat", sets: "3×8-12", note: "<span class='cue'>Zero spinal load.</span> Belt around hips. Full ROM squat motion. Great for spine issues. Quad focused." },
-        { name: "Pendulum Squat", sets: "3×8-12", note: "<span class='cue'>Arc motion hits quads differently.</span> Shoulders under pads. Deep ROM. Excellent quad sweep builder." },
-        { name: "Hack Squat", sets: "3×8-12", note: "<span class='cue'>Back against pad, feet forward.</span> Deep ROM. Quad dominant. Don't lock out — keep tension." }
-      ]},
-      { num: "3", badge: null, variants: [
-        { name: "Belt Squat", sets: "3×8-12", note: "<span class='cue'>Full ROM — deep as mobility allows.</span> Spine-safe quad volume. Torso upright. Drive through quads." },
-        { name: "Single-Leg Press", sets: "3×10-12/leg", note: "<span class='cue'>Unilateral leg press.</span> One leg at a time. Full ROM. Address imbalances." },
-        { name: "Lever Squat", sets: "3×8-12", note: "<span class='cue'>Plate-loaded squat machine.</span> Shoulders under pads. Full depth. Quad focused with minimal back stress." },
-        { name: "Smith Front Squat", sets: "3×8-12", note: "<span class='cue'>Bar in front, heels elevated.</span> Quad dominant. Upright torso. Go deep, control the movement." }
-      ]},
-      { num: "4", badge: "ds", variants: [
-        { name: "Leg Extension", sets: "3×12-15", note: "<span class='cue'>Squeeze and hold at top for 1 sec.</span> Point toes up for extra quad contraction. Feel the VMO engage at lockout." },
-        { name: "Single-Leg Ext", sets: "3×12-15/leg", note: "<span class='cue'>Unilateral focus.</span> One leg at a time for balance. Squeeze hard at top, control down." },
-        { name: "Sissy Squat", sets: "3×12-15", note: "<span class='cue'>Bodyweight quad isolation.</span> Lean back, knees forward. Deep stretch on quads. Use support if needed." }
-      ]},
-      { num: "5", badge: null, variants: [
-        { name: "Standing Calf", sets: "3×15-20", note: "<span class='cue'>Full stretch, hard contraction — gastroc focus.</span> Straight legs. Deep stretch, come up on big toe. Pause at top." },
-        { name: "Leg Press Calf", sets: "3×15-20", note: "<span class='cue'>Toes on edge of platform.</span> Straight legs for gastroc. Full ROM. Control the stretch." },
-        { name: "Smith Calf", sets: "3×15-20", note: "<span class='cue'>Bar on shoulders, stand on block.</span> Heavy and stable. Full ROM both directions." },
-        { name: "Donkey Calf", sets: "3×15-20", note: "<span class='cue'>Bent at hips, weight on back.</span> Machine or partner. Great stretch due to hip flexion. Old school." }
-      ]},
-      { num: "6", badge: null, variants: [
-        { name: "Lying Leg Raise", sets: "3×10-15", note: "<span class='cue'>Lower abs — keep lower back pressed down.</span> Don't arch. Curl pelvis up, not just raise legs. Stop before back lifts." },
-        { name: "Captain's Chair", sets: "3×10-15", note: "<span class='cue'>Arms on pads, legs hang.</span> Curl knees up, round lower back. Don't swing. Control the negative." },
-        { name: "Decline Crunch", sets: "3×15-20", note: "<span class='cue'>Upper abs focus.</span> Decline bench, hands across chest. Curl up, squeeze, control down." },
-        { name: "Ab Wheel", sets: "3×10-15", note: "<span class='cue'>Total core stability.</span> Roll out, stay tight. Don't let hips sag. Squeeze to return." }
-      ]}
-    ]},
-    { id: "fri", title: "Friday — Chest + Back + Delts", tag: "Pump", cardio: "20-30 min", exercises: [
-      { num: "1", badge: null, variants: [
-        { name: "Incline Press", sets: "3×8-12", note: "<span class='cue'>Second upper chest hit of the week.</span> Moderate weight, mind-muscle focus. 30-35° angle, touch high, don't lock out." },
-        { name: "Smith Incline", sets: "3×8-12", note: "<span class='cue'>Fixed path for pump work.</span> Same angle. Focus on contraction. Great for drop sets." },
-        { name: "Incline DB", sets: "3×8-12", note: "<span class='cue'>Greater ROM with DBs.</span> Deep stretch at bottom. Bring together at top. Control throughout." },
-        { name: "Hammer Incline", sets: "3×8-12", note: "<span class='cue'>Converging path machine.</span> Stable, go to failure safely. Focus purely on the squeeze." }
-      ]},
-      { num: "2", badge: "ds", variants: [
-        { name: "Cable Fly", sets: "3×12-15", note: "<span class='cue'>Different angle than Monday — flat or decline.</span> Hit chest from multiple angles. Squeeze hard at peak contraction." },
-        { name: "Pec Deck", sets: "3×12-15", note: "<span class='cue'>Constant machine tension.</span> Arms at chest level. Squeeze 1-2 sec at contraction. Great for finishing pump." },
-        { name: "DB Fly", sets: "3×12-15", note: "<span class='cue'>Flat or slight decline.</span> Deep stretch at bottom. Slight elbow bend throughout. Don't go too heavy." },
-        { name: "High-to-Low Cable", sets: "3×12-15", note: "<span class='cue'>Lower chest emphasis.</span> Cables high, pull down and together. Squeeze at bottom position." }
-      ]},
-      { num: "3", badge: null, variants: [
-        { name: "SA Pulldown", sets: "3×10-15/side", note: "<span class='cue'>Pull to HIP POCKET — lower lat builder.</span> Stand offset from stack. Arc handle down and in toward hip. Creates the sweep." },
-        { name: "Neutral Pulldown", sets: "3×10-12", note: "<span class='cue'>V-bar for lower lat focus.</span> Pull to sternum. Full stretch at top. Emphasizes lower lat." },
-        { name: "Straight-Arm", sets: "3×12-15", note: "<span class='cue'>Arms straight throughout.</span> Pull bar to thighs. Squeeze lats hard at bottom. Great finisher." }
-      ]},
-      { num: "4", badge: null, variants: [
-        { name: "Chest-Supported Row", sets: "3×12-15", note: "<span class='cue'>Pump work — lighter than Tuesday.</span> Full ROM, pause at contraction. Strict form, no momentum." },
-        { name: "Machine Row", sets: "3×12-15", note: "<span class='cue'>Fixed path for strict form.</span> Chest on pad. Focus on squeeze. Easy to do drop sets." },
-        { name: "Cable Row", sets: "3×12-15", note: "<span class='cue'>Seated or standing.</span> Constant cable tension. Squeeze shoulder blades together at contraction." },
-        { name: "DB Row", sets: "3×12-15/side", note: "<span class='cue'>One arm at a time.</span> Support on bench. Full stretch, pull to hip. Great for mind-muscle." }
-      ]},
-      { num: "5a", badge: null, giant: true, variants: [{ name: "Lateral Raise", sets: "15-20", note: "<span class='cue'>No rest — straight into rear delts.</span> Light weight, constant tension. Feel the burn." }]},
-      { num: "5b", badge: null, giant: true, variants: [{ name: "Rear Delt Fly", sets: "15-20", note: "<span class='cue'>Rest 60-90s after both, then repeat 3x.</span> Grab whatever equipment is open. Giant set = massive pump." }]}
-    ]},
-    { id: "sat", title: "Saturday — Weak Points", tag: "Recovery", cardio: "15-20 min", exercises: [
-      { num: "1", badge: null, noAlts: true, variants: [{ name: "Lying Leg Curl", sets: "2×12-15", note: "<span class='cue'>Light — blood flow only.</span> Flush blood through hamstrings. Keep it easy, focus on squeeze." }]},
-      { num: "2", badge: null, noAlts: true, variants: [{ name: "Leg Extension", sets: "2×12-15", note: "<span class='cue'>Keep quads active.</span> Light weight, feel the muscle. Not growth stimulus, just maintenance." }]},
-      { num: "3", badge: null, noAlts: true, variants: [{ name: "Calf Raises", sets: "4×15-20", note: "<span class='cue'>Alternate seated/standing each week.</span> Calves recover fast. Full ROM, don't rush. Third calf session." }]},
-      { num: "4", badge: null, noAlts: true, variants: [{ name: "Rear Delt Fly", sets: "3×15-20", note: "<span class='cue'>3rd rear delt session — critical for back poses.</span> High frequency brings them up. Light weight, focus on squeeze." }]},
-      { num: "5", badge: null, noAlts: true, variants: [{ name: "Vacuums", sets: "3×25-30s", note: "<span class='cue'>Practice in mirror — mandatory for Classic.</span> Exhale fully, pull navel to spine, hold. Practice with poses." }]}
-    ]}
-  ]
-};
+const D=[
+{t:"Mon · Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
+{s:"1×6-8 + 2×8-12",v:[
+["Incline Press","30-35° angle. Touch high on clavicle. Don't lock out—keep tension."],
+["Smith Incline","Fixed path for safe failure. Same angle, same touch point."],
+["Hammer Incline","Converging arms. Adjust seat to hit upper chest."],
+["Incline DB","Deeper stretch at bottom. Control descent."]]},
+{s:"3×8-12",v:[
+["Flat Press","Slight arch. Drive through chest, not front delts."],
+["Hammer Chest","Machine stability—push to true failure."],
+["Smith Flat","Fixed path. Use safeties for failure."],
+["Flat DB","Full stretch at bottom. Don't clank at top."]]},
+{s:"3×12-15",b:"ds",v:[
+["Low-High Cable Fly","Arc to eye level. 2-3s squeeze at top."],
+["Incline DB Fly","30° bench. Deep pec stretch at bottom."],
+["Pec Deck","Constant tension. Squeeze 1-2s at contraction."],
+["Machine Fly","Isolates squeeze. Great finisher."]]},
+{s:"4×12-20",b:"ds",v:[
+["Lateral Raise","Lead with elbows. Thumbs down. <span class='warn'>15-20lb max.</span>"],
+["Cable Lateral","Constant tension at bottom unlike DBs."],
+["Machine Lateral","Fixed path eliminates cheating."],
+["Seated Lateral","No momentum possible. Strict only."]]},
+{s:"2×12-15",v:[
+["Straight-Arm Pulldown","Pull to thighs. Feel serratus for posing."],
+["Cable Pullover","Arms overhead, arc to hips. Full stretch."],
+["Machine Pullover","Nautilus-style. Amazing lat isolation."]]}
+]},
+{t:"Tue · Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
+{s:"1×6-8 + 2×8-12",v:[
+["Chest-Supported Row","Full stretch, drive elbows back. Squeeze blades."],
+["Hammer Row","Plate-loaded. Independent arms for unilateral focus."],
+["T-Bar Row","Neutral grip, pull to lower chest. Classic."],
+["Seal Row","Lying flat = zero momentum. Pure back."]]},
+{s:"3×8-12",v:[
+["Lat Pulldown","Lean 15-20°. Elbows to hips, not behind you."],
+["Wide Pulldown","Wider grip = more lat stretch."],
+["Assisted Pull-Up","Natural pattern. Full hang to chin over."],
+["Neutral Pulldown","V-bar to sternum. Lower lat emphasis."]]},
+{s:"3×8-12",v:[
+["Seated Cable Row","Pull to lower chest, not belly."],
+["Machine Row","Fixed path. Chest on pad throughout."],
+["Single-Arm Cable","Unilateral. Pull to hip pocket."],
+["Plate-Loaded Row","Heavy. Drive elbows back."]]},
+{s:"3×10-12",v:[
+["Wide Cable Row","Elbows flared 45-60°. Upper back/rhomboids."],
+["DB Row Elbows Out","Elbow points out, not back. Different hit."],
+["Face Pull Row","Hybrid. Pull to face, elbows high."],
+["Wide Hammer Row","Machine version. Squeeze rhomboids."]]},
+{s:"3×12-15",v:[
+["Straight-Arm Pulldown","Pull to THIGHS. Lower lat sweep."],
+["Pullover","Full overhead stretch to hips."],
+["SA Pulldown to Hip","Arc toward hip pocket. Builds sweep."]]},
+{s:"3×12-20",b:"ds",v:[
+["Rear Delt Fly","Lead with pinkies. Don't swing."],
+["Rear Delt Machine","Reverse pec deck. 1-2s squeeze."],
+["Face Pulls","Rope to forehead. External rotate at end."],
+["High Cable Fly","Cables high, cross over and back."]]}
+]},
+{t:"Wed · Arms + Delts",g:"Pump",c:"20-30m",ex:[
+{s:"3×10-12",v:[
+["Overhead Triceps","Full stretch at bottom. Elbows by ears."],
+["Rope Overhead","Face away. Spread rope at top."],
+["Dual Cable OH","Between stacks. Natural arm path."],
+["EZ Bar OH","Seated. Heavier option."]]},
+{s:"3×10-12",b:"ds",v:[
+["Pressdown","Lock out HARD. Pin elbows to sides."],
+["V-Bar Pressdown","Neutral grip. Allows heavier load."],
+["Rope Pressdown","Spread at bottom for lateral head."],
+["Single-Arm Press","Unilateral. Address imbalances."]]},
+{s:"3×8-12",v:[
+["EZ Curl","Full ROM + 4-5 partials from stretch."],
+["Cable Curl","Constant tension. Great for pump."],
+["Machine Curl","Preacher-style. Zero momentum."],
+["DB Curl","Supinate at top for peak."]]},
+{s:"2×10-12",v:[
+["Incline DB Curl","Arms behind torso. Maximum stretch."],
+["Bayesian Cable","Cable behind you. Same stretch."],
+["Preacher Curl","Pad eliminates momentum."],
+["Spider Curl","Chest on incline. Peak contraction."]]},
+{s:"3×15-20",b:"ds",v:[
+["Lateral Raise","Pump set. Chase the burn."],
+["Cable Lateral","Constant tension throughout."],
+["Machine Lateral","Zero cheating possible."],
+["Leaning Cable","Grab pole, lean away. Brutal."]]},
+{s:"3×12-15",v:[
+["Machine Crunch","Ribs to hips. <span class='warn'>Don't go heavy.</span>"],
+["Decline Crunch","Bodyweight. Hands across chest."],
+["Ab Wheel","Roll out, stay tight. Core braced."]]},
+{s:"4×15-20",v:[
+["Seated Calf","Soleus focus. Pause at stretch + top."],
+["Standing Calf","Gastroc focus. Come up on big toe."],
+["Leg Press Calf","Full ROM. Control the stretch."],
+["Smith Calf","Heavy and stable. Full ROM."]]}
+]},
+{t:"Thu · Legs",g:"Main Day",c:"15-30m",ex:[
+{s:"4×10-15",b:"rp",v:[
+["Seated Leg Curl","Hams first. Point toes down."],
+["Lying Leg Curl","Hips flat. Don't let them rise."],
+["Single-Leg Curl","Address imbalances."],
+["Prone Curl","Face down. Full ROM."]]},
+{s:"1×8-12 + 2×10-15",v:[
+["Leg Press","Feet mid-height. Don't lock knees."],
+["Belt Squat","Zero spinal load. Full ROM."],
+["Pendulum Squat","Arc motion. Deep ROM."],
+["Hack Squat","Back on pad. Quad dominant."]]},
+{s:"3×8-12",v:[
+["Belt Squat","Spine-safe volume. Go deep."],
+["Single-Leg Press","Unilateral. Address imbalances."],
+["Lever Squat","Plate-loaded. Minimal back stress."],
+["Smith Front Squat","Heels elevated. Quad dominant."]]},
+{s:"3×12-15",b:"ds",v:[
+["Leg Extension","Hold 1s at top. Point toes up."],
+["Single-Leg Ext","Unilateral balance work."],
+["Sissy Squat","Bodyweight. Deep quad stretch."]]},
+{s:"3×15-20",v:[
+["Standing Calf","Straight legs. Gastroc focus."],
+["Leg Press Calf","Toes on edge. Full ROM."],
+["Smith Calf","Heavy. Full stretch and squeeze."],
+["Donkey Calf","Bent hips. Great stretch."]]},
+{s:"3×10-15",v:[
+["Lying Leg Raise","Lower back pressed down. Curl pelvis."],
+["Captain's Chair","Curl knees up. Round lower back."],
+["Decline Crunch","Upper abs. Hands across chest."],
+["Ab Wheel","Total core. Don't let hips sag."]]}
+]},
+{t:"Fri · Push + Pull",g:"Pump",c:"20-30m",ex:[
+{s:"3×8-12",v:[
+["Incline Press","2nd upper chest hit. Mind-muscle focus."],
+["Smith Incline","Fixed path. Great for drop sets."],
+["Incline DB","Deeper stretch. Bring together at top."],
+["Hammer Incline","Stable. Go to failure safely."]]},
+{s:"3×12-15",b:"ds",v:[
+["Cable Fly","Different angle than Monday."],
+["Pec Deck","Constant tension. Squeeze hard."],
+["DB Fly","Deep stretch. Slight elbow bend."],
+["High-to-Low Cable","Lower chest emphasis."]]},
+{s:"3×10-15/side",v:[
+["SA Pulldown","Pull to HIP POCKET. Lower lat sweep."],
+["Neutral Pulldown","V-bar to sternum."],
+["Straight-Arm","Pull to thighs. Squeeze hard."]]},
+{s:"3×12-15",v:[
+["Chest-Supported Row","Lighter than Tue. Pump work."],
+["Machine Row","Fixed path. Easy drop sets."],
+["Cable Row","Squeeze blades together."],
+["DB Row","One arm. Full stretch to hip."]]},
+{s:"15-20 each",gi:true,v:[
+["Lateral + Rear Fly","Giant set ×3. No rest between. 60-90s after round."]]}
+]},
+{t:"Sat · Weak Points",g:"Recovery",c:"15-20m",ex:[
+{s:"2×12-15",v:[
+["Lying Leg Curl","Blood flow only. Keep it light."],
+["Seated Leg Curl","Same idea. Feel the squeeze."],
+["Single-Leg Curl","Address imbalances if needed."]]},
+{s:"2×12-15",v:[
+["Leg Extension","Light. Maintenance, not growth."],
+["Single-Leg Ext","Unilateral option."],
+["Sissy Squat","Bodyweight. Gentle stretch."]]},
+{s:"4×15-20",v:[
+["Calf Raises","Alternate seated/standing weekly."],
+["Seated Calf","Soleus focus. Full ROM."],
+["Standing Calf","Gastroc focus. Pause at top."]]},
+{s:"3×15-20",v:[
+["Rear Delt Fly","3rd session. High frequency = growth."],
+["Face Pulls","Light. Focus on squeeze."],
+["Rear Delt Machine","Constant tension."]]},
+{s:"3×30s",v:[
+["Vacuums","Exhale fully. Navel to spine. Hold."],
+["Vacuum + Front Pose","Practice front double bi with vacuum."],
+["Vacuum + Side Chest","Gut in, twist toward mirror."]]}
+]}
+];
 
-function render() {
-  const container = document.getElementById('schedule');
-  container.innerHTML = data.days.map(day => `
-    <div class="day" id="${day.id}">
-      <div class="day-head">
-        <span class="day-title">${day.title}</span>
-        <span class="tag">${day.tag}</span>
-      </div>
-      ${day.exercises.map((ex, i) => {
-        const v = ex.variants[0];
-        const badgeHTML = ex.badge ? `<span class="badge ${ex.badge}">${ex.badge.toUpperCase()}</span>` : '';
-        const isGiant = ex.giant ? ' giant' : '';
-        const gsLabel = ex.giant && ex.num.endsWith('a') ? '<p class="gs-label">Giant Set ×3</p>' : '';
-        return `
-        <div class="ex${isGiant}" data-day="${day.id}" data-ex="${i}">
-          ${gsLabel}
-          <div class="ex-row">
-            <span class="num">${ex.num}</span>
-            <span class="name">${v.name}</span>
-            <span class="sets">${v.sets}${badgeHTML}</span>
-          </div>
-          <p class="note">${v.note}</p>
-          ${!ex.noAlts && ex.variants.length > 1 ? `
-          <div class="alts">
-            <span class="alts-label">Tap to swap:</span>
-            <div class="alt-list">
-              ${ex.variants.map((alt, j) => `<span class="alt${j === 0 ? ' active' : ''}" data-idx="${j}">${alt.name}</span>`).join('')}
-            </div>
-          </div>` : ''}
-        </div>`;
-      }).join('')}
-      <div class="cardio"><span>Cardio</span><span>${day.cardio}</span></div>
-    </div>
-  `).join('');
+const $=document.getElementById('app');
+$.innerHTML=D.map((d,di)=>`
+<div class="day" id="d${di}">
+<div class="dh"><h2>${d.t}</h2><span class="tag">${d.g}</span></div>
+${d.ex.map((e,ei)=>{
+const v=e.v[0],b=e.b?`<span class="badge ${e.b}">${e.b.toUpperCase()}</span>`:'';
+const gi=e.gi?' gi':'',gitag=e.gi?'<p class="gi-tag">Giant Set ×3</p>':'';
+return`<div class="ex${gi}" data-d="${di}" data-e="${ei}">
+${gitag}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
+<p class="nt">${v[1]}</p>
+${e.v.length>1?`<div class="al">${e.v.map((a,ai)=>`<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`).join('')}</div>`:''}
+</div>`}).join('')}
+<div class="cd"><span>Cardio</span><span>${d.c}</span></div>
+</div>`).join('');
 
-  document.querySelectorAll('.alt').forEach(alt => {
-    alt.addEventListener('click', function() {
-      const exEl = this.closest('.ex');
-      const dayId = exEl.dataset.day;
-      const exIdx = parseInt(exEl.dataset.ex);
-      const varIdx = parseInt(this.dataset.idx);
-
-      const day = data.days.find(d => d.id === dayId);
-      const ex = day.exercises[exIdx];
-      const v = ex.variants[varIdx];
-      const badgeHTML = ex.badge ? `<span class="badge ${ex.badge}">${ex.badge.toUpperCase()}</span>` : '';
-
-      exEl.querySelector('.name').textContent = v.name;
-      exEl.querySelector('.sets').innerHTML = v.sets + badgeHTML;
-      exEl.querySelector('.note').innerHTML = v.note;
-
-      this.parentElement.querySelectorAll('.alt').forEach(a => a.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-}
-
-render();
+$.addEventListener('click',e=>{
+if(!e.target.matches('.al span'))return;
+const x=e.target.closest('.ex'),di=+x.dataset.d,ei=+x.dataset.e,ai=+e.target.dataset.i;
+const v=D[di].ex[ei].v[ai];
+x.querySelector('.nm').textContent=v[0];
+x.querySelector('.nt').innerHTML=v[1];
+x.querySelectorAll('.al span').forEach(s=>s.classList.remove('on'));
+e.target.classList.add('on');
+});
 </script>
 </body>
 </html>
