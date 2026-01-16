@@ -40,211 +40,257 @@
   </style>
 </head>
 <body>
-<nav><a href="#d0">M</a><a href="#d1">T</a><a href="#d2">W</a><a href="#d3">Th</a><a href="#d4">F</a><a href="#d5">S</a><a href="#rules">?</a></nav>
-<div id="app"></div>
-<p class="sec" id="rules">Rules</p>
-<div class="card"><h3>Warm-Up</h3><ul><li><strong>First lift:</strong> 20→12→8→4 feeders</li><li><strong>Work sets:</strong> RPE 9-10 top set + back-offs</li></ul></div>
-<div class="card"><h3>Intensity</h3><ul><li><span class="badge ds">DS</span> Drop 20-30%, go to failure</li><li><span class="badge rp">RP</span> Rest-pause: 10+5+3</li></ul></div>
-<div class="card"><h3>Rest</h3><ul><li><strong>Compounds:</strong> 90-150s</li><li><strong>Isolation:</strong> 60-90s</li></ul></div>
-<div class="card"><h3>Weak Points</h3><ul><li><strong>Upper chest:</strong> Incline 2×/wk, 30-35° only</li><li><strong>Side delts:</strong> 3×/wk, light, strict</li><li><strong>Rear delts:</strong> 3×/wk, high frequency</li><li><strong>Lower lats:</strong> Pull to hip, not chest</li></ul></div>
-
+<div id="root"></div>
 <script>
-const D=[
-{t:"Mon · Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
-{s:"1×6-8 + 2×8-12",v:[
-["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip (pinky on ring).</span> Touch just below clavicle. Don't lock out."],
-["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Pinky on ring mark."],
-["Hammer Strength Incline","Plate-loaded machine. Adjust seat so handles align with upper chest."],
-["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span> Deep stretch."]]},
-{s:"3×8-12",v:[
-["Flat Barbell Bench","<span class='cue'>Medium grip (pinky on ring).</span> Slight arch. Drive through chest, not front delts."],
-["Hammer Strength Flat","Plate-loaded. Handles at nipple line. Push to failure safely."],
-["Smith Flat Press","Fixed path. Set safeties 1\" above chest for failure."],
-["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom. Touch DBs at top."]]},
-{s:"3×12-15",b:"ds",v:[
-["Low-to-High Cable Fly","<span class='cue'>D-handles, pulleys at lowest.</span> Arc to eye level. 2s squeeze at top."],
-["Incline Dumbbell Fly","30° bench. <span class='cue'>Palms facing, slight elbow bend.</span> Deep pec stretch at bottom."],
-["Pec Deck Machine","Adjust seat so handles are at mid-chest. Squeeze 2s at contraction."],
-["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys at top.</span> Cross at belly button for lower pec."]]},
-{s:"4×12-20",b:"ds",v:[
-["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down, pinkies up.</span> Lead with elbows. <span class='warn'>15-20lb max.</span>"],
-["Cable Lateral Raise","<span class='cue'>D-handle, low pulley, cross behind body.</span> Constant tension at bottom."],
-["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads, lead with elbows."],
-["Seated Dumbbell Lateral","Sit on bench end. No momentum possible. Strict form only."]]},
-{s:"2×12-15",v:[
-["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Wide lat bar, overhand grip, shoulder-width.</span> Pull to thighs. Feel serratus."],
-["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Split rope at bottom, pull to hips."],
-["Machine Pullover","Nautilus-style. Elbows on pad, full stretch overhead to hips."]]}
-]},
-{t:"Tue · Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
-{s:"1×6-8 + 2×8-12",v:[
-["Chest-Supported DB Row","Incline bench at 30-45°. <span class='cue'>Neutral grip DBs.</span> Full stretch, squeeze blades at top."],
-["Hammer Strength Row","Plate-loaded. <span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
-["T-Bar Row (V-Handle)","<span class='cue'>Neutral-grip V-handle.</span> Pull to lower chest. Keep back at 45°."],
-["Seal Row (Barbell)","Flat bench elevated. <span class='cue'>Overhand grip, shoulder-width.</span> Zero momentum."]]},
-{s:"3×8-12",v:[
-["Wide-Grip Lat Pulldown","<span class='cue'>Long lat bar, overhand, hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
-["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar attachment, neutral grip.</span> Pull to sternum. Lower lat focus."],
-["Assisted Pull-Up Machine","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
-["Neutral-Grip Pulldown","<span class='cue'>Parallel handles or MAG grip.</span> Pull to upper chest. Easy on shoulders."]]},
-{s:"3×8-12",v:[
-["Seated Cable Row (V-Bar)","<span class='cue'>Close-grip V-bar, neutral.</span> Pull to lower chest, not belly. Squeeze blades."],
-["Machine Row (Chest-Supported)","Chest on pad throughout. <span class='cue'>Neutral or pronated handles.</span>"],
-["Single-Arm Cable Row","<span class='cue'>D-handle, low pulley.</span> Pull to hip pocket. Full stretch forward."],
-["Hammer Strength Low Row","Plate-loaded. <span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
-{s:"3×10-12",v:[
-["Wide Cable Row (Lat Bar)","<span class='cue'>Wide lat bar, overhand, elbows flared 60°.</span> Pull to upper chest. Rhomboids."],
-["DB Row Elbows Flared","<span class='cue'>Overhand grip, elbow points OUT not back.</span> Different angle = different hit."],
-["Face Pull to Row","<span class='cue'>Rope, high pulley.</span> Pull to forehead, elbows high and back."],
-["Wide Hammer Row","Machine if available. <span class='cue'>Wide handles, overhand.</span> Squeeze rhomboids."]]},
-{s:"3×12-15",v:[
-["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Pull to thighs, split rope at bottom. Lower lat sweep."],
-["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Shoulder-width overhand.</span> Full overhead stretch to hips."],
-["Single-Arm Pulldown (D-Handle)","<span class='cue'>D-handle.</span> Arc toward hip pocket. Builds sweep."]]},
-{s:"3×12-20",b:"ds",v:[
-["Rear Delt Fly (DBs)","Bent 45° or chest-supported. <span class='cue'>Neutral grip, pinkies lead.</span> Don't swing."],
-["Reverse Pec Deck","<span class='cue'>Handles, not pads.</span> Neutral grip. 2s squeeze at back."],
-["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Pull to forehead, externally rotate at end."],
-["High Cable Rear Fly","<span class='cue'>D-handles, cables at head height, arms crossed.</span> Open up and back."]]}
-]},
-{t:"Wed · Arms + Delts",g:"Pump",c:"20-30m",ex:[
-{s:"3×10-12",v:[
-["Overhead Cable Extension (Rope)","<span class='cue'>Rope, low pulley, face away.</span> Full stretch at bottom. Spread rope at top."],
-["Overhead Cable Extension (EZ Bar)","<span class='cue'>EZ-curl bar attachment, narrow grip.</span> Elbows by ears, full stretch."],
-["Dual Cable Overhead Extension","<span class='cue'>D-handles, stand between stacks.</span> Natural arm path."],
-["Seated Overhead DB Extension","<span class='cue'>Single heavy DB, diamond grip on plate.</span> Lower behind head, full stretch."]]},
-{s:"3×10-12",b:"ds",v:[
-["Tricep Pressdown (Straight Bar)","<span class='cue'>Short straight bar, overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
-["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Allows heavier load. Full lockout."],
-["Tricep Pressdown (Rope)","<span class='cue'>Rope attachment.</span> Spread rope at bottom for lateral head."],
-["Single-Arm Pressdown (D-Handle)","<span class='cue'>D-handle, underhand or neutral.</span> Unilateral. Address imbalances."]]},
-{s:"3×8-12",v:[
-["EZ Bar Cable Curl","<span class='cue'>EZ-curl bar attachment, narrow grip (inner angles).</span> Full ROM + 4-5 partials from stretch."],
-["Straight Bar Cable Curl","<span class='cue'>Short straight bar, underhand, shoulder-width.</span> Constant tension. Great pump."],
-["Machine Preacher Curl","Pad eliminates momentum. <span class='cue'>Underhand grip.</span> Full stretch at bottom."],
-["Dumbbell Curl (Supinating)","<span class='cue'>Start neutral, rotate to supinated at top.</span> Squeeze peak."]]},
-{s:"2×10-12",v:[
-["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Start neutral, supinate as you curl.</span> Arms hang behind torso = max stretch."],
-["Bayesian Cable Curl","<span class='cue'>D-handle, low pulley behind you.</span> Same long-head stretch as incline."],
-["Preacher Curl (EZ Bar)","<span class='cue'>EZ bar, narrow grip on inner angles.</span> Pad at armpit height."],
-["Spider Curl (EZ Bar)","Chest on incline (45°). <span class='cue'>EZ bar, narrow grip.</span> Peak contraction focus."]]},
-{s:"3×15-20",b:"ds",v:[
-["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down.</span> Pump set. Chase the burn."],
-["Cable Lateral Raise","<span class='cue'>D-handle, cross behind.</span> Constant tension throughout."],
-["Machine Lateral Raise","Zero cheating possible. Elbows into pads."],
-["Leaning Cable Lateral","Grab pole, lean 20° away. <span class='cue'>D-handle, low pulley.</span> Brutal stretch."]]},
-{s:"3×12-15",v:[
-["Machine Crunch","Ribs to hips, round spine. <span class='warn'>Light weight, feel abs.</span>"],
-["Decline Crunch","Bodyweight. Hands across chest. Curl up, don't sit up."],
-["Ab Wheel Rollout","Knees on pad. Roll out, stay tight. Don't let hips sag."]]},
-{s:"4×15-20",v:[
-["Seated Calf Raise","Soleus focus (bent knee). <span class='cue'>2s pause at full stretch + full squeeze.</span>"],
-["Standing Calf Raise","Gastroc focus (straight leg). <span class='cue'>Come up on big toe side.</span>"],
-["Leg Press Calf Raise","Toes on bottom edge. Full ROM. Control the stretch."],
-["Smith Machine Calf Raise","Stable and heavy. <span class='cue'>Block under balls of feet.</span> Full ROM."]]}
-]},
-{t:"Thu · Legs",g:"Main Day",c:"15-30m",ex:[
-{s:"4×10-15",b:"rp",v:[
-["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down (plantarflexed).</span> Squeeze at contraction."],
-["Lying Leg Curl","Prone. <span class='cue'>Hips flat on pad—don't let them rise.</span> Toes down."],
-["Single-Leg Lying Curl","Unilateral. Address imbalances. Same cues."],
-["Kneeling Leg Curl","If available. <span class='cue'>Hip extended throughout.</span> Great hamstring stretch."]]},
-{s:"1×8-12 + 2×10-15",v:[
-["Leg Press","<span class='cue'>Feet shoulder-width, mid-height on platform.</span> Don't lock knees. Full depth."],
-["Belt Squat","Zero spinal load. <span class='cue'>Shoulder-width stance, toes slightly out.</span> Full ROM."],
-["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
-["Hack Squat","<span class='cue'>Back flat on pad, feet low on platform.</span> Quad dominant."]]},
-{s:"3×8-12",v:[
-["Belt Squat","Spine-safe volume. <span class='cue'>Wider stance = more adductors.</span> Go deep."],
-["Single-Leg Press","<span class='cue'>Foot centered, mid-height.</span> Address imbalances."],
-["Lever Squat","Plate-loaded machine. <span class='cue'>Adjust shoulder pads.</span> Minimal back stress."],
-["Smith Front Squat","<span class='cue'>Heels elevated 1-2\", arms crossed or clean grip.</span> Upright torso."]]},
-{s:"3×12-15",b:"ds",v:[
-["Leg Extension","<span class='cue'>Toes pointed up (dorsiflexed).</span> Hold 1s at full contraction."],
-["Single-Leg Extension","Unilateral. Same cues. Feel the VMO."],
-["Sissy Squat","Bodyweight or holding plate. <span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
-{s:"3×15-20",v:[
-["Standing Calf Raise","<span class='cue'>Straight legs, come up on big toe.</span> Gastroc focus."],
-["Leg Press Calf Raise","Toes on edge. <span class='cue'>Full 4s negative, 2s squeeze at top.</span>"],
-["Smith Calf Raise","Heavy and stable. <span class='cue'>Block under balls of feet.</span> Full stretch."],
-["Donkey Calf Raise","Bent at hips 90°. <span class='cue'>Great loaded stretch.</span>"]]},
-{s:"3×10-15",v:[
-["Lying Leg Raise","<span class='cue'>Lower back pressed into bench.</span> Curl pelvis up at top."],
-["Captain's Chair Leg Raise","Don't swing. <span class='cue'>Round lower back, curl knees to chest.</span>"],
-["Decline Crunch","Hands across chest. <span class='cue'>Curl up, don't sit up.</span>"],
-["Ab Wheel Rollout","Full extension. <span class='cue'>Hollow body, don't let hips sag.</span>"]]}
-]},
-{t:"Fri · Push + Pull",g:"Pump",c:"20-30m",ex:[
-{s:"3×8-12",v:[
-["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip (pinky on ring).</span> Mind-muscle."],
-["Smith Incline Press","Fixed path. <span class='cue'>Same angle, same grip.</span> Great for drop sets."],
-["Incline Dumbbell Press","<span class='cue'>Neutral to pronated grip.</span> Deeper stretch. Touch DBs at top."],
-["Hammer Strength Incline","Plate-loaded. Stable = push to failure safely."]]},
-{s:"3×12-15",b:"ds",v:[
-["Cable Fly (Mid-Height)","<span class='cue'>D-handles, pulleys at chest height.</span> Different angle than Monday."],
-["Pec Deck Machine","Handles at mid-chest. Squeeze 2s at contraction."],
-["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend, palms facing.</span> Deep stretch at bottom."],
-["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys high.</span> Lower chest emphasis."]]},
-{s:"3×10-15/side",v:[
-["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET, not chest. Lower lat sweep."],
-["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Pull to sternum."],
-["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope, split at bottom.</span> Pull to thighs. Squeeze hard."]]},
-{s:"3×12-15",v:[
-["Chest-Supported DB Row","<span class='cue'>Neutral grip.</span> Lighter than Tue—pump work."],
-["Machine Row","<span class='cue'>Neutral or pronated grip.</span> Easy drop sets."],
-["Seated Cable Row (V-Bar)","<span class='cue'>V-bar, neutral.</span> Squeeze blades together."],
-["Single-Arm DB Row","<span class='cue'>Neutral grip.</span> Full stretch to hip."]]},
-{s:"15-20 each",gi:true,v:[
-["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals (thumbs down) → Rear fly (pinkies lead). ×3, 60-90s after round."]]}
-]},
-{t:"Sat · Weak Points",g:"Recovery",c:"15-20m",ex:[
-{s:"2×12-15",v:[
-["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow only—keep it light."],
-["Lying Leg Curl","<span class='cue'>Hips flat.</span> Same idea. Feel the squeeze."],
-["Single-Leg Curl","Unilateral. Address imbalances if needed."]]},
-{s:"2×12-15",v:[
-["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance, not growth."],
-["Single-Leg Extension","Unilateral option. Feel the VMO."],
-["Sissy Squat","Bodyweight only. Gentle stretch."]]},
-{s:"4×15-20",v:[
-["Calf Raises","Alternate seated/standing weekly for soleus/gastroc."],
-["Seated Calf Raise","<span class='cue'>Bent knee = soleus.</span> Full ROM, 2s holds."],
-["Standing Calf Raise","<span class='cue'>Straight leg = gastroc.</span> Pause at top."]]},
-{s:"3×15-20",v:[
-["Rear Delt Fly (DBs)","3rd session. <span class='cue'>Neutral grip, pinkies lead.</span> High frequency = growth."],
-["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Light. External rotate at end."],
-["Reverse Pec Deck","<span class='cue'>Handles, neutral grip.</span> Constant tension."]]},
-{s:"3×30s",v:[
-["Stomach Vacuum","<span class='cue'>Exhale fully, pull navel to spine.</span> Hold. Practice transverse."],
-["Vacuum + Front Double Bi","Hit front pose while holding vacuum. Practice control."],
-["Vacuum + Side Chest","Gut in, twist toward mirror. Hold and breathe shallow."]]}
-]}
-];
+const DATA={
+  nav:["M","T","W","Th","F","S","?"],
+  days:[
+    {t:"Mon · Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
+      {s:"1×6-8 + 2×8-12",v:[
+        ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip (pinky on ring).</span> Touch just below clavicle. Don't lock out."],
+        ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Pinky on ring mark."],
+        ["Hammer Strength Incline","Plate-loaded machine. Adjust seat so handles align with upper chest."],
+        ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span> Deep stretch."]]},
+      {s:"3×8-12",v:[
+        ["Flat Barbell Bench","<span class='cue'>Medium grip (pinky on ring).</span> Slight arch. Drive through chest, not front delts."],
+        ["Hammer Strength Flat","Plate-loaded. Handles at nipple line. Push to failure safely."],
+        ["Smith Flat Press","Fixed path. Set safeties 1\" above chest for failure."],
+        ["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom. Touch DBs at top."]]},
+      {s:"3×12-15",b:"ds",v:[
+        ["Low-to-High Cable Fly","<span class='cue'>D-handles, pulleys at lowest.</span> Arc to eye level. 2s squeeze at top."],
+        ["Incline Dumbbell Fly","30° bench. <span class='cue'>Palms facing, slight elbow bend.</span> Deep pec stretch at bottom."],
+        ["Pec Deck Machine","Adjust seat so handles are at mid-chest. Squeeze 2s at contraction."],
+        ["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys at top.</span> Cross at belly button for lower pec."]]},
+      {s:"4×12-20",b:"ds",v:[
+        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down, pinkies up.</span> Lead with elbows. <span class='warn'>15-20lb max.</span>"],
+        ["Cable Lateral Raise","<span class='cue'>D-handle, low pulley, cross behind body.</span> Constant tension at bottom."],
+        ["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads, lead with elbows."],
+        ["Seated Dumbbell Lateral","Sit on bench end. No momentum possible. Strict form only."]]},
+      {s:"2×12-15",v:[
+        ["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Wide lat bar, overhand grip, shoulder-width.</span> Pull to thighs. Feel serratus."],
+        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Split rope at bottom, pull to hips."],
+        ["Machine Pullover","Nautilus-style. Elbows on pad, full stretch overhead to hips."]]}
+    ]},
+    {t:"Tue · Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
+      {s:"1×6-8 + 2×8-12",v:[
+        ["Chest-Supported DB Row","Incline bench at 30-45°. <span class='cue'>Neutral grip DBs.</span> Full stretch, squeeze blades at top."],
+        ["Hammer Strength Row","Plate-loaded. <span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
+        ["T-Bar Row (V-Handle)","<span class='cue'>Neutral-grip V-handle.</span> Pull to lower chest. Keep back at 45°."],
+        ["Seal Row (Barbell)","Flat bench elevated. <span class='cue'>Overhand grip, shoulder-width.</span> Zero momentum."]]},
+      {s:"3×8-12",v:[
+        ["Wide-Grip Lat Pulldown","<span class='cue'>Long lat bar, overhand, hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
+        ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar attachment, neutral grip.</span> Pull to sternum. Lower lat focus."],
+        ["Assisted Pull-Up Machine","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
+        ["Neutral-Grip Pulldown","<span class='cue'>Parallel handles or MAG grip.</span> Pull to upper chest. Easy on shoulders."]]},
+      {s:"3×8-12",v:[
+        ["Seated Cable Row (V-Bar)","<span class='cue'>Close-grip V-bar, neutral.</span> Pull to lower chest, not belly. Squeeze blades."],
+        ["Machine Row (Chest-Supported)","Chest on pad throughout. <span class='cue'>Neutral or pronated handles.</span>"],
+        ["Single-Arm Cable Row","<span class='cue'>D-handle, low pulley.</span> Pull to hip pocket. Full stretch forward."],
+        ["Hammer Strength Low Row","Plate-loaded. <span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
+      {s:"3×10-12",v:[
+        ["Wide Cable Row (Lat Bar)","<span class='cue'>Wide lat bar, overhand, elbows flared 60°.</span> Pull to upper chest. Rhomboids."],
+        ["DB Row Elbows Flared","<span class='cue'>Overhand grip, elbow points OUT not back.</span> Different angle = different hit."],
+        ["Face Pull to Row","<span class='cue'>Rope, high pulley.</span> Pull to forehead, elbows high and back."],
+        ["Wide Hammer Row","Machine if available. <span class='cue'>Wide handles, overhand.</span> Squeeze rhomboids."]]},
+      {s:"3×12-15",v:[
+        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Pull to thighs, split rope at bottom. Lower lat sweep."],
+        ["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Shoulder-width overhand.</span> Full overhead stretch to hips."],
+        ["Single-Arm Pulldown (D-Handle)","<span class='cue'>D-handle.</span> Arc toward hip pocket. Builds sweep."]]},
+      {s:"3×12-20",b:"ds",v:[
+        ["Rear Delt Fly (DBs)","Bent 45° or chest-supported. <span class='cue'>Neutral grip, pinkies lead.</span> Don't swing."],
+        ["Reverse Pec Deck","<span class='cue'>Handles, not pads.</span> Neutral grip. 2s squeeze at back."],
+        ["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Pull to forehead, externally rotate at end."],
+        ["High Cable Rear Fly","<span class='cue'>D-handles, cables at head height, arms crossed.</span> Open up and back."]]}
+    ]},
+    {t:"Wed · Arms + Delts",g:"Pump",c:"20-30m",ex:[
+      {s:"3×10-12",v:[
+        ["Overhead Cable Extension (Rope)","<span class='cue'>Rope, low pulley, face away.</span> Full stretch at bottom. Spread rope at top."],
+        ["Overhead Cable Extension (EZ Bar)","<span class='cue'>EZ-curl bar attachment, narrow grip.</span> Elbows by ears, full stretch."],
+        ["Dual Cable Overhead Extension","<span class='cue'>D-handles, stand between stacks.</span> Natural arm path."],
+        ["Seated Overhead DB Extension","<span class='cue'>Single heavy DB, diamond grip on plate.</span> Lower behind head, full stretch."]]},
+      {s:"3×10-12",b:"ds",v:[
+        ["Tricep Pressdown (Straight Bar)","<span class='cue'>Short straight bar, overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
+        ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Allows heavier load. Full lockout."],
+        ["Tricep Pressdown (Rope)","<span class='cue'>Rope attachment.</span> Spread rope at bottom for lateral head."],
+        ["Single-Arm Pressdown (D-Handle)","<span class='cue'>D-handle, underhand or neutral.</span> Unilateral. Address imbalances."]]},
+      {s:"3×8-12",v:[
+        ["EZ Bar Cable Curl","<span class='cue'>EZ-curl bar attachment, narrow grip (inner angles).</span> Full ROM + 4-5 partials from stretch."],
+        ["Straight Bar Cable Curl","<span class='cue'>Short straight bar, underhand, shoulder-width.</span> Constant tension. Great pump."],
+        ["Machine Preacher Curl","Pad eliminates momentum. <span class='cue'>Underhand grip.</span> Full stretch at bottom."],
+        ["Dumbbell Curl (Supinating)","<span class='cue'>Start neutral, rotate to supinated at top.</span> Squeeze peak."]]},
+      {s:"2×10-12",v:[
+        ["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Start neutral, supinate as you curl.</span> Arms hang behind torso = max stretch."],
+        ["Bayesian Cable Curl","<span class='cue'>D-handle, low pulley behind you.</span> Same long-head stretch as incline."],
+        ["Preacher Curl (EZ Bar)","<span class='cue'>EZ bar, narrow grip on inner angles.</span> Pad at armpit height."],
+        ["Spider Curl (EZ Bar)","Chest on incline (45°). <span class='cue'>EZ bar, narrow grip.</span> Peak contraction focus."]]},
+      {s:"3×15-20",b:"ds",v:[
+        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down.</span> Pump set. Chase the burn."],
+        ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind.</span> Constant tension throughout."],
+        ["Machine Lateral Raise","Zero cheating possible. Elbows into pads."],
+        ["Leaning Cable Lateral","Grab pole, lean 20° away. <span class='cue'>D-handle, low pulley.</span> Brutal stretch."]]},
+      {s:"3×12-15",v:[
+        ["Machine Crunch","Ribs to hips, round spine. <span class='warn'>Light weight, feel abs.</span>"],
+        ["Decline Crunch","Bodyweight. Hands across chest. Curl up, don't sit up."],
+        ["Ab Wheel Rollout","Knees on pad. Roll out, stay tight. Don't let hips sag."]]},
+      {s:"4×15-20",v:[
+        ["Seated Calf Raise","Soleus focus (bent knee). <span class='cue'>2s pause at full stretch + full squeeze.</span>"],
+        ["Standing Calf Raise","Gastroc focus (straight leg). <span class='cue'>Come up on big toe side.</span>"],
+        ["Leg Press Calf Raise","Toes on bottom edge. Full ROM. Control the stretch."],
+        ["Smith Machine Calf Raise","Stable and heavy. <span class='cue'>Block under balls of feet.</span> Full ROM."]]}
+    ]},
+    {t:"Thu · Legs",g:"Main Day",c:"15-30m",ex:[
+      {s:"4×10-15",b:"rp",v:[
+        ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down (plantarflexed).</span> Squeeze at contraction."],
+        ["Lying Leg Curl","Prone. <span class='cue'>Hips flat on pad—don't let them rise.</span> Toes down."],
+        ["Single-Leg Lying Curl","Unilateral. Address imbalances. Same cues."],
+        ["Kneeling Leg Curl","If available. <span class='cue'>Hip extended throughout.</span> Great hamstring stretch."]]},
+      {s:"1×8-12 + 2×10-15",v:[
+        ["Leg Press","<span class='cue'>Feet shoulder-width, mid-height on platform.</span> Don't lock knees. Full depth."],
+        ["Belt Squat","Zero spinal load. <span class='cue'>Shoulder-width stance, toes slightly out.</span> Full ROM."],
+        ["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
+        ["Hack Squat","<span class='cue'>Back flat on pad, feet low on platform.</span> Quad dominant."]]},
+      {s:"3×8-12",v:[
+        ["Belt Squat","Spine-safe volume. <span class='cue'>Wider stance = more adductors.</span> Go deep."],
+        ["Single-Leg Press","<span class='cue'>Foot centered, mid-height.</span> Address imbalances."],
+        ["Lever Squat","Plate-loaded machine. <span class='cue'>Adjust shoulder pads.</span> Minimal back stress."],
+        ["Smith Front Squat","<span class='cue'>Heels elevated 1-2\", arms crossed or clean grip.</span> Upright torso."]]},
+      {s:"3×12-15",b:"ds",v:[
+        ["Leg Extension","<span class='cue'>Toes pointed up (dorsiflexed).</span> Hold 1s at full contraction."],
+        ["Single-Leg Extension","Unilateral. Same cues. Feel the VMO."],
+        ["Sissy Squat","Bodyweight or holding plate. <span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
+      {s:"3×15-20",v:[
+        ["Standing Calf Raise","<span class='cue'>Straight legs, come up on big toe.</span> Gastroc focus."],
+        ["Leg Press Calf Raise","Toes on edge. <span class='cue'>Full 4s negative, 2s squeeze at top.</span>"],
+        ["Smith Calf Raise","Heavy and stable. <span class='cue'>Block under balls of feet.</span> Full stretch."],
+        ["Donkey Calf Raise","Bent at hips 90°. <span class='cue'>Great loaded stretch.</span>"]]},
+      {s:"3×10-15",v:[
+        ["Lying Leg Raise","<span class='cue'>Lower back pressed into bench.</span> Curl pelvis up at top."],
+        ["Captain's Chair Leg Raise","Don't swing. <span class='cue'>Round lower back, curl knees to chest.</span>"],
+        ["Decline Crunch","Hands across chest. <span class='cue'>Curl up, don't sit up.</span>"],
+        ["Ab Wheel Rollout","Full extension. <span class='cue'>Hollow body, don't let hips sag.</span>"]]}
+    ]},
+    {t:"Fri · Push + Pull",g:"Pump",c:"20-30m",ex:[
+      {s:"3×8-12",v:[
+        ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip (pinky on ring).</span> Mind-muscle."],
+        ["Smith Incline Press","Fixed path. <span class='cue'>Same angle, same grip.</span> Great for drop sets."],
+        ["Incline Dumbbell Press","<span class='cue'>Neutral to pronated grip.</span> Deeper stretch. Touch DBs at top."],
+        ["Hammer Strength Incline","Plate-loaded. Stable = push to failure safely."]]},
+      {s:"3×12-15",b:"ds",v:[
+        ["Cable Fly (Mid-Height)","<span class='cue'>D-handles, pulleys at chest height.</span> Different angle than Monday."],
+        ["Pec Deck Machine","Handles at mid-chest. Squeeze 2s at contraction."],
+        ["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend, palms facing.</span> Deep stretch at bottom."],
+        ["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys high.</span> Lower chest emphasis."]]},
+      {s:"3×10-15/side",v:[
+        ["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET, not chest. Lower lat sweep."],
+        ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Pull to sternum."],
+        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope, split at bottom.</span> Pull to thighs. Squeeze hard."]]},
+      {s:"3×12-15",v:[
+        ["Chest-Supported DB Row","<span class='cue'>Neutral grip.</span> Lighter than Tue—pump work."],
+        ["Machine Row","<span class='cue'>Neutral or pronated grip.</span> Easy drop sets."],
+        ["Seated Cable Row (V-Bar)","<span class='cue'>V-bar, neutral.</span> Squeeze blades together."],
+        ["Single-Arm DB Row","<span class='cue'>Neutral grip.</span> Full stretch to hip."]]},
+      {s:"15-20 each",gi:true,v:[
+        ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals (thumbs down) → Rear fly (pinkies lead). ×3, 60-90s after round."]]}
+    ]},
+    {t:"Sat · Weak Points",g:"Recovery",c:"15-20m",ex:[
+      {s:"2×12-15",v:[
+        ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow only—keep it light."],
+        ["Lying Leg Curl","<span class='cue'>Hips flat.</span> Same idea. Feel the squeeze."],
+        ["Single-Leg Curl","Unilateral. Address imbalances if needed."]]},
+      {s:"2×12-15",v:[
+        ["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance, not growth."],
+        ["Single-Leg Extension","Unilateral option. Feel the VMO."],
+        ["Sissy Squat","Bodyweight only. Gentle stretch."]]},
+      {s:"4×15-20",v:[
+        ["Calf Raises","Alternate seated/standing weekly for soleus/gastroc."],
+        ["Seated Calf Raise","<span class='cue'>Bent knee = soleus.</span> Full ROM, 2s holds."],
+        ["Standing Calf Raise","<span class='cue'>Straight leg = gastroc.</span> Pause at top."]]},
+      {s:"3×15-20",v:[
+        ["Rear Delt Fly (DBs)","3rd session. <span class='cue'>Neutral grip, pinkies lead.</span> High frequency = growth."],
+        ["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Light. External rotate at end."],
+        ["Reverse Pec Deck","<span class='cue'>Handles, neutral grip.</span> Constant tension."]]},
+      {s:"3×30s",v:[
+        ["Stomach Vacuum","<span class='cue'>Exhale fully, pull navel to spine.</span> Hold. Practice transverse."],
+        ["Vacuum + Front Double Bi","Hit front pose while holding vacuum. Practice control."],
+        ["Vacuum + Side Chest","Gut in, twist toward mirror. Hold and breathe shallow."]]}
+    ]}
+  ],
+  rules:[
+    {t:"Warm-Up",items:[
+      {k:"First lift",v:"20→12→8→4 feeders"},
+      {k:"Work sets",v:"RPE 9-10 top set + back-offs"}
+    ]},
+    {t:"Intensity",items:[
+      {k:"<span class='badge ds'>DS</span>",v:"Drop 20-30%, go to failure"},
+      {k:"<span class='badge rp'>RP</span>",v:"Rest-pause: 10+5+3"}
+    ]},
+    {t:"Rest",items:[
+      {k:"Compounds",v:"90-150s"},
+      {k:"Isolation",v:"60-90s"}
+    ]},
+    {t:"Weak Points",items:[
+      {k:"Upper chest",v:"Incline 2×/wk, 30-35° only"},
+      {k:"Side delts",v:"3×/wk, light, strict"},
+      {k:"Rear delts",v:"3×/wk, high frequency"},
+      {k:"Lower lats",v:"Pull to hip, not chest"}
+    ]}
+  ]
+};
 
-const $=document.getElementById('app');
-$.innerHTML=D.map((d,di)=>`
-<div class="day" id="d${di}">
-<div class="dh"><h2>${d.t}</h2><span class="tag">${d.g}</span></div>
-${d.ex.map((e,ei)=>{
-const v=e.v[0],b=e.b?`<span class="badge ${e.b}">${e.b.toUpperCase()}</span>`:'';
-const gi=e.gi?' gi':'',gitag=e.gi?'<p class="gi-tag">Giant Set ×3</p>':'';
-return`<div class="ex${gi}" data-d="${di}" data-e="${ei}">
-${gitag}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
-<p class="nt">${v[1]}</p>
-${e.v.length>1?`<div class="al">${e.v.map((a,ai)=>`<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`).join('')}</div>`:''}
-</div>`}).join('')}
-<div class="cd"><span>Cardio</span><span>${d.c}</span></div>
-</div>`).join('');
+function render(){
+  const root=document.getElementById('root');
 
-$.addEventListener('click',e=>{
-if(!e.target.matches('.al span'))return;
-const x=e.target.closest('.ex'),di=+x.dataset.d,ei=+x.dataset.e,ai=+e.target.dataset.i;
-const v=D[di].ex[ei].v[ai];
-x.querySelector('.nm').textContent=v[0];
-x.querySelector('.nt').innerHTML=v[1];
-x.querySelectorAll('.al span').forEach(s=>s.classList.remove('on'));
-e.target.classList.add('on');
-});
+  // Nav
+  const nav=DATA.nav.map((n,i)=>
+    i<DATA.days.length?`<a href="#d${i}">${n}</a>`:`<a href="#rules">${n}</a>`
+  ).join('');
+
+  // Days
+  const days=DATA.days.map((d,di)=>`
+    <div class="day" id="d${di}">
+      <div class="dh"><h2>${d.t}</h2><span class="tag">${d.g}</span></div>
+      ${d.ex.map((e,ei)=>{
+        const v=e.v[0];
+        const b=e.b?`<span class="badge ${e.b}">${e.b.toUpperCase()}</span>`:'';
+        const gi=e.gi?' gi':'';
+        const gitag=e.gi?'<p class="gi-tag">Giant Set ×3</p>':'';
+        return`<div class="ex${gi}" data-d="${di}" data-e="${ei}">
+          ${gitag}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
+          <p class="nt">${v[1]}</p>
+          ${e.v.length>1?`<div class="al">${e.v.map((a,ai)=>`<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`).join('')}</div>`:''}
+        </div>`;
+      }).join('')}
+      <div class="cd"><span>Cardio</span><span>${d.c}</span></div>
+    </div>
+  `).join('');
+
+  // Rules
+  const rules=`
+    <p class="sec" id="rules">Rules</p>
+    ${DATA.rules.map(r=>`
+      <div class="card">
+        <h3>${r.t}</h3>
+        <ul>${r.items.map(i=>`<li><strong>${i.k}:</strong> ${i.v}</li>`).join('')}</ul>
+      </div>
+    `).join('')}
+  `;
+
+  root.innerHTML=`<nav>${nav}</nav><div id="app">${days}</div>${rules}`;
+
+  // Event delegation
+  document.getElementById('app').addEventListener('click',e=>{
+    if(!e.target.matches('.al span'))return;
+    const x=e.target.closest('.ex');
+    const di=+x.dataset.d,ei=+x.dataset.e,ai=+e.target.dataset.i;
+    const v=DATA.days[di].ex[ei].v[ai];
+    x.querySelector('.nm').textContent=v[0];
+    x.querySelector('.nt').innerHTML=v[1];
+    x.querySelectorAll('.al span').forEach(s=>s.classList.remove('on'));
+    e.target.classList.add('on');
+  });
+}
+
+render();
 </script>
 </body>
 </html>
