@@ -4,49 +4,373 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#0d1117">
-  <title>Classic Split</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#09090b">
+  <title>ClassicForge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#a371f7}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font:14px/1.4 -apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);padding-bottom:60px;-webkit-tap-highlight-color:transparent}
-    nav{display:flex;gap:4px;justify-content:center;position:sticky;top:0;background:var(--bg);padding:8px 6px;z-index:100;border-bottom:1px solid var(--border)}
-    nav a{color:var(--muted);text-decoration:none;font-size:.7rem;font-weight:600;padding:6px 8px;border-radius:6px;background:var(--card)}
-    nav a:active{color:var(--text);background:var(--border)}
-    .day{margin-bottom:2px}
-    .dh{position:sticky;top:40px;z-index:50;background:linear-gradient(var(--card),var(--card) 90%,transparent);padding:10px 12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
-    .dh h2{font-size:.85rem;font-weight:700}.dh .tag{font-size:.6rem;color:var(--green);background:rgba(63,185,80,.12);padding:2px 6px;border-radius:3px}
-    .ex{padding:10px 12px;border-bottom:1px solid var(--border);background:var(--card)}
-    .ex:last-of-type{border-bottom:none}
-    .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-    .nm{font-weight:600;font-size:.9rem}.st{color:var(--yellow);font-size:.75rem;font-weight:600}
-    .nt{font-size:.72rem;color:var(--muted);line-height:1.35}
-    .cue{color:var(--green)}.warn{color:var(--yellow)}
-    .al{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-    .al span{font-size:.65rem;padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;border:1px solid transparent;transition:all .12s}
-    .al span:active,.al span.on{color:var(--green);background:rgba(63,185,80,.1);border-color:rgba(63,185,80,.3)}
-    .badge{font-size:.55rem;padding:2px 4px;border-radius:3px;margin-left:6px;font-weight:700;vertical-align:middle}
-    .ds{background:rgba(248,81,73,.15);color:var(--red)}.rp{background:rgba(163,113,247,.15);color:var(--purple)}
-    .cd{background:rgba(88,166,255,.08);padding:8px 12px;color:var(--blue);font-size:.75rem;display:flex;justify-content:space-between}
-    .sec{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:16px 12px 8px;border-bottom:1px solid var(--border)}
-    .card{background:var(--card);padding:10px 12px;border-bottom:1px solid var(--border)}
-    .card:last-child{border-bottom:none}
-    .card h3{font-size:.75rem;color:var(--blue);margin-bottom:6px}
-    .card li{font-size:.72rem;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--border);list-style:none}
-    .card li:last-child{border-bottom:none}
-    .card strong{color:var(--text)}
-    .gi{background:rgba(163,113,247,.04);border-left:2px solid var(--purple);margin-left:0;padding-left:10px}
-    .gi-tag{font-size:.6rem;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-    .intent{font-size:.6rem;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;opacity:.8}
+    :root {
+      --bg: #09090b;
+      --bg-elevated: #18181b;
+      --bg-card: #1c1c1f;
+      --border: #27272a;
+      --border-subtle: #3f3f46;
+      --text: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #22c55e;
+      --accent-muted: rgba(34, 197, 94, 0.15);
+      --warning: #eab308;
+      --warning-muted: rgba(234, 179, 8, 0.15);
+      --danger: #ef4444;
+      --danger-muted: rgba(239, 68, 68, 0.15);
+      --purple: #a855f7;
+      --purple-muted: rgba(168, 85, 247, 0.15);
+      --blue: #3b82f6;
+      --blue-muted: rgba(59, 130, 246, 0.15);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -4px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Header */
+    header {
+      padding: 24px 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent) 0%, #4ade80 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 16px;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+    }
+    nav a:active, nav a.active {
+      color: var(--accent);
+      background: var(--accent-muted);
+      border-color: var(--accent);
+    }
+
+    /* Day Container */
+    .day {
+      margin-bottom: 8px;
+    }
+    .day-header {
+      position: sticky;
+      top: 52px;
+      z-index: 50;
+      background: var(--bg-elevated);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .day-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .day-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-muted);
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Exercise Card */
+    .exercise {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.15s ease;
+    }
+    .exercise:hover {
+      background: var(--bg-elevated);
+    }
+    .exercise:last-of-type {
+      border-bottom: none;
+    }
+    .exercise-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .exercise-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .exercise-sets {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--warning);
+      background: var(--warning-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .exercise-notes {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .cue {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .warn {
+      color: var(--warning);
+      font-weight: 500;
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 0.6rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+      font-weight: 700;
+      vertical-align: middle;
+      letter-spacing: 0.3px;
+    }
+    .badge-ds {
+      background: var(--danger-muted);
+      color: var(--danger);
+    }
+    .badge-rp {
+      background: var(--purple-muted);
+      color: var(--purple);
+    }
+
+    /* Alternatives */
+    .alternatives {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .alternatives span {
+      font-size: 0.7rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-muted);
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all 0.15s ease;
+      font-weight: 500;
+    }
+    .alternatives span:hover {
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+    }
+    .alternatives span.on {
+      color: var(--accent);
+      background: var(--accent-muted);
+      border-color: var(--accent);
+    }
+
+    /* Giant Set */
+    .giant-set {
+      background: linear-gradient(90deg, var(--purple-muted) 0%, var(--bg-card) 100%);
+      border-left: 3px solid var(--purple);
+      padding-left: 17px;
+    }
+    .giant-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    /* Intent Label */
+    .intent {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    /* Cardio Bar */
+    .cardio {
+      background: var(--blue-muted);
+      padding: 12px 20px;
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .cardio-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cardio-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Rules Section */
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 24px 20px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rule-card {
+      background: var(--bg-card);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rule-card:last-child {
+      border-bottom: none;
+    }
+    .rule-card h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .rule-card ul {
+      list-style: none;
+    }
+    .rule-card li {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+    .rule-card li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .rule-card strong {
+      color: var(--text);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 380px) {
+      nav a { padding: 6px 8px; font-size: 0.7rem; }
+      .day-header h2 { font-size: 0.9rem; }
+      .exercise { padding: 14px 16px; }
+    }
   </style>
 </head>
 <body>
 <div id="root"></div>
 <script>
 const DATA={
-  nav:["M","T","W","Th","F","S","Su"],
+  nav:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
   days:[
-    {t:"Mon · Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
+    {t:"Monday",sub:"Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
       {s:"1×6-8 + 2×8-12",v:[
         ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip—forearms vertical at bottom.</span> Touch just below clavicle. Don't lock out."],
         ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Forearms vertical at bottom."],
@@ -68,7 +392,7 @@ const DATA={
         ["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads, lead with elbows."],
         ["Seated Dumbbell Lateral","Sit on bench end. No momentum possible. Strict form only."]]}
     ]},
-    {t:"Tue · Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
+    {t:"Tuesday",sub:"Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
       {s:"1×6-8 + 2×8-12",v:[
         ["Chest-Supported DB Row","Incline bench at 30-45°. <span class='cue'>Neutral grip DBs.</span> Full stretch, squeeze blades at top."],
         ["Hammer Strength Row","Plate-loaded. <span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
@@ -99,7 +423,7 @@ const DATA={
         ["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Pull to forehead, externally rotate at end."],
         ["High Cable Rear Fly","<span class='cue'>D-handles, cables at head height, arms crossed.</span> Open up and back."]]}
     ]},
-    {t:"Wed · Arms + Delts",g:"Pump",c:"20-30m",ex:[
+    {t:"Wednesday",sub:"Arms + Delts",g:"Pump",c:"20-30m",ex:[
       {s:"3×10-12",v:[
         ["Overhead Cable Extension (Rope)","<span class='cue'>Rope, low pulley, face away.</span> Full stretch at bottom. Spread rope at top."],
         ["Overhead Cable Extension (EZ Bar)","<span class='cue'>EZ-curl bar attachment, narrow grip.</span> Elbows by ears, full stretch."],
@@ -129,7 +453,7 @@ const DATA={
         ["Decline Crunch","Bodyweight. Hands across chest. Curl up, don't sit up."],
         ["Ab Wheel Rollout","Knees on pad. Roll out, stay tight. Don't let hips sag."]]}
     ]},
-    {t:"Thu · Legs",g:"Main Day",c:"15-30m",ex:[
+    {t:"Thursday",sub:"Legs",g:"Main Day",c:"15-30m",ex:[
       {s:"4×10-15",b:"rp",v:[
         ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down (plantarflexed).</span> Squeeze at contraction."],
         ["Lying Leg Curl","Prone. <span class='cue'>Hips flat on pad—don't let them rise.</span> Toes down."],
@@ -160,7 +484,7 @@ const DATA={
         ["Decline Crunch","Hands across chest. <span class='cue'>Curl up, don't sit up.</span>"],
         ["Ab Wheel Rollout","Full extension. <span class='cue'>Hollow body, don't let hips sag.</span>"]]}
     ]},
-    {t:"Fri · Push + Pull",g:"Pump",c:"20-30m",ex:[
+    {t:"Friday",sub:"Push + Pull",g:"Pump",c:"20-30m",ex:[
       {s:"3×8-12",v:[
         ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip—forearms vertical.</span> Mind-muscle."],
         ["Smith Incline Press","Fixed path. <span class='cue'>Same angle, same grip.</span> Great for drop sets."],
@@ -183,7 +507,7 @@ const DATA={
       {s:"15-20 each",gi:true,v:[
         ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals (thumbs down) → Rear fly (pinkies lead). ×3, 60-90s after round."]]}
     ]},
-    {t:"Sat · Weak Points",g:"Recovery",c:"15-20m",ex:[
+    {t:"Saturday",sub:"Weak Points",g:"Recovery",c:"15-20m",ex:[
       {s:"2×12-15",v:[
         ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow only—keep it light."],
         ["Lying Leg Curl","<span class='cue'>Hips flat.</span> Same idea. Feel the squeeze."],
@@ -205,7 +529,7 @@ const DATA={
         ["Vacuum + Front Double Bi","Hit front pose while holding vacuum. Practice control."],
         ["Vacuum + Side Chest","Gut in, twist toward mirror. Hold and breathe shallow."]]}
     ]},
-    {t:"Sun · Delts + Arms",g:"Frequency",c:"20-30m",ex:[
+    {t:"Sunday",sub:"Delts + Arms",g:"Frequency",c:"20-30m",ex:[
       {s:"5×12-20",b:"ds",v:[
         ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down, pinkies up.</span> 4th side delt session. Chase failure."],
         ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind.</span> Constant tension. Go light, go long."],
@@ -238,31 +562,31 @@ const DATA={
     ]}
   ],
   rules:[
-    {t:"Warm-Up",items:[
-      {k:"First lift",v:"20→12→8→4 feeders"},
-      {k:"Work sets",v:"RPE 9-10 top set + back-offs"}
+    {t:"Warm-Up Protocol",items:[
+      {k:"First lift",v:"20 → 12 → 8 → 4 reps (feeder sets)"},
+      {k:"Work sets",v:"RPE 9-10 top set, then back-offs"}
     ]},
-    {t:"Intensity",items:[
-      {k:"<span class='badge ds'>DS</span>",v:"Drop 20-30%, go to failure"},
-      {k:"<span class='badge rp'>RP</span>",v:"Rest-pause: 10+5+3"}
+    {t:"Intensity Techniques",items:[
+      {k:"<span class='badge badge-ds'>DS</span> Drop Set",v:"Drop 20-30%, immediately go to failure"},
+      {k:"<span class='badge badge-rp'>RP</span> Rest-Pause",v:"10 reps → 15s rest → 5 reps → 15s rest → 3 reps"}
     ]},
-    {t:"Rest",items:[
-      {k:"Compounds",v:"90-120s"},
-      {k:"Isolation",v:"45-75s"},
-      {k:"Deload",v:"Every 6-8 weeks, half volume"}
+    {t:"Rest Periods",items:[
+      {k:"Compounds",v:"90-120 seconds"},
+      {k:"Isolation",v:"45-75 seconds"},
+      {k:"Deload",v:"Every 6-8 weeks, reduce volume by 50%"}
     ]},
-    {t:"Weak Points",items:[
-      {k:"Upper chest",v:"Incline 2×/wk (Mon, Fri)"},
+    {t:"Weekly Frequency",items:[
+      {k:"Upper chest",v:"2×/wk (Mon, Fri)"},
       {k:"Side delts",v:"4×/wk (Mon, Wed, Fri, Sun)"},
       {k:"Rear delts",v:"3×/wk (Tue, Fri, Sat)"},
       {k:"Arms",v:"2×/wk (Wed, Sun)"},
       {k:"Calves",v:"2×/wk (Thu, Sun)"},
-      {k:"Lower lats",v:"Pull to hip, not chest"}
+      {k:"Lower lats",v:"Pull to hip pocket, not chest"}
     ]},
-    {t:"Missed Day",items:[
+    {t:"Missed Day Protocol",items:[
       {k:"7-day split",v:"No dedicated makeup—swap or skip"},
-      {k:"Miss Mon-Thu",v:"Shift remaining days forward, rest Sun"},
-      {k:"Miss Fri-Sun",v:"Skip it, hit fresh Monday"},
+      {k:"Miss Mon-Thu",v:"Shift remaining days forward, rest Sunday"},
+      {k:"Miss Fri-Sun",v:"Skip it, start fresh Monday"},
       {k:"Miss 2+ days",v:"Resume where you left off, don't double up"}
     ]}
   ]
@@ -271,53 +595,79 @@ const DATA={
 function render(){
   const root=document.getElementById('root');
 
-  // Nav
-  const nav=DATA.nav.map((n,i)=>
-    i<DATA.days.length?`<a href="#d${i}">${n}</a>`:`<a href="#rules">${n}</a>`
-  ).join('');
+  const header=`
+    <header>
+      <div class="logo">ClassicForge</div>
+      <div class="tagline">7-Day Classic Physique Split</div>
+    </header>
+  `;
 
-  // Days
+  const nav=`<nav>${DATA.nav.map((n,i)=>
+    `<a href="#d${i}">${n}</a>`
+  ).join('')}</nav>`;
+
   const days=DATA.days.map((d,di)=>`
     <div class="day" id="d${di}">
-      <div class="dh"><h2>${d.t}</h2><span class="tag">${d.g}</span></div>
+      <div class="day-header">
+        <h2>${d.t} <span style="color:var(--text-muted);font-weight:400">· ${d.sub}</span></h2>
+        <span class="day-tag">${d.g}</span>
+      </div>
       ${d.ex.map((e,ei)=>{
         const v=e.v[0];
-        const b=e.b?`<span class="badge ${e.b}">${e.b.toUpperCase()}</span>`:'';
-        const gi=e.gi?' gi':'';
-        const gitag=e.gi?'<p class="gi-tag">Giant Set ×3</p>':'';
+        const badge=e.b?`<span class="badge badge-${e.b}">${e.b.toUpperCase()}</span>`:'';
+        const giClass=e.gi?' giant-set':'';
+        const giTag=e.gi?'<p class="giant-tag">Giant Set ×3</p>':'';
         const intent=e.i?`<p class="intent">${e.i}</p>`:'';
-        return`<div class="ex${gi}" data-d="${di}" data-e="${ei}">
-          ${gitag}${intent}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
-          <p class="nt">${v[1]}</p>
-          ${e.v.length>1?`<div class="al">${e.v.map((a,ai)=>`<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`).join('')}</div>`:''}
+        return`<div class="exercise${giClass}" data-d="${di}" data-e="${ei}">
+          ${giTag}${intent}
+          <div class="exercise-top">
+            <span class="exercise-name">${v[0]}</span>
+            <span class="exercise-sets">${e.s}${badge}</span>
+          </div>
+          <p class="exercise-notes">${v[1]}</p>
+          ${e.v.length>1?`<div class="alternatives">${e.v.map((a,ai)=>
+            `<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`
+          ).join('')}</div>`:''}
         </div>`;
       }).join('')}
-      <div class="cd"><span>Cardio</span><span>${d.c}</span></div>
+      <div class="cardio">
+        <span class="cardio-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          Cardio
+        </span>
+        <span>${d.c}</span>
+      </div>
     </div>
   `).join('');
 
-  // Rules
   const rules=`
-    <p class="sec" id="rules">Rules</p>
+    <p class="section-title" id="rules">Training Rules</p>
     ${DATA.rules.map(r=>`
-      <div class="card">
+      <div class="rule-card">
         <h3>${r.t}</h3>
-        <ul>${r.items.map(i=>`<li><strong>${i.k}:</strong> ${i.v}</li>`).join('')}</ul>
+        <ul>${r.items.map(i=>`<li><strong>${i.k}:</strong> <span>${i.v}</span></li>`).join('')}</ul>
       </div>
     `).join('')}
   `;
 
-  root.innerHTML=`<nav>${nav}</nav><div id="app">${days}</div>${rules}`;
+  const footer=`
+    <footer>
+      Built for classic aesthetics. Train hard, recover smart.
+    </footer>
+  `;
 
-  // Event delegation
-  document.getElementById('app').addEventListener('click',e=>{
-    if(!e.target.matches('.al span'))return;
-    const x=e.target.closest('.ex');
-    const di=+x.dataset.d,ei=+x.dataset.e,ai=+e.target.dataset.i;
+  root.innerHTML=header+nav+`<main>${days}</main>`+rules+footer;
+
+  document.querySelector('main').addEventListener('click',e=>{
+    if(!e.target.matches('.alternatives span'))return;
+    const ex=e.target.closest('.exercise');
+    const di=+ex.dataset.d,ei=+ex.dataset.e,ai=+e.target.dataset.i;
     const v=DATA.days[di].ex[ei].v[ai];
-    x.querySelector('.nm').textContent=v[0];
-    x.querySelector('.nt').innerHTML=v[1];
-    x.querySelectorAll('.al span').forEach(s=>s.classList.remove('on'));
+    ex.querySelector('.exercise-name').textContent=v[0];
+    ex.querySelector('.exercise-notes').innerHTML=v[1];
+    ex.querySelectorAll('.alternatives span').forEach(s=>s.classList.remove('on'));
     e.target.classList.add('on');
   });
 }
