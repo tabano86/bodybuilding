@@ -37,6 +37,7 @@
     .card strong{color:var(--text)}
     .gi{background:rgba(163,113,247,.04);border-left:2px solid var(--purple);margin-left:0;padding-left:10px}
     .gi-tag{font-size:.6rem;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .intent{font-size:.6rem;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;opacity:.8}
   </style>
 </head>
 <body>
@@ -47,12 +48,12 @@ const DATA={
   days:[
     {t:"Mon · Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
       {s:"1×6-8 + 2×8-12",v:[
-        ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip (pinky on ring).</span> Touch just below clavicle. Don't lock out."],
-        ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Pinky on ring mark."],
+        ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip—forearms vertical at bottom.</span> Touch just below clavicle. Don't lock out."],
+        ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Forearms vertical at bottom."],
         ["Hammer Strength Incline","Plate-loaded machine. Adjust seat so handles align with upper chest."],
         ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span> Deep stretch."]]},
       {s:"3×8-12",v:[
-        ["Flat Barbell Bench","<span class='cue'>Medium grip (pinky on ring).</span> Slight arch. Drive through chest, not front delts."],
+        ["Flat Barbell Bench","<span class='cue'>Medium grip—forearms vertical at bottom.</span> Slight arch. Drive through chest, not front delts."],
         ["Hammer Strength Flat","Plate-loaded. Handles at nipple line. Push to failure safely."],
         ["Smith Flat Press","Fixed path. Set safeties 1\" above chest for failure."],
         ["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom. Touch DBs at top."]]},
@@ -87,11 +88,11 @@ const DATA={
         ["Machine Row (Chest-Supported)","Chest on pad throughout. <span class='cue'>Neutral or pronated handles.</span>"],
         ["Single-Arm Cable Row","<span class='cue'>D-handle, low pulley.</span> Pull to hip pocket. Full stretch forward."],
         ["Hammer Strength Low Row","Plate-loaded. <span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
-      {s:"3×10-12",v:[
-        ["Wide Cable Row (Lat Bar)","<span class='cue'>Wide lat bar, overhand, elbows flared 60°.</span> Pull to upper chest. Rhomboids."],
-        ["DB Row Elbows Flared","<span class='cue'>Overhand grip, elbow points OUT not back.</span> Different angle = different hit."],
-        ["Face Pull to Row","<span class='cue'>Rope, high pulley.</span> Pull to forehead, elbows high and back."],
-        ["Wide Hammer Row","Machine if available. <span class='cue'>Wide handles, overhand.</span> Squeeze rhomboids."]]},
+      {s:"3×10-12",i:"Upper Back (Rhomboids/Mid Traps)",v:[
+        ["Wide Cable Row (Lat Bar)","<span class='cue'>Wide lat bar, overhand, elbows flared 60°.</span> Pull to upper chest. Squeeze blades together."],
+        ["DB Row Elbows Flared","<span class='cue'>Overhand grip, elbow points OUT not back.</span> Targets mid traps/rhomboids."],
+        ["Chest-Supported Wide Row","Incline bench. <span class='cue'>DBs with elbows flared 45-60°.</span> Pinch blades hard."],
+        ["Wide Hammer Row","Machine if available. <span class='cue'>Wide handles, overhand, elbows out.</span> Loaded row for thickness."]]},
       {s:"3×12-15",v:[
         ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Pull to thighs, split rope at bottom. Lower lat sweep."],
         ["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Shoulder-width overhand.</span> Full overhead stretch to hips."],
@@ -171,7 +172,7 @@ const DATA={
     ]},
     {t:"Fri · Push + Pull",g:"Pump",c:"20-30m",ex:[
       {s:"3×8-12",v:[
-        ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip (pinky on ring).</span> Mind-muscle."],
+        ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip—forearms vertical.</span> Mind-muscle."],
         ["Smith Incline Press","Fixed path. <span class='cue'>Same angle, same grip.</span> Great for drop sets."],
         ["Incline Dumbbell Press","<span class='cue'>Neutral to pronated grip.</span> Deeper stretch. Touch DBs at top."],
         ["Hammer Strength Incline","Plate-loaded. Stable = push to failure safely."]]},
@@ -254,8 +255,9 @@ function render(){
         const b=e.b?`<span class="badge ${e.b}">${e.b.toUpperCase()}</span>`:'';
         const gi=e.gi?' gi':'';
         const gitag=e.gi?'<p class="gi-tag">Giant Set ×3</p>':'';
+        const intent=e.i?`<p class="intent">${e.i}</p>`:'';
         return`<div class="ex${gi}" data-d="${di}" data-e="${ei}">
-          ${gitag}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
+          ${gitag}${intent}<div class="top"><span class="nm">${v[0]}</span><span class="st">${e.s}${b}</span></div>
           <p class="nt">${v[1]}</p>
           ${e.v.length>1?`<div class="al">${e.v.map((a,ai)=>`<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`).join('')}</div>`:''}
         </div>`;
