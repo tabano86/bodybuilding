@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#000">
   <title>Training Split</title>
   <style>
+    /* ========== TOKENS ========== */
     :root {
       --bg: #000;
       --surface: #0a0a0a;
@@ -18,19 +19,26 @@
       --text: #fff;
       --text-2: #999;
       --text-3: #666;
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --yellow: #eab308;
-      --yellow-dim: rgba(234,179,8,0.1);
-      --red: #ef4444;
-      --red-dim: rgba(239,68,68,0.1);
-      --purple: #a855f7;
-      --purple-dim: rgba(168,85,247,0.1);
-      --blue: #3b82f6;
-      --blue-dim: rgba(59,130,246,0.1);
+      --accent-green: #22c55e;
+      --accent-yellow: #eab308;
+      --accent-red: #ef4444;
+      --accent-purple: #a855f7;
+      --accent-blue: #3b82f6;
+      --accent-orange: #f97316;
+      --accent-pink: #ec4899;
+      --dim-green: rgba(34,197,94,0.12);
+      --dim-yellow: rgba(234,179,8,0.12);
+      --dim-red: rgba(239,68,68,0.12);
+      --dim-purple: rgba(168,85,247,0.12);
+      --dim-blue: rgba(59,130,246,0.12);
+      --radius: 12px;
+      --radius-sm: 6px;
+      --transition: 0.15s ease;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+
+    /* ========== RESET ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
       font-size: 15px;
@@ -38,14 +46,16 @@
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    input { font-family: inherit; }
 
-    /* Nav */
+    /* ========== NAV ========== */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -60,7 +70,6 @@
       width: 100%;
       overflow-x: auto;
       scrollbar-width: none;
-      -ms-overflow-style: none;
       padding: 10px 0;
     }
     .nav-inner::-webkit-scrollbar { display: none; }
@@ -70,64 +79,174 @@
       color: var(--text-3);
       text-decoration: none;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       padding: 8px 4px;
       border-radius: 8px;
-      transition: all 0.15s;
+      transition: all var(--transition);
       min-width: 44px;
     }
     nav a:hover { color: var(--text-2); background: var(--surface-2); }
     nav a.active { color: var(--text); background: var(--surface-3); }
-    nav a:nth-child(1).active { color: #ef4444; } /* Mon */
-    nav a:nth-child(2).active { color: #f97316; } /* Tue */
-    nav a:nth-child(3).active { color: #eab308; } /* Wed */
-    nav a:nth-child(4).active { color: #22c55e; } /* Thu */
-    nav a:nth-child(5).active { color: #3b82f6; } /* Fri */
-    nav a:nth-child(6).active { color: #8b5cf6; } /* Sat */
-    nav a:nth-child(7).active { color: #ec4899; } /* Sun */
+    nav a:nth-child(1).active { color: var(--accent-red); }
+    nav a:nth-child(2).active { color: var(--accent-orange); }
+    nav a:nth-child(3).active { color: var(--accent-yellow); }
+    nav a:nth-child(4).active { color: var(--accent-green); }
+    nav a:nth-child(5).active { color: var(--accent-blue); }
+    nav a:nth-child(6).active { color: var(--accent-purple); }
+    nav a:nth-child(7).active { color: var(--accent-pink); }
 
-    /* Container */
+    /* ========== LAYOUT ========== */
     .container {
       max-width: 600px;
       margin: 0 auto;
-      padding: 0 12px 24px;
+      padding: 0 12px 32px;
     }
 
-    /* Day */
-    .day {
-      margin-top: 24px;
-      border-radius: 12px;
+    /* ========== TOOLS ========== */
+    .tools {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--day-accent, var(--border));
+    }
+    .tools-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .tools-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+    }
+    .tools-title::before { content: '⚡ '; }
+    .tools-toggle {
+      font-size: 10px;
+      color: var(--text-3);
+      transition: transform 0.2s ease;
+    }
+    .tools.open .tools-toggle { transform: rotate(180deg); }
+    .tools-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.25s ease;
+    }
+    .tools.open .tools-body { grid-template-rows: 1fr; }
+    .tools-content {
+      overflow: hidden;
+    }
+    .tools-inner { padding-top: 16px; }
+    .orm-inputs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .orm-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .orm-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .orm-input {
+      width: 72px;
+      padding: 10px 8px;
+      font-size: 16px;
+      font-weight: 600;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      color: var(--text);
+      text-align: center;
+      transition: border-color var(--transition);
+    }
+    .orm-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+    .orm-input::placeholder { color: var(--text-3); font-weight: 400; }
+    .orm-equals {
+      font-size: 20px;
+      color: var(--text-3);
+      margin-top: 14px;
+      font-weight: 300;
+    }
+    .orm-result {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 14px;
+    }
+    .orm-1rm {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-green);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .orm-1rm.empty { color: var(--text-3); font-size: 14px; font-weight: 400; }
+    .orm-1rm-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .orm-percentages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .orm-pct {
+      padding: 6px 10px;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      display: flex;
+      gap: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .orm-pct-label { color: var(--text-3); }
+    .orm-pct-value { color: var(--text); font-weight: 600; }
+
+    /* ========== DAY CARDS ========== */
+    .day {
+      margin-top: 20px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--day-color, var(--border));
       scroll-margin-top: 62px;
     }
-    .day:first-child { margin-top: 16px; }
-    .day[data-day="0"] { --day-accent: #ef4444; } /* Mon - Red */
-    .day[data-day="1"] { --day-accent: #f97316; } /* Tue - Orange */
-    .day[data-day="2"] { --day-accent: #eab308; } /* Wed - Yellow */
-    .day[data-day="3"] { --day-accent: #22c55e; } /* Thu - Green */
-    .day[data-day="4"] { --day-accent: #3b82f6; } /* Fri - Blue */
-    .day[data-day="5"] { --day-accent: #8b5cf6; } /* Sat - Purple */
-    .day[data-day="6"] { --day-accent: #ec4899; } /* Sun - Pink */
+    .day[data-day="0"] { --day-color: var(--accent-red); }
+    .day[data-day="1"] { --day-color: var(--accent-orange); }
+    .day[data-day="2"] { --day-color: var(--accent-yellow); }
+    .day[data-day="3"] { --day-color: var(--accent-green); }
+    .day[data-day="4"] { --day-color: var(--accent-blue); }
+    .day[data-day="5"] { --day-color: var(--accent-purple); }
+    .day[data-day="6"] { --day-color: var(--accent-pink); }
+    .day.active { border-color: var(--day-color); }
     .day-head {
       position: sticky;
-      top: 54px;
+      top: 53px;
       z-index: 50;
-      background: #111;
-      padding: 16px;
-      border-radius: 12px 12px 0 0;
+      background: var(--surface-2);
+      padding: 14px 16px;
+      border-radius: var(--radius) var(--radius) 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
-    }
-    .day-head.stuck {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-      border-radius: 0;
-    }
-    .day.active {
-      border-color: var(--day-accent);
     }
     .day-title {
       font-size: 16px;
@@ -135,50 +254,41 @@
       letter-spacing: -0.3px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .day-title::before {
       content: '';
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--day-accent, var(--text-3));
+      background: var(--day-color, var(--text-3));
+      flex-shrink: 0;
     }
     .day.active .day-title::before {
-      box-shadow: 0 0 6px var(--day-accent);
+      box-shadow: 0 0 8px var(--day-color);
     }
-    .day-title span {
-      color: var(--text-2);
-      font-weight: 400;
-      margin-left: 2px;
-    }
-    .day-meta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+    .day-title span { color: var(--text-2); font-weight: 400; }
+    .day-meta { display: flex; gap: 8px; align-items: center; }
     .day-tag {
       font-size: 10px;
       font-weight: 700;
-      color: var(--green);
-      background: var(--green-dim);
+      color: var(--accent-green);
+      background: var(--dim-green);
       padding: 4px 8px;
       border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .day-time {
-      font-size: 12px;
-      color: var(--text-3);
-    }
+    .day-time { font-size: 12px; color: var(--text-3); }
 
-    /* Exercise */
+    /* ========== EXERCISES ========== */
     .ex {
       padding: 14px 16px;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
+      transition: background var(--transition);
     }
-    .ex:last-of-type { border-bottom: none; border-radius: 0 0 12px 12px; }
+    .ex:last-of-type { border-bottom: none; border-radius: 0 0 var(--radius) var(--radius); }
     .ex-top {
       display: flex;
       justify-content: space-between;
@@ -186,58 +296,51 @@
       gap: 12px;
       margin-bottom: 6px;
     }
-    .ex-name {
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 1.3;
-    }
+    .ex-name { font-weight: 600; font-size: 15px; line-height: 1.3; }
     .ex-sets {
       font-size: 12px;
       font-weight: 600;
-      color: var(--yellow);
-      background: var(--yellow-dim);
+      color: var(--accent-yellow);
+      background: var(--dim-yellow);
       padding: 4px 8px;
       border-radius: 4px;
       white-space: nowrap;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .ex-notes {
-      font-size: 13px;
-      color: var(--text-2);
-      line-height: 1.5;
-    }
-    .cue { color: var(--green); }
-    .warn { color: var(--yellow); }
+    .ex-notes { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .cue { color: var(--accent-green); }
+    .warn { color: var(--accent-yellow); }
 
-    /* Badges - interactive */
+    /* ========== BADGES (DS/RP) ========== */
     .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
       font-size: 10px;
       font-weight: 700;
-      padding: 2px 6px 2px 5px;
+      padding: 3px 6px;
       border-radius: 3px;
-      margin-left: 6px;
-      vertical-align: middle;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: all 0.15s;
-      position: relative;
+      transition: all var(--transition);
+      vertical-align: middle;
     }
     .badge::after {
-      content: ' ▾';
+      content: '▾';
       font-size: 8px;
-      opacity: 0.6;
+      opacity: 0.7;
+      transition: transform 0.2s ease;
     }
-    .badge:hover {
-      border-color: currentColor;
-      opacity: 0.9;
-    }
-    .badge.active::after {
-      content: ' ▴';
-    }
-    .b-ds { background: var(--red-dim); color: var(--red); }
-    .b-rp { background: var(--purple-dim); color: var(--purple); }
+    .badge:hover { border-color: currentColor; }
+    .badge:active { transform: scale(0.96); }
+    .badge.active::after { transform: rotate(180deg); }
+    .b-ds { background: var(--dim-red); color: var(--accent-red); }
+    .b-rp { background: var(--dim-purple); color: var(--accent-purple); }
 
-    /* Alternatives */
+    /* ========== ALTERNATIVES ========== */
     .alts {
       display: flex;
       flex-wrap: wrap;
@@ -247,56 +350,33 @@
     .alts span {
       font-size: 12px;
       padding: 6px 10px;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       background: var(--surface-2);
       color: var(--text-3);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all var(--transition);
       border: 1px solid transparent;
     }
     .alts span:hover { color: var(--text-2); background: var(--surface-3); }
+    .alts span:active { transform: scale(0.98); }
     .alts span.on {
-      color: var(--green);
-      background: var(--green-dim);
-      border-color: rgba(34,197,94,0.3);
+      color: var(--accent-green);
+      background: var(--dim-green);
+      border-color: rgba(34,197,94,0.25);
     }
 
-    /* Giant Set */
-    .gi {
-      border-left: 3px solid var(--purple);
-      background: linear-gradient(90deg, var(--purple-dim) 0%, var(--bg) 50%);
-    }
-    .gi-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--purple);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    /* Intent */
-    .intent {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    /* Calculator - collapsed by default */
+    /* ========== INLINE CALCULATORS ========== */
     .calc {
-      margin-top: 10px;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.2s, opacity 0.2s, margin 0.2s;
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.2s ease, margin 0.2s ease;
+      margin-top: 0;
     }
     .calc.open {
-      max-height: 200px;
-      opacity: 1;
+      grid-template-rows: 1fr;
+      margin-top: 10px;
     }
+    .calc-wrap { overflow: hidden; }
     .calc-inner {
       padding: 10px 12px;
       background: var(--surface-2);
@@ -312,58 +392,70 @@
     .calc-input {
       width: 56px;
       padding: 6px 8px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       background: var(--surface-3);
       border: 1px solid var(--border-light);
       border-radius: 4px;
       color: var(--text);
       text-align: center;
+      transition: border-color var(--transition);
     }
-    .calc-input:focus {
-      outline: none;
-      border-color: var(--text-3);
-    }
-    .calc-unit {
-      font-size: 12px;
-      color: var(--text-3);
-    }
-    .calc-result {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
+    .calc-input:focus { outline: none; border-color: var(--text-3); }
+    .calc-input::placeholder { color: var(--text-3); }
+    .calc-unit { font-size: 14px; color: var(--text-3); }
+    .calc-result { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
     .calc-drop {
       padding: 4px 6px;
-      background: var(--red-dim);
+      background: var(--dim-red);
       border-radius: 3px;
       font-size: 10px;
       font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
-    .calc-drop-pct { color: var(--red); }
-    .calc-drop-wt { color: var(--text); margin-left: 2px; }
+    .calc-drop-pct { color: var(--accent-red); }
+    .calc-drop-wt { color: var(--text); margin-left: 3px; }
     .rp-set {
       padding: 4px 6px;
-      background: var(--purple-dim);
+      background: var(--dim-purple);
       border-radius: 3px;
       font-size: 10px;
       font-weight: 600;
       color: var(--text);
+      font-variant-numeric: tabular-nums;
     }
     .rp-arrow { color: var(--text-3); font-size: 9px; }
 
-    /* Tappable badge */
-    .badge { cursor: pointer; transition: transform 0.1s; }
-    .badge:active { transform: scale(0.95); }
-    .badge.active { box-shadow: 0 0 0 2px currentColor; }
+    /* ========== SPECIAL EXERCISES ========== */
+    .gi {
+      border-left: 3px solid var(--accent-purple);
+      background: linear-gradient(90deg, var(--dim-purple) 0%, transparent 40%);
+    }
+    .gi-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .intent {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
 
-    /* Section */
+    /* ========== RULES SECTION ========== */
     .section {
-      margin-top: 12px;
+      margin-top: 20px;
       padding: 16px;
-      border-radius: 12px;
+      border-radius: var(--radius);
       background: var(--surface);
       border: 1px solid var(--border);
+      scroll-margin-top: 62px;
     }
     .section-title {
       font-size: 11px;
@@ -372,145 +464,6 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
-    }
-
-    /* Tools */
-    .tools {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-    }
-    .tools-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-    }
-    .tools-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .tools-title::before {
-      content: '⚡';
-      font-size: 14px;
-    }
-    .tools-toggle {
-      font-size: 12px;
-      color: var(--text-3);
-      transition: transform 0.2s;
-    }
-    .tools.open .tools-toggle {
-      transform: rotate(180deg);
-    }
-    .tools-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease-out;
-    }
-    .tools.open .tools-body {
-      max-height: 300px;
-    }
-    .tools-content {
-      padding-top: 16px;
-    }
-    .orm-calc {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .orm-inputs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .orm-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .orm-label {
-      font-size: 10px;
-      color: var(--text-3);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .orm-input {
-      width: 72px;
-      padding: 10px 12px;
-      font-size: 16px;
-      font-weight: 600;
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      color: var(--text);
-      text-align: center;
-    }
-    .orm-input:focus {
-      outline: none;
-      border-color: var(--blue);
-    }
-    .orm-input::placeholder {
-      color: var(--text-3);
-      font-weight: 400;
-    }
-    .orm-equals {
-      font-size: 18px;
-      color: var(--text-3);
-      margin-top: 16px;
-    }
-    .orm-result {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 16px;
-    }
-    .orm-1rm {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--green);
-      line-height: 1;
-    }
-    .orm-1rm-label {
-      font-size: 10px;
-      color: var(--text-3);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .orm-1rm.empty {
-      color: var(--text-3);
-      font-size: 16px;
-      font-weight: 400;
-    }
-    .orm-percentages {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-    }
-    .orm-pct {
-      padding: 6px 10px;
-      background: var(--surface-2);
-      border-radius: 6px;
-      font-size: 12px;
-      display: flex;
-      gap: 6px;
-      align-items: baseline;
-    }
-    .orm-pct-label {
-      color: var(--text-3);
-      font-weight: 500;
-    }
-    .orm-pct-value {
-      color: var(--text);
-      font-weight: 600;
     }
     .rule {
       padding: 12px 0;
@@ -521,7 +474,7 @@
     .rule-head {
       font-size: 14px;
       font-weight: 600;
-      color: var(--blue);
+      color: var(--accent-blue);
       margin-bottom: 8px;
     }
     .rule-item {
@@ -531,12 +484,9 @@
       color: var(--text-2);
       padding: 4px 0;
     }
-    .rule-item strong {
-      color: var(--text);
-      font-weight: 500;
-    }
+    .rule-item strong { color: var(--text); font-weight: 500; }
 
-    /* Footer */
+    /* ========== FOOTER ========== */
     footer {
       padding: 24px 16px;
       text-align: center;
@@ -544,22 +494,21 @@
       color: var(--text-3);
     }
 
-    /* Desktop */
+    /* ========== RESPONSIVE ========== */
     @media (min-width: 768px) {
       nav { padding: 0 24px; }
       .nav-inner { padding: 12px 0; gap: 4px; }
       nav a { font-size: 14px; padding: 10px 16px; }
-      .container { padding: 0 16px 32px; }
-      .day { margin-top: 28px; }
-      .day-head { padding: 18px 20px; top: 62px; }
+      .container { padding: 0 16px 40px; }
+      .day { margin-top: 24px; }
+      .day-head { padding: 16px 20px; top: 61px; }
       .day-title { font-size: 17px; }
       .ex { padding: 16px 20px; }
-      .section { margin-top: 20px; padding: 20px; }
       .ex-name { font-size: 16px; }
       .ex-notes { font-size: 14px; }
+      .section { margin-top: 24px; padding: 20px; }
     }
 
-    /* Small mobile */
     @media (max-width: 380px) {
       nav a { font-size: 11px; padding: 6px 2px; }
       .day-head { padding: 12px 14px; }
@@ -567,273 +516,244 @@
       .ex { padding: 12px 14px; }
       .ex-name { font-size: 14px; }
       .ex-notes { font-size: 12px; }
+      .orm-input { width: 64px; padding: 8px 6px; }
     }
   </style>
 </head>
 <body>
 <div id="root"></div>
 <script>
-const DATA={
-  days:[
-    {d:"Mon",t:"Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
-      {s:"1×6-8 + 2×8-12",v:[
+const DATA = {
+  days: [
+    {d:"Mon", t:"Chest + Delts", g:"Upper Chest", c:"25-40m", ex:[
+      {s:"1×6-8 + 2×8-12", v:[
         ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip—forearms vertical at bottom.</span> Touch just below clavicle. Don't lock out."],
         ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure."],
         ["Hammer Strength Incline","Plate-loaded. Adjust seat so handles align with upper chest."],
         ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span>"]]},
-      {s:"3×8-12",v:[
+      {s:"3×8-12", v:[
         ["Flat Barbell Bench","<span class='cue'>Medium grip—forearms vertical at bottom.</span> Slight arch. Drive through chest."],
         ["Hammer Strength Flat","Plate-loaded. Handles at nipple line."],
         ["Smith Flat Press","Fixed path. Set safeties 1\" above chest."],
         ["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom."]]},
-      {s:"3×12-15",b:"ds",v:[
+      {s:"3×12-15", b:"ds", v:[
         ["Low-to-High Cable Fly","<span class='cue'>D-handles, pulleys at lowest.</span> Arc to eye level. 2s squeeze."],
         ["Incline Dumbbell Fly","30° bench. <span class='cue'>Slight elbow bend.</span> Deep pec stretch."],
         ["Pec Deck","Handles at mid-chest. Squeeze 2s at contraction."],
         ["High-to-Low Cable Fly","<span class='cue'>Pulleys at top.</span> Cross at belly button."]]},
-      {s:"5×12-20",b:"ds",v:[
+      {s:"5×12-20", b:"ds", v:[
         ["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down, pinkies up.</span> Lead with elbows. <span class='warn'>15-20lb max.</span>"],
         ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind body.</span> Constant tension."],
         ["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads."],
         ["Seated Dumbbell Lateral","Sit on bench end. No momentum."]]}
     ]},
-    {d:"Tue",t:"Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
-      {s:"1×6-8 + 2×8-12",v:[
+    {d:"Tue", t:"Back + Rear Delts", g:"Thickness", c:"25-40m", ex:[
+      {s:"1×6-8 + 2×8-12", v:[
         ["Chest-Supported DB Row","Incline bench 30-45°. <span class='cue'>Neutral grip.</span> Full stretch, squeeze blades."],
         ["Hammer Strength Row","<span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
         ["T-Bar Row (V-Handle)","<span class='cue'>Neutral-grip V-handle.</span> Pull to lower chest."],
         ["Seal Row","Flat bench elevated. <span class='cue'>Overhand grip.</span> Zero momentum."]]},
-      {s:"3×8-12",v:[
+      {s:"3×8-12", v:[
         ["Wide-Grip Lat Pulldown","<span class='cue'>Hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
         ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Pull to sternum."],
         ["Assisted Pull-Up","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
         ["Neutral-Grip Pulldown","<span class='cue'>Parallel handles.</span> Easy on shoulders."]]},
-      {s:"3×8-12",v:[
+      {s:"3×8-12", v:[
         ["Seated Cable Row (V-Bar)","<span class='cue'>Close-grip V-bar.</span> Pull to lower chest. Squeeze blades."],
         ["Machine Row","Chest on pad. <span class='cue'>Neutral or pronated handles.</span>"],
         ["Single-Arm Cable Row","<span class='cue'>D-handle.</span> Pull to hip pocket."],
         ["Hammer Strength Low Row","<span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
-      {s:"3×10-12",i:"Upper Back",v:[
+      {s:"3×10-12", i:"Upper Back", v:[
         ["Wide Cable Row","<span class='cue'>Lat bar, elbows flared 60°.</span> Pull to upper chest. Squeeze blades."],
         ["DB Row Elbows Flared","<span class='cue'>Elbow points OUT not back.</span> Targets mid traps/rhomboids."],
         ["Chest-Supported Wide Row","<span class='cue'>DBs with elbows flared 45-60°.</span> Pinch blades."],
         ["Wide Hammer Row","<span class='cue'>Wide handles, elbows out.</span>"]]},
-      {s:"3×12-15",v:[
+      {s:"3×12-15", v:[
         ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope.</span> Pull to thighs, split at bottom."],
         ["Straight-Arm Pulldown (Bar)","<span class='cue'>Shoulder-width overhand.</span> Full stretch to hips."],
         ["Single-Arm Pulldown","<span class='cue'>D-handle.</span> Arc toward hip pocket."]]},
-      {s:"3×12-20",b:"ds",v:[
+      {s:"3×12-20", b:"ds", v:[
         ["Rear Delt Fly (DBs)","Bent 45° or chest-supported. <span class='cue'>Pinkies lead.</span>"],
         ["Reverse Pec Deck","<span class='cue'>Handles, not pads.</span> 2s squeeze at back."],
         ["Face Pull","<span class='cue'>Rope, high pulley.</span> Externally rotate at end."],
         ["High Cable Rear Fly","<span class='cue'>Cables at head height, crossed.</span>"]]}
     ]},
-    {d:"Wed",t:"Arms + Delts",g:"Pump",c:"20-30m",ex:[
-      {s:"3×10-12",v:[
+    {d:"Wed", t:"Arms + Delts", g:"Pump", c:"20-30m", ex:[
+      {s:"3×10-12", v:[
         ["Overhead Cable Extension (Rope)","<span class='cue'>Low pulley, face away.</span> Full stretch. Spread rope at top."],
         ["Overhead Cable Extension (EZ)","<span class='cue'>EZ-bar, narrow grip.</span> Elbows by ears."],
         ["Dual Cable Overhead Extension","<span class='cue'>D-handles, between stacks.</span>"],
         ["Seated Overhead DB Extension","<span class='cue'>Single DB, diamond grip.</span> Lower behind head."]]},
-      {s:"3×10-12",b:"ds",v:[
+      {s:"3×10-12", b:"ds", v:[
         ["Tricep Pressdown (Straight Bar)","<span class='cue'>Overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
         ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral.</span> Heavier load. Full lockout."],
         ["Tricep Pressdown (Rope)","<span class='cue'>Rope.</span> Spread at bottom for lateral head."],
         ["Single-Arm Pressdown","<span class='cue'>D-handle.</span> Unilateral."]]},
-      {s:"2×10-12",v:[
+      {s:"2×10-12", v:[
         ["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Supinate as you curl.</span> Max long head stretch."],
         ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span> Same stretch as incline."],
         ["Preacher Curl (EZ)","<span class='cue'>Narrow grip on inner angles.</span> Pad at armpit."]]},
-      {s:"3×8-12",v:[
+      {s:"3×8-12", v:[
         ["EZ Bar Cable Curl","<span class='cue'>Narrow grip.</span> Full ROM + 4-5 partials."],
         ["Straight Bar Cable Curl","<span class='cue'>Shoulder-width.</span> Constant tension."],
         ["Machine Preacher Curl","Pad eliminates momentum. Full stretch."],
         ["Dumbbell Curl (Supinating)","<span class='cue'>Start neutral, rotate to supinated.</span>"]]},
-      {s:"4×15-20",b:"ds",v:[
+      {s:"4×15-20", b:"ds", v:[
         ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down.</span> Pump set. Chase the burn."],
         ["Cable Lateral Raise","<span class='cue'>Cross behind.</span> Constant tension."],
         ["Machine Lateral Raise","Zero cheating. Elbows into pads."],
         ["Leaning Cable Lateral","Lean 20° away. <span class='cue'>Brutal stretch.</span>"]]},
-      {s:"3×12-15",v:[
+      {s:"3×12-15", v:[
         ["Machine Crunch","Ribs to hips. <span class='warn'>Light weight, feel abs.</span>"],
         ["Decline Crunch","Hands across chest. Curl up, don't sit up."],
         ["Ab Wheel Rollout","Stay tight. Don't let hips sag."]]}
     ]},
-    {d:"Thu",t:"Legs",g:"Main Day",c:"15-30m",ex:[
-      {s:"4×10-15",b:"rp",v:[
+    {d:"Thu", t:"Legs", g:"Main Day", c:"15-30m", ex:[
+      {s:"4×10-15", b:"rp", v:[
         ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down.</span> Squeeze at contraction."],
         ["Lying Leg Curl","<span class='cue'>Hips flat—don't let them rise.</span> Toes down."],
         ["Single-Leg Lying Curl","Unilateral. Address imbalances."],
         ["Kneeling Leg Curl","<span class='cue'>Hip extended throughout.</span>"]]},
-      {s:"1×8-12 + 2×10-15",v:[
+      {s:"1×8-12 + 2×10-15", v:[
         ["Leg Press","<span class='cue'>Feet shoulder-width, mid-height.</span> Don't lock knees. Full depth."],
         ["Belt Squat","Zero spinal load. <span class='cue'>Toes slightly out.</span> Full ROM."],
         ["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
         ["Hack Squat","<span class='cue'>Back flat, feet low.</span> Quad dominant."]]},
-      {s:"3×8-12",v:[
+      {s:"3×8-12", v:[
         ["Belt Squat","Spine-safe volume. <span class='cue'>Wider stance = more adductors.</span>"],
         ["Single-Leg Press","<span class='cue'>Foot centered.</span> Address imbalances."],
         ["Lever Squat","<span class='cue'>Adjust shoulder pads.</span> Minimal back stress."],
         ["Smith Front Squat","<span class='cue'>Heels elevated 1-2\".</span> Upright torso."]]},
-      {s:"3×12-15",b:"ds",v:[
+      {s:"3×12-15", b:"ds", v:[
         ["Leg Extension","<span class='cue'>Toes up.</span> Hold 1s at full contraction."],
         ["Single-Leg Extension","Feel the VMO."],
         ["Sissy Squat","<span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
-      {s:"3×15-20",v:[
+      {s:"3×15-20", v:[
         ["Standing Calf Raise","<span class='cue'>Straight legs, big toe.</span> Gastroc focus."],
         ["Leg Press Calf Raise","<span class='cue'>Full 4s negative, 2s squeeze.</span>"],
         ["Smith Calf Raise","Heavy and stable. Full stretch."],
         ["Donkey Calf Raise","Bent at hips 90°."]]},
-      {s:"3×10-15",v:[
+      {s:"3×10-15", v:[
         ["Lying Leg Raise","<span class='cue'>Lower back pressed into bench.</span> Curl pelvis up."],
         ["Captain's Chair Leg Raise","<span class='cue'>Round lower back, curl knees to chest.</span>"],
         ["Decline Crunch","Curl up, don't sit up."],
         ["Ab Wheel Rollout","<span class='cue'>Hollow body.</span>"]]}
     ]},
-    {d:"Fri",t:"Push + Pull",g:"Pump",c:"20-30m",ex:[
-      {s:"3×8-12",v:[
+    {d:"Fri", t:"Push + Pull", g:"Pump", c:"20-30m", ex:[
+      {s:"3×8-12", v:[
         ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, forearms vertical.</span>"],
         ["Smith Incline Press","Fixed path. Great for drop sets."],
         ["Incline Dumbbell Press","<span class='cue'>Neutral to pronated.</span> Touch DBs at top."],
         ["Hammer Strength Incline","Stable = push to failure safely."]]},
-      {s:"3×12-15",b:"ds",v:[
+      {s:"3×12-15", b:"ds", v:[
         ["Cable Fly (Mid-Height)","<span class='cue'>Pulleys at chest height.</span> Different angle than Monday."],
         ["Pec Deck","Squeeze 2s at contraction."],
         ["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend.</span> Deep stretch."],
         ["High-to-Low Cable Fly","<span class='cue'>Pulleys high.</span> Lower chest emphasis."]]},
-      {s:"3×10-15/side",v:[
+      {s:"3×10-15/side", v:[
         ["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET. Lower lat sweep."],
         ["Close-Grip Pulldown","<span class='cue'>V-bar.</span> Pull to sternum."],
         ["Straight-Arm Pulldown","<span class='cue'>Rope, split at bottom.</span>"]]},
-      {s:"3×12-15",v:[
+      {s:"3×12-15", v:[
         ["Chest-Supported DB Row","<span class='cue'>Neutral grip.</span> Lighter—pump work."],
         ["Machine Row","Easy drop sets."],
         ["Seated Cable Row","<span class='cue'>V-bar.</span> Squeeze blades."],
         ["Single-Arm DB Row","Full stretch to hip."]]},
-      {s:"15-20 each",gi:true,v:[
+      {s:"15-20 each", gi:true, v:[
         ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals → Rear fly. ×3 rounds, 60-90s rest."]]}
     ]},
-    {d:"Sat",t:"Weak Points",g:"Recovery",c:"15-20m",ex:[
-      {s:"2×12-15",v:[
+    {d:"Sat", t:"Weak Points", g:"Recovery", c:"15-20m", ex:[
+      {s:"2×12-15", v:[
         ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow—keep it light."],
         ["Lying Leg Curl","Feel the squeeze."],
         ["Single-Leg Curl","Address imbalances."]]},
-      {s:"2×12-15",v:[
+      {s:"2×12-15", v:[
         ["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance."],
         ["Single-Leg Extension","Feel the VMO."],
         ["Sissy Squat","Bodyweight only."]]},
-      {s:"4×15-20",v:[
+      {s:"4×15-20", v:[
         ["Calf Raises","Alternate seated/standing weekly."],
         ["Seated Calf Raise","<span class='cue'>Bent knee = soleus.</span> 2s holds."],
         ["Standing Calf Raise","<span class='cue'>Straight leg = gastroc.</span>"]]},
-      {s:"3×15-20",v:[
+      {s:"3×15-20", v:[
         ["Rear Delt Fly (DBs)","3rd session. <span class='cue'>Pinkies lead.</span>"],
         ["Face Pull","<span class='cue'>High pulley.</span> Light. External rotate."],
         ["Reverse Pec Deck","Constant tension."]]},
-      {s:"3×30s",v:[
+      {s:"3×30s", v:[
         ["Stomach Vacuum","<span class='cue'>Exhale fully, pull navel to spine.</span> Hold."],
         ["Vacuum + Front Double Bi","Hold vacuum while posing."],
         ["Vacuum + Side Chest","Gut in, twist toward mirror."]]}
     ]},
-    {d:"Sun",t:"Delts + Arms",g:"Frequency",c:"20-30m",ex:[
-      {s:"5×12-20",b:"ds",v:[
+    {d:"Sun", t:"Delts + Arms", g:"Frequency", c:"20-30m", ex:[
+      {s:"5×12-20", b:"ds", v:[
         ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down, pinkies up.</span> 4th side delt session."],
         ["Cable Lateral Raise","<span class='cue'>Cross behind.</span> Go light, go long."],
         ["Machine Lateral Raise","No cheating. High reps."],
         ["Leaning Cable Lateral","<span class='cue'>Brutal stretch at bottom.</span>"]]},
-      {s:"3×10-12",v:[
+      {s:"3×10-12", v:[
         ["Overhead Cable Extension (Rope)","<span class='cue'>Face away.</span> Long head stretch."],
         ["Overhead Cable Extension (EZ)","Elbows by ears."],
         ["Seated Overhead DB Extension","<span class='cue'>Diamond grip.</span> Lower behind head."]]},
-      {s:"3×10-12",b:"ds",v:[
+      {s:"3×10-12", b:"ds", v:[
         ["Tricep Pressdown (Rope)","<span class='cue'>Spread at bottom.</span> Pump finisher."],
         ["Tricep Pressdown (V-Bar)","Heavier load option."],
         ["Single-Arm Pressdown","Unilateral."]]},
-      {s:"2×10-12",v:[
+      {s:"2×10-12", v:[
         ["Incline Dumbbell Curl","<span class='cue'>45°, supinate at top.</span> Long head stretch."],
         ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span>"],
         ["Preacher Curl (EZ)","Pad at armpit height."]]},
-      {s:"3×10-12",v:[
+      {s:"3×10-12", v:[
         ["Cable Curl (EZ Bar)","<span class='cue'>Narrow grip.</span> Constant tension."],
         ["Straight Bar Cable Curl","Great pump."],
         ["Hammer Curl","<span class='cue'>Neutral grip.</span> Brachialis."]]},
-      {s:"4×15-20",v:[
+      {s:"4×15-20", v:[
         ["Standing Calf Raise","<span class='cue'>Big toe emphasis.</span> 2nd session."],
         ["Seated Calf Raise","<span class='cue'>Bent knee, soleus.</span>"],
         ["Leg Press Calf Raise","Control the negative."]]},
-      {s:"3×30s",v:[
+      {s:"3×30s", v:[
         ["Stomach Vacuum","Hold longer each week."],
         ["Vacuum + Poses","Cycle through mandatories."],
         ["Breathing Vacuum","Shallow breaths while holding."]]}
     ]}
   ],
-  rules:[
-    {t:"Warm-Up",items:[
+  rules: [
+    {t:"Warm-Up", items:[
       ["First lift","20 → 12 → 8 → 4 reps (feeder sets)"],
-      ["Work sets","RPE 9-10 top set, then back-offs"]
-    ]},
-    {t:"Intensity Techniques",items:[
+      ["Work sets","RPE 9-10 top set, then back-offs"]]},
+    {t:"Intensity Techniques", items:[
       ["<span class='badge b-ds'>DS</span> Drop Set","Drop 20-30%, immediately go to failure"],
-      ["<span class='badge b-rp'>RP</span> Rest-Pause","10 reps → 15s → 5 reps → 15s → 3 reps"]
-    ]},
-    {t:"Rest Periods",items:[
+      ["<span class='badge b-rp'>RP</span> Rest-Pause","10 reps → 15s → 5 reps → 15s → 3 reps"]]},
+    {t:"Rest Periods", items:[
       ["Compounds","90-120 seconds"],
       ["Isolation","45-75 seconds"],
-      ["Deload","Every 6-8 weeks, reduce volume 50%"]
-    ]},
-    {t:"Weekly Frequency",items:[
+      ["Deload","Every 6-8 weeks, reduce volume 50%"]]},
+    {t:"Weekly Frequency", items:[
       ["Upper chest","2×/wk (Mon, Fri)"],
       ["Side delts","4×/wk (Mon, Wed, Fri, Sun)"],
       ["Rear delts","3×/wk (Tue, Fri, Sat)"],
       ["Arms","2×/wk (Wed, Sun)"],
-      ["Calves","2×/wk (Thu, Sun)"]
-    ]},
-    {t:"Missed Day",items:[
+      ["Calves","2×/wk (Thu, Sun)"]]},
+    {t:"Missed Day", items:[
       ["7-day split","No dedicated makeup—swap or skip"],
       ["Miss Mon-Thu","Shift remaining days forward"],
-      ["Miss Fri-Sun","Skip it, start fresh Monday"]
-    ]}
+      ["Miss Fri-Sun","Skip it, start fresh Monday"]]}
   ]
 };
 
-function calcDropSet(weight) {
-  if (!weight || weight <= 0) return [];
-  return [
-    { pct: 20, wt: Math.round(weight * 0.8 / 5) * 5 },
-    { pct: 30, wt: Math.round(weight * 0.7 / 5) * 5 },
-    { pct: 40, wt: Math.round(weight * 0.6 / 5) * 5 }
-  ];
-}
+// ========== CALCULATORS ==========
+const calc1RM = (w, r) => (!w || w <= 0 || !r || r <= 0) ? null : (r === 1 ? w : Math.round(w * (1 + r / 30)));
+const calcDrops = w => w > 0 ? [20, 30, 40].map(p => ({ p, w: Math.round(w * (1 - p/100) / 5) * 5 })) : [];
+const calcRP = r => { const n = r || 10; return [n, Math.round(n * 0.5), Math.round(n * 0.3)]; };
+const calcPcts = orm => orm ? [95, 90, 85, 80, 75, 70].map(p => ({ p, w: Math.round(orm * p/100 / 5) * 5 })) : [];
 
-function calcRestPause(reps) {
-  const r = reps || 10;
-  return [r, Math.round(r * 0.5), Math.round(r * 0.3)];
-}
-
-function calc1RM(weight, reps) {
-  if (!weight || weight <= 0 || !reps || reps <= 0) return null;
-  if (reps === 1) return weight;
-  // Epley formula - accurate for 1-15 rep range
-  return Math.round(weight * (1 + reps / 30));
-}
-
-function getTrainingWeights(orm) {
-  if (!orm) return [];
-  return [
-    { pct: 95, wt: Math.round(orm * 0.95 / 5) * 5 },
-    { pct: 90, wt: Math.round(orm * 0.90 / 5) * 5 },
-    { pct: 85, wt: Math.round(orm * 0.85 / 5) * 5 },
-    { pct: 80, wt: Math.round(orm * 0.80 / 5) * 5 },
-    { pct: 75, wt: Math.round(orm * 0.75 / 5) * 5 },
-    { pct: 70, wt: Math.round(orm * 0.70 / 5) * 5 }
-  ];
-}
-
+// ========== RENDER ==========
 function render() {
-  const root = document.getElementById('root');
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
 
-  const nav = `<nav><div class="nav-inner">${DATA.days.map((d,i) =>
-    `<a href="#d${i}">${d.d}</a>`
-  ).join('')}<a href="#rules">?</a></div></nav>`;
+  const nav = `<nav><div class="nav-inner">${
+    DATA.days.map((d, i) => `<a href="#d${i}">${d.d}</a>`).join('')
+  }<a href="#rules">?</a></div></nav>`;
 
   const tools = `
     <div class="tools" id="tools">
@@ -842,26 +762,24 @@ function render() {
         <span class="tools-toggle">▼</span>
       </div>
       <div class="tools-body">
-        <div class="tools-content">
-          <div class="orm-calc">
-            <div class="orm-inputs">
-              <div class="orm-field">
-                <span class="orm-label">Weight</span>
-                <input type="number" class="orm-input" id="orm-weight" placeholder="185" min="0" step="5" inputmode="decimal">
-              </div>
-              <div class="orm-field">
-                <span class="orm-label">Reps</span>
-                <input type="number" class="orm-input" id="orm-reps" placeholder="8" min="1" max="30" inputmode="numeric">
-              </div>
-              <span class="orm-equals">=</span>
-              <div class="orm-result">
-                <span class="orm-1rm empty" id="orm-result">Enter weight × reps</span>
-                <span class="orm-1rm-label">Estimated 1RM</span>
-              </div>
+        <div class="tools-content"><div class="tools-inner">
+          <div class="orm-inputs">
+            <div class="orm-field">
+              <span class="orm-label">Weight</span>
+              <input type="number" class="orm-input" id="orm-w" placeholder="185" min="0" step="5" inputmode="decimal">
             </div>
-            <div class="orm-percentages" id="orm-percentages"></div>
+            <div class="orm-field">
+              <span class="orm-label">Reps</span>
+              <input type="number" class="orm-input" id="orm-r" placeholder="8" min="1" max="30" inputmode="numeric">
+            </div>
+            <span class="orm-equals">=</span>
+            <div class="orm-result">
+              <span class="orm-1rm empty" id="orm-out">Enter weight × reps</span>
+              <span class="orm-1rm-label">Estimated 1RM</span>
+            </div>
           </div>
-        </div>
+          <div class="orm-percentages" id="orm-pcts"></div>
+        </div></div>
       </div>
     </div>`;
 
@@ -877,59 +795,49 @@ function render() {
       ${day.ex.map((ex, ei) => {
         const v = ex.v[0];
         const badge = ex.b ? `<span class="badge b-${ex.b}">${ex.b.toUpperCase()}</span>` : '';
-        const giClass = ex.gi ? ' gi' : '';
-        const giLabel = ex.gi ? '<div class="gi-label">Giant Set ×3</div>' : '';
-        const intent = ex.i ? `<div class="intent">${ex.i}</div>` : '';
+        const cls = ex.gi ? ' gi' : '';
+        const label = ex.gi ? '<div class="gi-label">Giant Set ×3</div>' : (ex.i ? `<div class="intent">${ex.i}</div>` : '');
 
-        // Add calculator for DS or RP (collapsed by default)
         let calc = '';
         if (ex.b === 'ds') {
-          calc = `
-            <div class="calc" data-type="ds">
-              <div class="calc-inner">
-                <div class="calc-row">
-                  <input type="number" class="calc-input" placeholder="lbs" min="0" step="5">
-                  <span class="calc-unit">→</span>
-                  <div class="calc-result">
-                    <span class="calc-drop"><span class="calc-drop-pct">-20%</span></span>
-                    <span class="calc-drop"><span class="calc-drop-pct">-30%</span></span>
-                    <span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>
-                  </div>
-                </div>
+          calc = `<div class="calc" data-type="ds"><div class="calc-wrap"><div class="calc-inner">
+            <div class="calc-row">
+              <input type="number" class="calc-input" placeholder="lbs" min="0" step="5" inputmode="decimal">
+              <span class="calc-unit">→</span>
+              <div class="calc-result">
+                <span class="calc-drop"><span class="calc-drop-pct">-20%</span></span>
+                <span class="calc-drop"><span class="calc-drop-pct">-30%</span></span>
+                <span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>
               </div>
-            </div>`;
+            </div>
+          </div></div></div>`;
         } else if (ex.b === 'rp') {
-          calc = `
-            <div class="calc" data-type="rp">
-              <div class="calc-inner">
-                <div class="calc-row">
-                  <input type="number" class="calc-input" placeholder="reps" min="1" max="30" value="10">
-                  <span class="calc-unit">→</span>
-                  <div class="calc-result">
-                    <span class="rp-set">100%</span>
-                    <span class="rp-arrow">15s</span>
-                    <span class="rp-set">50%</span>
-                    <span class="rp-arrow">15s</span>
-                    <span class="rp-set">30%</span>
-                  </div>
-                </div>
+          calc = `<div class="calc" data-type="rp"><div class="calc-wrap"><div class="calc-inner">
+            <div class="calc-row">
+              <input type="number" class="calc-input" placeholder="reps" min="1" max="30" value="10" inputmode="numeric">
+              <span class="calc-unit">→</span>
+              <div class="calc-result">
+                <span class="rp-set">10</span><span class="rp-arrow">15s</span>
+                <span class="rp-set">5</span><span class="rp-arrow">15s</span>
+                <span class="rp-set">3</span>
               </div>
-            </div>`;
+            </div>
+          </div></div></div>`;
         }
 
-        return `
-          <div class="ex${giClass}" data-d="${di}" data-e="${ei}">
-            ${giLabel}${intent}
-            <div class="ex-top">
-              <span class="ex-name">${v[0]}</span>
-              <span class="ex-sets">${ex.s}${badge}</span>
-            </div>
-            <p class="ex-notes">${v[1]}</p>
-            ${ex.v.length > 1 ? `<div class="alts">${ex.v.map((a, ai) =>
-              `<span${ai === 0 ? ' class="on"' : ''} data-i="${ai}">${a[0]}</span>`
-            ).join('')}</div>` : ''}
-            ${calc}
-          </div>`;
+        const alts = ex.v.length > 1 ? `<div class="alts">${ex.v.map((a, ai) =>
+          `<span${ai === 0 ? ' class="on"' : ''} data-i="${ai}">${a[0]}</span>`
+        ).join('')}</div>` : '';
+
+        return `<div class="ex${cls}" data-d="${di}" data-e="${ei}">
+          ${label}
+          <div class="ex-top">
+            <span class="ex-name">${v[0]}</span>
+            <span class="ex-sets">${ex.s}${badge}</span>
+          </div>
+          <p class="ex-notes">${v[1]}</p>
+          ${alts}${calc}
+        </div>`;
       }).join('')}
     </div>
   `).join('');
@@ -940,159 +848,89 @@ function render() {
       ${DATA.rules.map(r => `
         <div class="rule">
           <div class="rule-head">${r.t}</div>
-          ${r.items.map(i => `
-            <div class="rule-item"><strong>${i[0]}:</strong> ${i[1]}</div>
-          `).join('')}
+          ${r.items.map(i => `<div class="rule-item"><strong>${i[0]}:</strong> ${i[1]}</div>`).join('')}
         </div>
       `).join('')}
-    </div>
-  `;
+    </div>`;
 
-  const footer = `<footer>Train hard. Recover smart.</footer>`;
-
-  root.innerHTML = `${nav}<div class="container">${tools}${days}${rules}</div>${footer}`;
+  $('#root').innerHTML = `${nav}<div class="container">${tools}${days}${rules}</div><footer>Train hard. Recover smart.</footer>`;
 
   // Tools toggle
-  const toolsEl = document.getElementById('tools');
-  toolsEl.querySelector('.tools-header').addEventListener('click', () => {
-    toolsEl.classList.toggle('open');
-  });
+  $('#tools .tools-header').onclick = () => $('#tools').classList.toggle('open');
 
   // 1RM Calculator
-  const ormWeight = document.getElementById('orm-weight');
-  const ormReps = document.getElementById('orm-reps');
-  const ormResult = document.getElementById('orm-result');
-  const ormPercentages = document.getElementById('orm-percentages');
-
+  const ormW = $('#orm-w'), ormR = $('#orm-r'), ormOut = $('#orm-out'), ormPcts = $('#orm-pcts');
   const updateORM = () => {
-    const w = parseFloat(ormWeight.value) || 0;
-    const r = parseInt(ormReps.value) || 0;
-    const orm = calc1RM(w, r);
-
+    const orm = calc1RM(+ormW.value, +ormR.value);
     if (orm) {
-      ormResult.textContent = orm + ' lbs';
-      ormResult.classList.remove('empty');
-      const pcts = getTrainingWeights(orm);
-      ormPercentages.innerHTML = pcts.map(p => `
-        <span class="orm-pct">
-          <span class="orm-pct-label">${p.pct}%</span>
-          <span class="orm-pct-value">${p.wt}</span>
-        </span>
-      `).join('');
+      ormOut.textContent = `${orm} lbs`;
+      ormOut.classList.remove('empty');
+      ormPcts.innerHTML = calcPcts(orm).map(x =>
+        `<span class="orm-pct"><span class="orm-pct-label">${x.p}%</span><span class="orm-pct-value">${x.w}</span></span>`
+      ).join('');
     } else {
-      ormResult.textContent = 'Enter weight × reps';
-      ormResult.classList.add('empty');
-      ormPercentages.innerHTML = '';
+      ormOut.textContent = 'Enter weight × reps';
+      ormOut.classList.add('empty');
+      ormPcts.innerHTML = '';
     }
   };
+  ormW.oninput = ormR.oninput = updateORM;
 
-  ormWeight.addEventListener('input', updateORM);
-  ormReps.addEventListener('input', updateORM);
-
-  // Exercise swap
-  document.querySelector('.container').addEventListener('click', e => {
-    if (!e.target.matches('.alts span')) return;
-    const ex = e.target.closest('.ex');
-    const di = +ex.dataset.d, ei = +ex.dataset.e, ai = +e.target.dataset.i;
-    const v = DATA.days[di].ex[ei].v[ai];
+  // Exercise alternatives
+  $('.container').onclick = e => {
+    const alt = e.target.closest('.alts span');
+    if (!alt) return;
+    const ex = alt.closest('.ex');
+    const v = DATA.days[+ex.dataset.d].ex[+ex.dataset.e].v[+alt.dataset.i];
     ex.querySelector('.ex-name').textContent = v[0];
     ex.querySelector('.ex-notes').innerHTML = v[1];
     ex.querySelectorAll('.alts span').forEach(s => s.classList.remove('on'));
-    e.target.classList.add('on');
+    alt.classList.add('on');
+  };
+
+  // Badge calculators
+  $$('.badge').forEach(b => b.onclick = e => {
+    e.stopPropagation();
+    const calc = b.closest('.ex')?.querySelector('.calc');
+    if (!calc) return;
+    calc.classList.toggle('open');
+    b.classList.toggle('active');
+    if (calc.classList.contains('open')) calc.querySelector('.calc-input')?.focus();
   });
 
-  // Badge click to toggle calculator
-  document.querySelectorAll('.badge').forEach(badge => {
-    badge.addEventListener('click', e => {
-      e.stopPropagation();
-      const ex = badge.closest('.ex');
-      const calc = ex.querySelector('.calc');
-      if (calc) {
-        calc.classList.toggle('open');
-        badge.classList.toggle('active');
-        if (calc.classList.contains('open')) {
-          calc.querySelector('.calc-input').focus();
-        }
-      }
-    });
-  });
+  // Inline calc handlers
+  $$('.calc').forEach(c => {
+    const input = c.querySelector('.calc-input');
+    const result = c.querySelector('.calc-result');
+    const type = c.dataset.type;
 
-  // Calculator handlers
-  document.querySelectorAll('.calc').forEach(calc => {
-    const input = calc.querySelector('.calc-input');
-    const result = calc.querySelector('.calc-result');
-    const type = calc.dataset.type;
-
-    const updateCalc = () => {
-      const val = parseFloat(input.value) || 0;
-
+    input.oninput = () => {
+      const v = +input.value;
       if (type === 'ds') {
-        const drops = calcDropSet(val);
-        if (val > 0) {
-          result.innerHTML = drops.map(d => `
-            <span class="calc-drop">
-              <span class="calc-drop-pct">-${d.pct}%</span>
-              <span class="calc-drop-wt">${d.wt}</span>
-            </span>
-          `).join('');
-        } else {
-          result.innerHTML = `
-            <span class="calc-drop"><span class="calc-drop-pct">-20%</span></span>
-            <span class="calc-drop"><span class="calc-drop-pct">-30%</span></span>
-            <span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>
-          `;
-        }
+        const drops = calcDrops(v);
+        result.innerHTML = drops.length
+          ? drops.map(d => `<span class="calc-drop"><span class="calc-drop-pct">-${d.p}%</span><span class="calc-drop-wt">${d.w}</span></span>`).join('')
+          : `<span class="calc-drop"><span class="calc-drop-pct">-20%</span></span><span class="calc-drop"><span class="calc-drop-pct">-30%</span></span><span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>`;
       } else if (type === 'rp') {
-        const r = Math.round(val) || 10;
-        const reps = calcRestPause(r);
-        result.innerHTML = `
-          <span class="rp-set">${reps[0]}</span>
-          <span class="rp-arrow">15s</span>
-          <span class="rp-set">${reps[1]}</span>
-          <span class="rp-arrow">15s</span>
-          <span class="rp-set">${reps[2]}</span>
-        `;
+        const reps = calcRP(v);
+        result.innerHTML = `<span class="rp-set">${reps[0]}</span><span class="rp-arrow">15s</span><span class="rp-set">${reps[1]}</span><span class="rp-arrow">15s</span><span class="rp-set">${reps[2]}</span>`;
       }
     };
-
-    input.addEventListener('input', updateCalc);
   });
 
-  // Highlight active nav and day on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        // Update nav
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-        if (activeLink) activeLink.classList.add('active');
-        // Update active day
-        document.querySelectorAll('.day').forEach(d => d.classList.remove('active'));
-        entry.target.classList.add('active');
+  // Scroll spy for nav + active day
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        $$('nav a').forEach(a => a.classList.remove('active'));
+        $(`nav a[href="#${e.target.id}"]`)?.classList.add('active');
+        $$('.day').forEach(d => d.classList.remove('active'));
+        e.target.classList.add('active');
       }
     });
-  }, { threshold: 0.3, rootMargin: '-60px 0px -60% 0px' });
+  }, { threshold: 0.2, rootMargin: '-60px 0px -50% 0px' });
 
-  document.querySelectorAll('.day').forEach(day => observer.observe(day));
-
-  // Detect sticky headers
-  const navHeight = window.innerWidth >= 768 ? 62 : 54;
-  const stickyObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const dayHead = entry.target.querySelector('.day-head');
-      if (dayHead) {
-        // When the top of the day card goes above the nav, the header is stuck
-        if (!entry.isIntersecting && entry.boundingClientRect.top < navHeight) {
-          dayHead.classList.add('stuck');
-        } else {
-          dayHead.classList.remove('stuck');
-        }
-      }
-    });
-  }, { threshold: 0, rootMargin: `-${navHeight}px 0px 0px 0px` });
-
-  document.querySelectorAll('.day').forEach(day => stickyObserver.observe(day));
+  $$('.day').forEach(d => obs.observe(d));
 }
 
 render();
