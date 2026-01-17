@@ -5,362 +5,359 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#09090b">
-  <title>ClassicForge</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#000">
+  <title>Training Split</title>
   <style>
     :root {
-      --bg: #09090b;
-      --bg-elevated: #18181b;
-      --bg-card: #1c1c1f;
-      --border: #27272a;
-      --border-subtle: #3f3f46;
-      --text: #fafafa;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #22c55e;
-      --accent-muted: rgba(34, 197, 94, 0.15);
-      --warning: #eab308;
-      --warning-muted: rgba(234, 179, 8, 0.15);
-      --danger: #ef4444;
-      --danger-muted: rgba(239, 68, 68, 0.15);
+      --bg: #000;
+      --surface: #0a0a0a;
+      --surface-2: #111;
+      --surface-3: #1a1a1a;
+      --border: #222;
+      --border-light: #333;
+      --text: #fff;
+      --text-2: #999;
+      --text-3: #666;
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.1);
+      --yellow: #eab308;
+      --yellow-dim: rgba(234,179,8,0.1);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.1);
       --purple: #a855f7;
-      --purple-muted: rgba(168, 85, 247, 0.15);
+      --purple-dim: rgba(168,85,247,0.1);
       --blue: #3b82f6;
-      --blue-muted: rgba(59, 130, 246, 0.15);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.3);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -4px rgba(0,0,0,0.4);
+      --blue-dim: rgba(59,130,246,0.1);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+      font-size: 15px;
       line-height: 1.5;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Header */
-    header {
-      padding: 24px 20px 20px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, var(--accent) 0%, #4ade80 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .tagline {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    /* Navigation */
+    /* Nav */
     nav {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
       position: sticky;
       top: 0;
-      background: rgba(9, 9, 11, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 12px 16px;
       z-index: 100;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      display: flex;
+      justify-content: center;
     }
+    .nav-inner {
+      display: flex;
+      gap: 2px;
+      max-width: 600px;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 10px 0;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
     nav a {
-      color: var(--text-muted);
+      flex: 1;
+      text-align: center;
+      color: var(--text-3);
       text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 4px;
+      border-radius: 8px;
+      transition: all 0.15s;
+      min-width: 44px;
     }
-    nav a:hover {
-      color: var(--text-secondary);
-      border-color: var(--border-subtle);
-    }
-    nav a:active, nav a.active {
-      color: var(--accent);
-      background: var(--accent-muted);
-      border-color: var(--accent);
+    nav a:hover { color: var(--text-2); background: var(--surface-2); }
+    nav a.active { color: var(--text); background: var(--surface-3); }
+
+    /* Container */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    /* Day Container */
-    .day {
-      margin-bottom: 8px;
-    }
-    .day-header {
+    /* Day */
+    .day { border-bottom: 1px solid var(--border); }
+    .day-head {
       position: sticky;
-      top: 52px;
+      top: 54px;
       z-index: 50;
-      background: var(--bg-elevated);
-      padding: 16px 20px;
+      background: var(--surface);
+      padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
     }
-    .day-header h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    .day-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .day-title span { color: var(--text-2); font-weight: 400; }
+    .day-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
     .day-tag {
-      font-size: 0.65rem;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-muted);
-      padding: 4px 10px;
-      border-radius: 20px;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 4px 8px;
+      border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+    .day-time {
+      font-size: 12px;
+      color: var(--text-3);
+    }
 
-    /* Exercise Card */
-    .exercise {
-      padding: 16px 20px;
+    /* Exercise */
+    .ex {
+      padding: 14px 16px;
       border-bottom: 1px solid var(--border);
-      background: var(--bg-card);
-      transition: background 0.15s ease;
+      background: var(--bg);
     }
-    .exercise:hover {
-      background: var(--bg-elevated);
-    }
-    .exercise:last-of-type {
-      border-bottom: none;
-    }
-    .exercise-top {
+    .ex:last-of-type { border-bottom: none; }
+    .ex-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-    .exercise-name {
+    .ex-name {
       font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text);
+      font-size: 15px;
       line-height: 1.3;
     }
-    .exercise-sets {
-      font-size: 0.75rem;
+    .ex-sets {
+      font-size: 12px;
       font-weight: 600;
-      color: var(--warning);
-      background: var(--warning-muted);
+      color: var(--yellow);
+      background: var(--yellow-dim);
       padding: 4px 8px;
-      border-radius: 6px;
+      border-radius: 4px;
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .exercise-notes {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
+    .ex-notes {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
     }
-    .cue {
-      color: var(--accent);
-      font-weight: 500;
-    }
-    .warn {
-      color: var(--warning);
-      font-weight: 500;
-    }
+    .cue { color: var(--green); }
+    .warn { color: var(--yellow); }
 
     /* Badges */
     .badge {
-      font-size: 0.6rem;
-      padding: 3px 6px;
-      border-radius: 4px;
-      margin-left: 8px;
+      font-size: 10px;
       font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-left: 6px;
       vertical-align: middle;
-      letter-spacing: 0.3px;
     }
-    .badge-ds {
-      background: var(--danger-muted);
-      color: var(--danger);
-    }
-    .badge-rp {
-      background: var(--purple-muted);
-      color: var(--purple);
-    }
+    .b-ds { background: var(--red-dim); color: var(--red); }
+    .b-rp { background: var(--purple-dim); color: var(--purple); }
 
     /* Alternatives */
-    .alternatives {
+    .alts {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 12px;
+      margin-top: 10px;
     }
-    .alternatives span {
-      font-size: 0.7rem;
+    .alts span {
+      font-size: 12px;
       padding: 6px 10px;
       border-radius: 6px;
-      background: var(--bg);
-      color: var(--text-muted);
+      background: var(--surface-2);
+      color: var(--text-3);
       cursor: pointer;
-      border: 1px solid var(--border);
-      transition: all 0.15s ease;
-      font-weight: 500;
+      transition: all 0.15s;
+      border: 1px solid transparent;
     }
-    .alternatives span:hover {
-      color: var(--text-secondary);
-      border-color: var(--border-subtle);
-    }
-    .alternatives span.on {
-      color: var(--accent);
-      background: var(--accent-muted);
-      border-color: var(--accent);
+    .alts span:hover { color: var(--text-2); background: var(--surface-3); }
+    .alts span.on {
+      color: var(--green);
+      background: var(--green-dim);
+      border-color: rgba(34,197,94,0.3);
     }
 
     /* Giant Set */
-    .giant-set {
-      background: linear-gradient(90deg, var(--purple-muted) 0%, var(--bg-card) 100%);
+    .gi {
       border-left: 3px solid var(--purple);
-      padding-left: 17px;
+      background: linear-gradient(90deg, var(--purple-dim) 0%, var(--bg) 50%);
     }
-    .giant-tag {
-      font-size: 0.65rem;
+    .gi-label {
+      font-size: 11px;
       font-weight: 600;
       color: var(--purple);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    /* Intent Label */
+    /* Intent */
     .intent {
-      font-size: 0.65rem;
+      font-size: 11px;
       font-weight: 600;
       color: var(--blue);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      opacity: 0.9;
+      margin-bottom: 6px;
     }
 
-    /* Cardio Bar */
-    .cardio {
-      background: var(--blue-muted);
-      padding: 12px 20px;
-      color: var(--blue);
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
+    /* Calculator */
+    .calc {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
-    .cardio-icon {
+    .calc-title {
+      font-size: 11px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .calc-row {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .cardio-icon svg {
-      width: 16px;
-      height: 16px;
+    .calc-input {
+      width: 70px;
+      padding: 8px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--surface-3);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      color: var(--text);
+      text-align: center;
     }
+    .calc-input:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+    .calc-unit {
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    .calc-result {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .calc-drop {
+      padding: 6px 10px;
+      background: var(--red-dim);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .calc-drop-pct { color: var(--red); }
+    .calc-drop-wt { color: var(--text); margin-left: 4px; }
 
-    /* Rules Section */
+    /* RP Calculator */
+    .rp-result {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .rp-set {
+      padding: 6px 10px;
+      background: var(--purple-dim);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .rp-arrow { color: var(--text-3); font-size: 11px; }
+
+    /* Section */
+    .section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
     .section-title {
-      font-size: 0.7rem;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text-3);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      padding: 24px 20px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .rule-card {
-      background: var(--bg-card);
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .rule-card:last-child {
-      border-bottom: none;
-    }
-    .rule-card h3 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--blue);
+      letter-spacing: 1px;
       margin-bottom: 12px;
     }
-    .rule-card ul {
-      list-style: none;
-    }
-    .rule-card li {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      padding: 8px 0;
+    .rule {
+      padding: 12px 0;
       border-bottom: 1px solid var(--border);
+    }
+    .rule:last-child { border-bottom: none; padding-bottom: 0; }
+    .rule:first-of-type { padding-top: 0; }
+    .rule-head {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .rule-item {
       display: flex;
       gap: 8px;
+      font-size: 13px;
+      color: var(--text-2);
+      padding: 4px 0;
     }
-    .rule-card li:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .rule-card strong {
+    .rule-item strong {
       color: var(--text);
       font-weight: 500;
-      flex-shrink: 0;
     }
 
     /* Footer */
     footer {
-      padding: 32px 20px;
+      padding: 24px 16px;
       text-align: center;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      border-top: 1px solid var(--border);
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+      font-size: 12px;
+      color: var(--text-3);
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-subtle);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-muted);
+    /* Desktop */
+    @media (min-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-inner { padding: 12px 0; gap: 4px; }
+      nav a { font-size: 14px; padding: 10px 16px; }
+      .day-head { padding: 16px 20px; top: 62px; }
+      .ex { padding: 16px 20px; }
+      .section { padding: 20px; }
+      .ex-name { font-size: 16px; }
+      .ex-notes { font-size: 14px; }
     }
 
-    /* Mobile optimizations */
+    /* Small mobile */
     @media (max-width: 380px) {
-      nav a { padding: 6px 8px; font-size: 0.7rem; }
-      .day-header h2 { font-size: 0.9rem; }
-      .exercise { padding: 14px 16px; }
+      nav a { font-size: 11px; padding: 6px 2px; }
+      .day-head { padding: 12px 14px; }
+      .day-title { font-size: 14px; }
+      .ex { padding: 12px 14px; }
+      .ex-name { font-size: 14px; }
+      .ex-notes { font-size: 12px; }
     }
   </style>
 </head>
@@ -368,308 +365,388 @@
 <div id="root"></div>
 <script>
 const DATA={
-  nav:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
   days:[
-    {t:"Monday",sub:"Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
+    {d:"Mon",t:"Chest + Delts",g:"Upper Chest",c:"25-40m",ex:[
       {s:"1×6-8 + 2×8-12",v:[
         ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip—forearms vertical at bottom.</span> Touch just below clavicle. Don't lock out."],
-        ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure. Forearms vertical at bottom."],
-        ["Hammer Strength Incline","Plate-loaded machine. Adjust seat so handles align with upper chest."],
-        ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span> Deep stretch."]]},
+        ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure."],
+        ["Hammer Strength Incline","Plate-loaded. Adjust seat so handles align with upper chest."],
+        ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span>"]]},
       {s:"3×8-12",v:[
-        ["Flat Barbell Bench","<span class='cue'>Medium grip—forearms vertical at bottom.</span> Slight arch. Drive through chest, not front delts."],
-        ["Hammer Strength Flat","Plate-loaded. Handles at nipple line. Push to failure safely."],
-        ["Smith Flat Press","Fixed path. Set safeties 1\" above chest for failure."],
-        ["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom. Touch DBs at top."]]},
+        ["Flat Barbell Bench","<span class='cue'>Medium grip—forearms vertical at bottom.</span> Slight arch. Drive through chest."],
+        ["Hammer Strength Flat","Plate-loaded. Handles at nipple line."],
+        ["Smith Flat Press","Fixed path. Set safeties 1\" above chest."],
+        ["Flat Dumbbell Press","<span class='cue'>Neutral or 45° grip.</span> Full stretch at bottom."]]},
       {s:"3×12-15",b:"ds",v:[
-        ["Low-to-High Cable Fly","<span class='cue'>D-handles, pulleys at lowest.</span> Arc to eye level. 2s squeeze at top."],
-        ["Incline Dumbbell Fly","30° bench. <span class='cue'>Palms facing, slight elbow bend.</span> Deep pec stretch at bottom."],
-        ["Pec Deck Machine","Adjust seat so handles are at mid-chest. Squeeze 2s at contraction."],
-        ["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys at top.</span> Cross at belly button for lower pec."]]},
+        ["Low-to-High Cable Fly","<span class='cue'>D-handles, pulleys at lowest.</span> Arc to eye level. 2s squeeze."],
+        ["Incline Dumbbell Fly","30° bench. <span class='cue'>Slight elbow bend.</span> Deep pec stretch."],
+        ["Pec Deck","Handles at mid-chest. Squeeze 2s at contraction."],
+        ["High-to-Low Cable Fly","<span class='cue'>Pulleys at top.</span> Cross at belly button."]]},
       {s:"5×12-20",b:"ds",v:[
         ["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down, pinkies up.</span> Lead with elbows. <span class='warn'>15-20lb max.</span>"],
-        ["Cable Lateral Raise","<span class='cue'>D-handle, low pulley, cross behind body.</span> Constant tension at bottom."],
-        ["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads, lead with elbows."],
-        ["Seated Dumbbell Lateral","Sit on bench end. No momentum possible. Strict form only."]]}
+        ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind body.</span> Constant tension."],
+        ["Machine Lateral Raise","Fixed path = no cheating. Elbows into pads."],
+        ["Seated Dumbbell Lateral","Sit on bench end. No momentum."]]}
     ]},
-    {t:"Tuesday",sub:"Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
+    {d:"Tue",t:"Back + Rear Delts",g:"Thickness",c:"25-40m",ex:[
       {s:"1×6-8 + 2×8-12",v:[
-        ["Chest-Supported DB Row","Incline bench at 30-45°. <span class='cue'>Neutral grip DBs.</span> Full stretch, squeeze blades at top."],
-        ["Hammer Strength Row","Plate-loaded. <span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
-        ["T-Bar Row (V-Handle)","<span class='cue'>Neutral-grip V-handle.</span> Pull to lower chest. Keep back at 45°."],
-        ["Seal Row (Barbell)","Flat bench elevated. <span class='cue'>Overhand grip, shoulder-width.</span> Zero momentum."]]},
+        ["Chest-Supported DB Row","Incline bench 30-45°. <span class='cue'>Neutral grip.</span> Full stretch, squeeze blades."],
+        ["Hammer Strength Row","<span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
+        ["T-Bar Row (V-Handle)","<span class='cue'>Neutral-grip V-handle.</span> Pull to lower chest."],
+        ["Seal Row","Flat bench elevated. <span class='cue'>Overhand grip.</span> Zero momentum."]]},
       {s:"3×8-12",v:[
-        ["Wide-Grip Lat Pulldown","<span class='cue'>Long lat bar, overhand, hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
-        ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar attachment, neutral grip.</span> Pull to sternum. Lower lat focus."],
-        ["Assisted Pull-Up Machine","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
-        ["Neutral-Grip Pulldown","<span class='cue'>Parallel handles or MAG grip.</span> Pull to upper chest. Easy on shoulders."]]},
-      {s:"3×8-12",v:[
-        ["Seated Cable Row (V-Bar)","<span class='cue'>Close-grip V-bar, neutral.</span> Pull to lower chest, not belly. Squeeze blades."],
-        ["Machine Row (Chest-Supported)","Chest on pad throughout. <span class='cue'>Neutral or pronated handles.</span>"],
-        ["Single-Arm Cable Row","<span class='cue'>D-handle, low pulley.</span> Pull to hip pocket. Full stretch forward."],
-        ["Hammer Strength Low Row","Plate-loaded. <span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
-      {s:"3×10-12",i:"Upper Back (Rhomboids/Mid Traps)",v:[
-        ["Wide Cable Row (Lat Bar)","<span class='cue'>Wide lat bar, overhand, elbows flared 60°.</span> Pull to upper chest. Squeeze blades together."],
-        ["DB Row Elbows Flared","<span class='cue'>Overhand grip, elbow points OUT not back.</span> Targets mid traps/rhomboids."],
-        ["Chest-Supported Wide Row","Incline bench. <span class='cue'>DBs with elbows flared 45-60°.</span> Pinch blades hard."],
-        ["Wide Hammer Row","Machine if available. <span class='cue'>Wide handles, overhand, elbows out.</span> Loaded row for thickness."]]},
-      {s:"3×12-15",v:[
-        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope attachment.</span> Pull to thighs, split rope at bottom. Lower lat sweep."],
-        ["Straight-Arm Pulldown (Lat Bar)","<span class='cue'>Shoulder-width overhand.</span> Full overhead stretch to hips."],
-        ["Single-Arm Pulldown (D-Handle)","<span class='cue'>D-handle.</span> Arc toward hip pocket. Builds sweep."]]},
-      {s:"3×12-20",b:"ds",v:[
-        ["Rear Delt Fly (DBs)","Bent 45° or chest-supported. <span class='cue'>Neutral grip, pinkies lead.</span> Don't swing."],
-        ["Reverse Pec Deck","<span class='cue'>Handles, not pads.</span> Neutral grip. 2s squeeze at back."],
-        ["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Pull to forehead, externally rotate at end."],
-        ["High Cable Rear Fly","<span class='cue'>D-handles, cables at head height, arms crossed.</span> Open up and back."]]}
-    ]},
-    {t:"Wednesday",sub:"Arms + Delts",g:"Pump",c:"20-30m",ex:[
-      {s:"3×10-12",v:[
-        ["Overhead Cable Extension (Rope)","<span class='cue'>Rope, low pulley, face away.</span> Full stretch at bottom. Spread rope at top."],
-        ["Overhead Cable Extension (EZ Bar)","<span class='cue'>EZ-curl bar attachment, narrow grip.</span> Elbows by ears, full stretch."],
-        ["Dual Cable Overhead Extension","<span class='cue'>D-handles, stand between stacks.</span> Natural arm path."],
-        ["Seated Overhead DB Extension","<span class='cue'>Single heavy DB, diamond grip on plate.</span> Lower behind head, full stretch."]]},
-      {s:"3×10-12",b:"ds",v:[
-        ["Tricep Pressdown (Straight Bar)","<span class='cue'>Short straight bar, overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
-        ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Allows heavier load. Full lockout."],
-        ["Tricep Pressdown (Rope)","<span class='cue'>Rope attachment.</span> Spread rope at bottom for lateral head."],
-        ["Single-Arm Pressdown (D-Handle)","<span class='cue'>D-handle, underhand or neutral.</span> Unilateral. Address imbalances."]]},
-      {s:"2×10-12",v:[
-        ["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Start neutral, supinate as you curl.</span> Arms behind torso = max long head stretch."],
-        ["Bayesian Cable Curl","<span class='cue'>D-handle, low pulley behind you.</span> Same long-head stretch as incline."],
-        ["Preacher Curl (EZ Bar)","<span class='cue'>EZ bar, narrow grip on inner angles.</span> Pad at armpit height."]]},
-      {s:"3×8-12",v:[
-        ["EZ Bar Cable Curl","<span class='cue'>EZ-curl bar attachment, narrow grip.</span> Full ROM + 4-5 partials from stretch."],
-        ["Straight Bar Cable Curl","<span class='cue'>Short straight bar, underhand, shoulder-width.</span> Constant tension. Great pump."],
-        ["Machine Preacher Curl","Pad eliminates momentum. <span class='cue'>Underhand grip.</span> Full stretch at bottom."],
-        ["Dumbbell Curl (Supinating)","<span class='cue'>Start neutral, rotate to supinated at top.</span> Squeeze peak."]]},
-      {s:"4×15-20",b:"ds",v:[
-        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs slightly down.</span> Pump set. Chase the burn."],
-        ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind.</span> Constant tension throughout."],
-        ["Machine Lateral Raise","Zero cheating possible. Elbows into pads."],
-        ["Leaning Cable Lateral","Grab pole, lean 20° away. <span class='cue'>D-handle, low pulley.</span> Brutal stretch."]]},
-      {s:"3×12-15",v:[
-        ["Machine Crunch","Ribs to hips, round spine. <span class='warn'>Light weight, feel abs.</span>"],
-        ["Decline Crunch","Bodyweight. Hands across chest. Curl up, don't sit up."],
-        ["Ab Wheel Rollout","Knees on pad. Roll out, stay tight. Don't let hips sag."]]}
-    ]},
-    {t:"Thursday",sub:"Legs",g:"Main Day",c:"15-30m",ex:[
-      {s:"4×10-15",b:"rp",v:[
-        ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down (plantarflexed).</span> Squeeze at contraction."],
-        ["Lying Leg Curl","Prone. <span class='cue'>Hips flat on pad—don't let them rise.</span> Toes down."],
-        ["Single-Leg Lying Curl","Unilateral. Address imbalances. Same cues."],
-        ["Kneeling Leg Curl","If available. <span class='cue'>Hip extended throughout.</span> Great hamstring stretch."]]},
-      {s:"1×8-12 + 2×10-15",v:[
-        ["Leg Press","<span class='cue'>Feet shoulder-width, mid-height on platform.</span> Don't lock knees. Full depth."],
-        ["Belt Squat","Zero spinal load. <span class='cue'>Shoulder-width stance, toes slightly out.</span> Full ROM."],
-        ["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
-        ["Hack Squat","<span class='cue'>Back flat on pad, feet low on platform.</span> Quad dominant."]]},
-      {s:"3×8-12",v:[
-        ["Belt Squat","Spine-safe volume. <span class='cue'>Wider stance = more adductors.</span> Go deep."],
-        ["Single-Leg Press","<span class='cue'>Foot centered, mid-height.</span> Address imbalances."],
-        ["Lever Squat","Plate-loaded machine. <span class='cue'>Adjust shoulder pads.</span> Minimal back stress."],
-        ["Smith Front Squat","<span class='cue'>Heels elevated 1-2\", arms crossed or clean grip.</span> Upright torso."]]},
-      {s:"3×12-15",b:"ds",v:[
-        ["Leg Extension","<span class='cue'>Toes pointed up (dorsiflexed).</span> Hold 1s at full contraction."],
-        ["Single-Leg Extension","Unilateral. Same cues. Feel the VMO."],
-        ["Sissy Squat","Bodyweight or holding plate. <span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
-      {s:"3×15-20",v:[
-        ["Standing Calf Raise","<span class='cue'>Straight legs, come up on big toe.</span> Gastroc focus."],
-        ["Leg Press Calf Raise","Toes on edge. <span class='cue'>Full 4s negative, 2s squeeze at top.</span>"],
-        ["Smith Calf Raise","Heavy and stable. <span class='cue'>Block under balls of feet.</span> Full stretch."],
-        ["Donkey Calf Raise","Bent at hips 90°. <span class='cue'>Great loaded stretch.</span>"]]},
-      {s:"3×10-15",v:[
-        ["Lying Leg Raise","<span class='cue'>Lower back pressed into bench.</span> Curl pelvis up at top."],
-        ["Captain's Chair Leg Raise","Don't swing. <span class='cue'>Round lower back, curl knees to chest.</span>"],
-        ["Decline Crunch","Hands across chest. <span class='cue'>Curl up, don't sit up.</span>"],
-        ["Ab Wheel Rollout","Full extension. <span class='cue'>Hollow body, don't let hips sag.</span>"]]}
-    ]},
-    {t:"Friday",sub:"Push + Pull",g:"Pump",c:"20-30m",ex:[
-      {s:"3×8-12",v:[
-        ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, medium grip—forearms vertical.</span> Mind-muscle."],
-        ["Smith Incline Press","Fixed path. <span class='cue'>Same angle, same grip.</span> Great for drop sets."],
-        ["Incline Dumbbell Press","<span class='cue'>Neutral to pronated grip.</span> Deeper stretch. Touch DBs at top."],
-        ["Hammer Strength Incline","Plate-loaded. Stable = push to failure safely."]]},
-      {s:"3×12-15",b:"ds",v:[
-        ["Cable Fly (Mid-Height)","<span class='cue'>D-handles, pulleys at chest height.</span> Different angle than Monday."],
-        ["Pec Deck Machine","Handles at mid-chest. Squeeze 2s at contraction."],
-        ["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend, palms facing.</span> Deep stretch at bottom."],
-        ["High-to-Low Cable Fly","<span class='cue'>D-handles, pulleys high.</span> Lower chest emphasis."]]},
-      {s:"3×10-15/side",v:[
-        ["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET, not chest. Lower lat sweep."],
+        ["Wide-Grip Lat Pulldown","<span class='cue'>Hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
         ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Pull to sternum."],
-        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope, split at bottom.</span> Pull to thighs. Squeeze hard."]]},
+        ["Assisted Pull-Up","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
+        ["Neutral-Grip Pulldown","<span class='cue'>Parallel handles.</span> Easy on shoulders."]]},
+      {s:"3×8-12",v:[
+        ["Seated Cable Row (V-Bar)","<span class='cue'>Close-grip V-bar.</span> Pull to lower chest. Squeeze blades."],
+        ["Machine Row","Chest on pad. <span class='cue'>Neutral or pronated handles.</span>"],
+        ["Single-Arm Cable Row","<span class='cue'>D-handle.</span> Pull to hip pocket."],
+        ["Hammer Strength Low Row","<span class='cue'>Neutral grip.</span> Drive elbows past torso."]]},
+      {s:"3×10-12",i:"Upper Back",v:[
+        ["Wide Cable Row","<span class='cue'>Lat bar, elbows flared 60°.</span> Pull to upper chest. Squeeze blades."],
+        ["DB Row Elbows Flared","<span class='cue'>Elbow points OUT not back.</span> Targets mid traps/rhomboids."],
+        ["Chest-Supported Wide Row","<span class='cue'>DBs with elbows flared 45-60°.</span> Pinch blades."],
+        ["Wide Hammer Row","<span class='cue'>Wide handles, elbows out.</span>"]]},
       {s:"3×12-15",v:[
-        ["Chest-Supported DB Row","<span class='cue'>Neutral grip.</span> Lighter than Tue—pump work."],
-        ["Machine Row","<span class='cue'>Neutral or pronated grip.</span> Easy drop sets."],
-        ["Seated Cable Row (V-Bar)","<span class='cue'>V-bar, neutral.</span> Squeeze blades together."],
-        ["Single-Arm DB Row","<span class='cue'>Neutral grip.</span> Full stretch to hip."]]},
-      {s:"15-20 each",gi:true,v:[
-        ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals (thumbs down) → Rear fly (pinkies lead). ×3, 60-90s after round."]]}
+        ["Straight-Arm Pulldown (Rope)","<span class='cue'>Rope.</span> Pull to thighs, split at bottom."],
+        ["Straight-Arm Pulldown (Bar)","<span class='cue'>Shoulder-width overhand.</span> Full stretch to hips."],
+        ["Single-Arm Pulldown","<span class='cue'>D-handle.</span> Arc toward hip pocket."]]},
+      {s:"3×12-20",b:"ds",v:[
+        ["Rear Delt Fly (DBs)","Bent 45° or chest-supported. <span class='cue'>Pinkies lead.</span>"],
+        ["Reverse Pec Deck","<span class='cue'>Handles, not pads.</span> 2s squeeze at back."],
+        ["Face Pull","<span class='cue'>Rope, high pulley.</span> Externally rotate at end."],
+        ["High Cable Rear Fly","<span class='cue'>Cables at head height, crossed.</span>"]]}
     ]},
-    {t:"Saturday",sub:"Weak Points",g:"Recovery",c:"15-20m",ex:[
-      {s:"2×12-15",v:[
-        ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow only—keep it light."],
-        ["Lying Leg Curl","<span class='cue'>Hips flat.</span> Same idea. Feel the squeeze."],
-        ["Single-Leg Curl","Unilateral. Address imbalances if needed."]]},
-      {s:"2×12-15",v:[
-        ["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance, not growth."],
-        ["Single-Leg Extension","Unilateral option. Feel the VMO."],
-        ["Sissy Squat","Bodyweight only. Gentle stretch."]]},
-      {s:"4×15-20",v:[
-        ["Calf Raises","Alternate seated/standing weekly for soleus/gastroc."],
-        ["Seated Calf Raise","<span class='cue'>Bent knee = soleus.</span> Full ROM, 2s holds."],
-        ["Standing Calf Raise","<span class='cue'>Straight leg = gastroc.</span> Pause at top."]]},
-      {s:"3×15-20",v:[
-        ["Rear Delt Fly (DBs)","3rd session. <span class='cue'>Neutral grip, pinkies lead.</span> High frequency = growth."],
-        ["Face Pull (Rope)","<span class='cue'>Rope, high pulley.</span> Light. External rotate at end."],
-        ["Reverse Pec Deck","<span class='cue'>Handles, neutral grip.</span> Constant tension."]]},
-      {s:"3×30s",v:[
-        ["Stomach Vacuum","<span class='cue'>Exhale fully, pull navel to spine.</span> Hold. Practice transverse."],
-        ["Vacuum + Front Double Bi","Hit front pose while holding vacuum. Practice control."],
-        ["Vacuum + Side Chest","Gut in, twist toward mirror. Hold and breathe shallow."]]}
-    ]},
-    {t:"Sunday",sub:"Delts + Arms",g:"Frequency",c:"20-30m",ex:[
-      {s:"5×12-20",b:"ds",v:[
-        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down, pinkies up.</span> 4th side delt session. Chase failure."],
-        ["Cable Lateral Raise","<span class='cue'>D-handle, cross behind.</span> Constant tension. Go light, go long."],
-        ["Machine Lateral Raise","No cheating. Elbows into pads. High reps."],
-        ["Leaning Cable Lateral","Grab pole, lean away. <span class='cue'>Brutal stretch at bottom.</span>"]]},
+    {d:"Wed",t:"Arms + Delts",g:"Pump",c:"20-30m",ex:[
       {s:"3×10-12",v:[
-        ["Overhead Cable Extension (Rope)","<span class='cue'>Rope, face away, low pulley.</span> Long head stretch first."],
-        ["Overhead Cable Extension (EZ Bar)","<span class='cue'>EZ bar attachment.</span> Elbows by ears, full stretch."],
+        ["Overhead Cable Extension (Rope)","<span class='cue'>Low pulley, face away.</span> Full stretch. Spread rope at top."],
+        ["Overhead Cable Extension (EZ)","<span class='cue'>EZ-bar, narrow grip.</span> Elbows by ears."],
+        ["Dual Cable Overhead Extension","<span class='cue'>D-handles, between stacks.</span>"],
         ["Seated Overhead DB Extension","<span class='cue'>Single DB, diamond grip.</span> Lower behind head."]]},
       {s:"3×10-12",b:"ds",v:[
-        ["Tricep Pressdown (Rope)","<span class='cue'>Rope, spread at bottom.</span> Contracted position. Pump finisher."],
-        ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Heavier load option."],
-        ["Single-Arm Pressdown","<span class='cue'>D-handle.</span> Unilateral finishing work."]]},
+        ["Tricep Pressdown (Straight Bar)","<span class='cue'>Overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
+        ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral.</span> Heavier load. Full lockout."],
+        ["Tricep Pressdown (Rope)","<span class='cue'>Rope.</span> Spread at bottom for lateral head."],
+        ["Single-Arm Pressdown","<span class='cue'>D-handle.</span> Unilateral."]]},
       {s:"2×10-12",v:[
-        ["Incline Dumbbell Curl","<span class='cue'>45°, supinate at top.</span> Long head stretch first."],
-        ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span> Same stretch position."],
-        ["Preacher Curl (EZ Bar)","<span class='cue'>EZ bar, narrow grip.</span> Pad at armpit height."]]},
-      {s:"3×10-12",v:[
-        ["Cable Curl (EZ Bar)","<span class='cue'>EZ bar, narrow grip.</span> Constant tension. Contracted position."],
-        ["Straight Bar Cable Curl","<span class='cue'>Short straight bar.</span> Great pump."],
-        ["Hammer Curl","<span class='cue'>Neutral grip.</span> Brachialis focus."]]},
+        ["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Supinate as you curl.</span> Max long head stretch."],
+        ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span> Same stretch as incline."],
+        ["Preacher Curl (EZ)","<span class='cue'>Narrow grip on inner angles.</span> Pad at armpit."]]},
+      {s:"3×8-12",v:[
+        ["EZ Bar Cable Curl","<span class='cue'>Narrow grip.</span> Full ROM + 4-5 partials."],
+        ["Straight Bar Cable Curl","<span class='cue'>Shoulder-width.</span> Constant tension."],
+        ["Machine Preacher Curl","Pad eliminates momentum. Full stretch."],
+        ["Dumbbell Curl (Supinating)","<span class='cue'>Start neutral, rotate to supinated.</span>"]]},
+      {s:"4×15-20",b:"ds",v:[
+        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down.</span> Pump set. Chase the burn."],
+        ["Cable Lateral Raise","<span class='cue'>Cross behind.</span> Constant tension."],
+        ["Machine Lateral Raise","Zero cheating. Elbows into pads."],
+        ["Leaning Cable Lateral","Lean 20° away. <span class='cue'>Brutal stretch.</span>"]]},
+      {s:"3×12-15",v:[
+        ["Machine Crunch","Ribs to hips. <span class='warn'>Light weight, feel abs.</span>"],
+        ["Decline Crunch","Hands across chest. Curl up, don't sit up."],
+        ["Ab Wheel Rollout","Stay tight. Don't let hips sag."]]}
+    ]},
+    {d:"Thu",t:"Legs",g:"Main Day",c:"15-30m",ex:[
+      {s:"4×10-15",b:"rp",v:[
+        ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down.</span> Squeeze at contraction."],
+        ["Lying Leg Curl","<span class='cue'>Hips flat—don't let them rise.</span> Toes down."],
+        ["Single-Leg Lying Curl","Unilateral. Address imbalances."],
+        ["Kneeling Leg Curl","<span class='cue'>Hip extended throughout.</span>"]]},
+      {s:"1×8-12 + 2×10-15",v:[
+        ["Leg Press","<span class='cue'>Feet shoulder-width, mid-height.</span> Don't lock knees. Full depth."],
+        ["Belt Squat","Zero spinal load. <span class='cue'>Toes slightly out.</span> Full ROM."],
+        ["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
+        ["Hack Squat","<span class='cue'>Back flat, feet low.</span> Quad dominant."]]},
+      {s:"3×8-12",v:[
+        ["Belt Squat","Spine-safe volume. <span class='cue'>Wider stance = more adductors.</span>"],
+        ["Single-Leg Press","<span class='cue'>Foot centered.</span> Address imbalances."],
+        ["Lever Squat","<span class='cue'>Adjust shoulder pads.</span> Minimal back stress."],
+        ["Smith Front Squat","<span class='cue'>Heels elevated 1-2\".</span> Upright torso."]]},
+      {s:"3×12-15",b:"ds",v:[
+        ["Leg Extension","<span class='cue'>Toes up.</span> Hold 1s at full contraction."],
+        ["Single-Leg Extension","Feel the VMO."],
+        ["Sissy Squat","<span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
+      {s:"3×15-20",v:[
+        ["Standing Calf Raise","<span class='cue'>Straight legs, big toe.</span> Gastroc focus."],
+        ["Leg Press Calf Raise","<span class='cue'>Full 4s negative, 2s squeeze.</span>"],
+        ["Smith Calf Raise","Heavy and stable. Full stretch."],
+        ["Donkey Calf Raise","Bent at hips 90°."]]},
+      {s:"3×10-15",v:[
+        ["Lying Leg Raise","<span class='cue'>Lower back pressed into bench.</span> Curl pelvis up."],
+        ["Captain's Chair Leg Raise","<span class='cue'>Round lower back, curl knees to chest.</span>"],
+        ["Decline Crunch","Curl up, don't sit up."],
+        ["Ab Wheel Rollout","<span class='cue'>Hollow body.</span>"]]}
+    ]},
+    {d:"Fri",t:"Push + Pull",g:"Pump",c:"20-30m",ex:[
+      {s:"3×8-12",v:[
+        ["Incline Barbell Press","2nd upper chest hit. <span class='cue'>30-35°, forearms vertical.</span>"],
+        ["Smith Incline Press","Fixed path. Great for drop sets."],
+        ["Incline Dumbbell Press","<span class='cue'>Neutral to pronated.</span> Touch DBs at top."],
+        ["Hammer Strength Incline","Stable = push to failure safely."]]},
+      {s:"3×12-15",b:"ds",v:[
+        ["Cable Fly (Mid-Height)","<span class='cue'>Pulleys at chest height.</span> Different angle than Monday."],
+        ["Pec Deck","Squeeze 2s at contraction."],
+        ["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend.</span> Deep stretch."],
+        ["High-to-Low Cable Fly","<span class='cue'>Pulleys high.</span> Lower chest emphasis."]]},
+      {s:"3×10-15/side",v:[
+        ["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET. Lower lat sweep."],
+        ["Close-Grip Pulldown","<span class='cue'>V-bar.</span> Pull to sternum."],
+        ["Straight-Arm Pulldown","<span class='cue'>Rope, split at bottom.</span>"]]},
+      {s:"3×12-15",v:[
+        ["Chest-Supported DB Row","<span class='cue'>Neutral grip.</span> Lighter—pump work."],
+        ["Machine Row","Easy drop sets."],
+        ["Seated Cable Row","<span class='cue'>V-bar.</span> Squeeze blades."],
+        ["Single-Arm DB Row","Full stretch to hip."]]},
+      {s:"15-20 each",gi:true,v:[
+        ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals → Rear fly. ×3 rounds, 60-90s rest."]]}
+    ]},
+    {d:"Sat",t:"Weak Points",g:"Recovery",c:"15-20m",ex:[
+      {s:"2×12-15",v:[
+        ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow—keep it light."],
+        ["Lying Leg Curl","Feel the squeeze."],
+        ["Single-Leg Curl","Address imbalances."]]},
+      {s:"2×12-15",v:[
+        ["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance."],
+        ["Single-Leg Extension","Feel the VMO."],
+        ["Sissy Squat","Bodyweight only."]]},
       {s:"4×15-20",v:[
-        ["Standing Calf Raise","<span class='cue'>Straight legs, big toe emphasis.</span> 2nd calf session of week."],
-        ["Seated Calf Raise","<span class='cue'>Bent knee, soleus.</span> Full ROM always."],
-        ["Leg Press Calf Raise","Toes on edge. <span class='cue'>Control the negative.</span>"]]},
+        ["Calf Raises","Alternate seated/standing weekly."],
+        ["Seated Calf Raise","<span class='cue'>Bent knee = soleus.</span> 2s holds."],
+        ["Standing Calf Raise","<span class='cue'>Straight leg = gastroc.</span>"]]},
+      {s:"3×15-20",v:[
+        ["Rear Delt Fly (DBs)","3rd session. <span class='cue'>Pinkies lead.</span>"],
+        ["Face Pull","<span class='cue'>High pulley.</span> Light. External rotate."],
+        ["Reverse Pec Deck","Constant tension."]]},
       {s:"3×30s",v:[
-        ["Stomach Vacuum","<span class='cue'>Daily practice builds the waist control.</span> Hold longer each week."],
-        ["Vacuum + Poses","Cycle through mandatories while holding vacuum."],
-        ["Breathing Vacuum","Shallow breaths while holding. Stage simulation."]]}
+        ["Stomach Vacuum","<span class='cue'>Exhale fully, pull navel to spine.</span> Hold."],
+        ["Vacuum + Front Double Bi","Hold vacuum while posing."],
+        ["Vacuum + Side Chest","Gut in, twist toward mirror."]]}
+    ]},
+    {d:"Sun",t:"Delts + Arms",g:"Frequency",c:"20-30m",ex:[
+      {s:"5×12-20",b:"ds",v:[
+        ["Dumbbell Lateral Raise","<span class='cue'>Thumbs down, pinkies up.</span> 4th side delt session."],
+        ["Cable Lateral Raise","<span class='cue'>Cross behind.</span> Go light, go long."],
+        ["Machine Lateral Raise","No cheating. High reps."],
+        ["Leaning Cable Lateral","<span class='cue'>Brutal stretch at bottom.</span>"]]},
+      {s:"3×10-12",v:[
+        ["Overhead Cable Extension (Rope)","<span class='cue'>Face away.</span> Long head stretch."],
+        ["Overhead Cable Extension (EZ)","Elbows by ears."],
+        ["Seated Overhead DB Extension","<span class='cue'>Diamond grip.</span> Lower behind head."]]},
+      {s:"3×10-12",b:"ds",v:[
+        ["Tricep Pressdown (Rope)","<span class='cue'>Spread at bottom.</span> Pump finisher."],
+        ["Tricep Pressdown (V-Bar)","Heavier load option."],
+        ["Single-Arm Pressdown","Unilateral."]]},
+      {s:"2×10-12",v:[
+        ["Incline Dumbbell Curl","<span class='cue'>45°, supinate at top.</span> Long head stretch."],
+        ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span>"],
+        ["Preacher Curl (EZ)","Pad at armpit height."]]},
+      {s:"3×10-12",v:[
+        ["Cable Curl (EZ Bar)","<span class='cue'>Narrow grip.</span> Constant tension."],
+        ["Straight Bar Cable Curl","Great pump."],
+        ["Hammer Curl","<span class='cue'>Neutral grip.</span> Brachialis."]]},
+      {s:"4×15-20",v:[
+        ["Standing Calf Raise","<span class='cue'>Big toe emphasis.</span> 2nd session."],
+        ["Seated Calf Raise","<span class='cue'>Bent knee, soleus.</span>"],
+        ["Leg Press Calf Raise","Control the negative."]]},
+      {s:"3×30s",v:[
+        ["Stomach Vacuum","Hold longer each week."],
+        ["Vacuum + Poses","Cycle through mandatories."],
+        ["Breathing Vacuum","Shallow breaths while holding."]]}
     ]}
   ],
   rules:[
-    {t:"Warm-Up Protocol",items:[
-      {k:"First lift",v:"20 → 12 → 8 → 4 reps (feeder sets)"},
-      {k:"Work sets",v:"RPE 9-10 top set, then back-offs"}
+    {t:"Warm-Up",items:[
+      ["First lift","20 → 12 → 8 → 4 reps (feeder sets)"],
+      ["Work sets","RPE 9-10 top set, then back-offs"]
     ]},
     {t:"Intensity Techniques",items:[
-      {k:"<span class='badge badge-ds'>DS</span> Drop Set",v:"Drop 20-30%, immediately go to failure"},
-      {k:"<span class='badge badge-rp'>RP</span> Rest-Pause",v:"10 reps → 15s rest → 5 reps → 15s rest → 3 reps"}
+      ["<span class='badge b-ds'>DS</span> Drop Set","Drop 20-30%, immediately go to failure"],
+      ["<span class='badge b-rp'>RP</span> Rest-Pause","10 reps → 15s → 5 reps → 15s → 3 reps"]
     ]},
     {t:"Rest Periods",items:[
-      {k:"Compounds",v:"90-120 seconds"},
-      {k:"Isolation",v:"45-75 seconds"},
-      {k:"Deload",v:"Every 6-8 weeks, reduce volume by 50%"}
+      ["Compounds","90-120 seconds"],
+      ["Isolation","45-75 seconds"],
+      ["Deload","Every 6-8 weeks, reduce volume 50%"]
     ]},
     {t:"Weekly Frequency",items:[
-      {k:"Upper chest",v:"2×/wk (Mon, Fri)"},
-      {k:"Side delts",v:"4×/wk (Mon, Wed, Fri, Sun)"},
-      {k:"Rear delts",v:"3×/wk (Tue, Fri, Sat)"},
-      {k:"Arms",v:"2×/wk (Wed, Sun)"},
-      {k:"Calves",v:"2×/wk (Thu, Sun)"},
-      {k:"Lower lats",v:"Pull to hip pocket, not chest"}
+      ["Upper chest","2×/wk (Mon, Fri)"],
+      ["Side delts","4×/wk (Mon, Wed, Fri, Sun)"],
+      ["Rear delts","3×/wk (Tue, Fri, Sat)"],
+      ["Arms","2×/wk (Wed, Sun)"],
+      ["Calves","2×/wk (Thu, Sun)"]
     ]},
-    {t:"Missed Day Protocol",items:[
-      {k:"7-day split",v:"No dedicated makeup—swap or skip"},
-      {k:"Miss Mon-Thu",v:"Shift remaining days forward, rest Sunday"},
-      {k:"Miss Fri-Sun",v:"Skip it, start fresh Monday"},
-      {k:"Miss 2+ days",v:"Resume where you left off, don't double up"}
+    {t:"Missed Day",items:[
+      ["7-day split","No dedicated makeup—swap or skip"],
+      ["Miss Mon-Thu","Shift remaining days forward"],
+      ["Miss Fri-Sun","Skip it, start fresh Monday"]
     ]}
   ]
 };
 
-function render(){
-  const root=document.getElementById('root');
+function calcDropSet(weight) {
+  if (!weight || weight <= 0) return [];
+  return [
+    { pct: 20, wt: Math.round(weight * 0.8 / 5) * 5 },
+    { pct: 30, wt: Math.round(weight * 0.7 / 5) * 5 },
+    { pct: 40, wt: Math.round(weight * 0.6 / 5) * 5 }
+  ];
+}
 
-  const header=`
-    <header>
-      <div class="logo">ClassicForge</div>
-      <div class="tagline">7-Day Classic Physique Split</div>
-    </header>
-  `;
+function calcRestPause(reps) {
+  const r = reps || 10;
+  return [r, Math.round(r * 0.5), Math.round(r * 0.3)];
+}
 
-  const nav=`<nav>${DATA.nav.map((n,i)=>
-    `<a href="#d${i}">${n}</a>`
-  ).join('')}</nav>`;
+function render() {
+  const root = document.getElementById('root');
 
-  const days=DATA.days.map((d,di)=>`
+  const nav = `<nav><div class="nav-inner">${DATA.days.map((d,i) =>
+    `<a href="#d${i}">${d.d}</a>`
+  ).join('')}<a href="#rules">?</a></div></nav>`;
+
+  const days = DATA.days.map((day, di) => `
     <div class="day" id="d${di}">
-      <div class="day-header">
-        <h2>${d.t} <span style="color:var(--text-muted);font-weight:400">· ${d.sub}</span></h2>
-        <span class="day-tag">${d.g}</span>
+      <div class="day-head">
+        <div class="day-title">${day.d} <span>· ${day.t}</span></div>
+        <div class="day-meta">
+          <span class="day-tag">${day.g}</span>
+          <span class="day-time">${day.c}</span>
+        </div>
       </div>
-      ${d.ex.map((e,ei)=>{
-        const v=e.v[0];
-        const badge=e.b?`<span class="badge badge-${e.b}">${e.b.toUpperCase()}</span>`:'';
-        const giClass=e.gi?' giant-set':'';
-        const giTag=e.gi?'<p class="giant-tag">Giant Set ×3</p>':'';
-        const intent=e.i?`<p class="intent">${e.i}</p>`:'';
-        return`<div class="exercise${giClass}" data-d="${di}" data-e="${ei}">
-          ${giTag}${intent}
-          <div class="exercise-top">
-            <span class="exercise-name">${v[0]}</span>
-            <span class="exercise-sets">${e.s}${badge}</span>
-          </div>
-          <p class="exercise-notes">${v[1]}</p>
-          ${e.v.length>1?`<div class="alternatives">${e.v.map((a,ai)=>
-            `<span${ai===0?' class="on"':''} data-i="${ai}">${a[0]}</span>`
-          ).join('')}</div>`:''}
-        </div>`;
+      ${day.ex.map((ex, ei) => {
+        const v = ex.v[0];
+        const badge = ex.b ? `<span class="badge b-${ex.b}">${ex.b.toUpperCase()}</span>` : '';
+        const giClass = ex.gi ? ' gi' : '';
+        const giLabel = ex.gi ? '<div class="gi-label">Giant Set ×3</div>' : '';
+        const intent = ex.i ? `<div class="intent">${ex.i}</div>` : '';
+
+        // Add calculator for DS or RP
+        let calc = '';
+        if (ex.b === 'ds') {
+          calc = `
+            <div class="calc" data-type="ds">
+              <div class="calc-title">Drop Set Calculator</div>
+              <div class="calc-row">
+                <input type="number" class="calc-input" placeholder="0" min="0" step="5">
+                <span class="calc-unit">lbs</span>
+              </div>
+              <div class="calc-result"></div>
+            </div>`;
+        } else if (ex.b === 'rp') {
+          calc = `
+            <div class="calc" data-type="rp">
+              <div class="calc-title">Rest-Pause Calculator</div>
+              <div class="calc-row">
+                <input type="number" class="calc-input" placeholder="10" min="1" max="20" value="10">
+                <span class="calc-unit">reps</span>
+              </div>
+              <div class="calc-result">
+                <span class="rp-set">10</span>
+                <span class="rp-arrow">→ 15s →</span>
+                <span class="rp-set">5</span>
+                <span class="rp-arrow">→ 15s →</span>
+                <span class="rp-set">3</span>
+              </div>
+            </div>`;
+        }
+
+        return `
+          <div class="ex${giClass}" data-d="${di}" data-e="${ei}">
+            ${giLabel}${intent}
+            <div class="ex-top">
+              <span class="ex-name">${v[0]}</span>
+              <span class="ex-sets">${ex.s}${badge}</span>
+            </div>
+            <p class="ex-notes">${v[1]}</p>
+            ${ex.v.length > 1 ? `<div class="alts">${ex.v.map((a, ai) =>
+              `<span${ai === 0 ? ' class="on"' : ''} data-i="${ai}">${a[0]}</span>`
+            ).join('')}</div>` : ''}
+            ${calc}
+          </div>`;
       }).join('')}
-      <div class="cardio">
-        <span class="cardio-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
-          Cardio
-        </span>
-        <span>${d.c}</span>
-      </div>
     </div>
   `).join('');
 
-  const rules=`
-    <p class="section-title" id="rules">Training Rules</p>
-    ${DATA.rules.map(r=>`
-      <div class="rule-card">
-        <h3>${r.t}</h3>
-        <ul>${r.items.map(i=>`<li><strong>${i.k}:</strong> <span>${i.v}</span></li>`).join('')}</ul>
-      </div>
-    `).join('')}
+  const rules = `
+    <div class="section" id="rules">
+      <div class="section-title">Training Rules</div>
+      ${DATA.rules.map(r => `
+        <div class="rule">
+          <div class="rule-head">${r.t}</div>
+          ${r.items.map(i => `
+            <div class="rule-item"><strong>${i[0]}:</strong> ${i[1]}</div>
+          `).join('')}
+        </div>
+      `).join('')}
+    </div>
   `;
 
-  const footer=`
-    <footer>
-      Built for classic aesthetics. Train hard, recover smart.
-    </footer>
-  `;
+  const footer = `<footer>Train hard. Recover smart.</footer>`;
 
-  root.innerHTML=header+nav+`<main>${days}</main>`+rules+footer;
+  root.innerHTML = `${nav}<div class="container">${days}${rules}</div>${footer}`;
 
-  document.querySelector('main').addEventListener('click',e=>{
-    if(!e.target.matches('.alternatives span'))return;
-    const ex=e.target.closest('.exercise');
-    const di=+ex.dataset.d,ei=+ex.dataset.e,ai=+e.target.dataset.i;
-    const v=DATA.days[di].ex[ei].v[ai];
-    ex.querySelector('.exercise-name').textContent=v[0];
-    ex.querySelector('.exercise-notes').innerHTML=v[1];
-    ex.querySelectorAll('.alternatives span').forEach(s=>s.classList.remove('on'));
+  // Exercise swap
+  document.querySelector('.container').addEventListener('click', e => {
+    if (!e.target.matches('.alts span')) return;
+    const ex = e.target.closest('.ex');
+    const di = +ex.dataset.d, ei = +ex.dataset.e, ai = +e.target.dataset.i;
+    const v = DATA.days[di].ex[ei].v[ai];
+    ex.querySelector('.ex-name').textContent = v[0];
+    ex.querySelector('.ex-notes').innerHTML = v[1];
+    ex.querySelectorAll('.alts span').forEach(s => s.classList.remove('on'));
     e.target.classList.add('on');
   });
+
+  // Calculator handlers
+  document.querySelectorAll('.calc').forEach(calc => {
+    const input = calc.querySelector('.calc-input');
+    const result = calc.querySelector('.calc-result');
+    const type = calc.dataset.type;
+
+    input.addEventListener('input', () => {
+      const val = parseFloat(input.value) || 0;
+
+      if (type === 'ds') {
+        const drops = calcDropSet(val);
+        if (val > 0) {
+          result.innerHTML = drops.map(d => `
+            <div class="calc-drop">
+              <span class="calc-drop-pct">-${d.pct}%</span>
+              <span class="calc-drop-wt">${d.wt} lbs</span>
+            </div>
+          `).join('');
+        } else {
+          result.innerHTML = '';
+        }
+      } else if (type === 'rp') {
+        const reps = calcRestPause(Math.round(val));
+        result.innerHTML = `
+          <span class="rp-set">${reps[0]}</span>
+          <span class="rp-arrow">→ 15s →</span>
+          <span class="rp-set">${reps[1]}</span>
+          <span class="rp-arrow">→ 15s →</span>
+          <span class="rp-set">${reps[2]}</span>
+        `;
+      }
+    });
+  });
+
+  // Highlight active nav on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-60px 0px -60% 0px' });
+
+  document.querySelectorAll('.day').forEach(day => observer.observe(day));
 }
 
 render();
