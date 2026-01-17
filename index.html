@@ -220,78 +220,77 @@
       margin-bottom: 6px;
     }
 
-    /* Calculator */
+    /* Calculator - collapsed by default */
     .calc {
       margin-top: 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.2s, opacity 0.2s, margin 0.2s;
+    }
+    .calc.open {
+      max-height: 200px;
+      opacity: 1;
+    }
+    .calc-inner {
       padding: 10px 12px;
       background: var(--surface-2);
       border-radius: 8px;
       border: 1px solid var(--border);
     }
-    .calc-title {
-      font-size: 11px;
-      color: var(--text-3);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
     .calc-row {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .calc-input {
-      width: 70px;
-      padding: 8px 10px;
-      font-size: 14px;
+      width: 56px;
+      padding: 6px 8px;
+      font-size: 13px;
       font-weight: 600;
       background: var(--surface-3);
       border: 1px solid var(--border-light);
-      border-radius: 6px;
+      border-radius: 4px;
       color: var(--text);
       text-align: center;
     }
     .calc-input:focus {
       outline: none;
-      border-color: var(--green);
+      border-color: var(--text-3);
     }
     .calc-unit {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-3);
     }
     .calc-result {
       display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
     }
     .calc-drop {
-      padding: 6px 10px;
+      padding: 4px 6px;
       background: var(--red-dim);
-      border-radius: 4px;
-      font-size: 12px;
+      border-radius: 3px;
+      font-size: 10px;
       font-weight: 600;
     }
     .calc-drop-pct { color: var(--red); }
-    .calc-drop-wt { color: var(--text); margin-left: 4px; }
-
-    /* RP Calculator */
-    .rp-result {
-      display: flex;
-      gap: 4px;
-      margin-top: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .calc-drop-wt { color: var(--text); margin-left: 2px; }
     .rp-set {
-      padding: 6px 10px;
+      padding: 4px 6px;
       background: var(--purple-dim);
-      border-radius: 4px;
-      font-size: 12px;
+      border-radius: 3px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--text);
     }
-    .rp-arrow { color: var(--text-3); font-size: 11px; }
+    .rp-arrow { color: var(--text-3); font-size: 9px; }
+
+    /* Tappable badge */
+    .badge { cursor: pointer; transition: transform 0.1s; }
+    .badge:active { transform: scale(0.95); }
+    .badge.active { box-shadow: 0 0 0 2px currentColor; }
 
     /* Section */
     .section {
@@ -623,32 +622,38 @@ function render() {
         const giLabel = ex.gi ? '<div class="gi-label">Giant Set ×3</div>' : '';
         const intent = ex.i ? `<div class="intent">${ex.i}</div>` : '';
 
-        // Add calculator for DS or RP
+        // Add calculator for DS or RP (collapsed by default)
         let calc = '';
         if (ex.b === 'ds') {
           calc = `
             <div class="calc" data-type="ds">
-              <div class="calc-title">Drop Set Calculator</div>
-              <div class="calc-row">
-                <input type="number" class="calc-input" placeholder="0" min="0" step="5">
-                <span class="calc-unit">lbs</span>
+              <div class="calc-inner">
+                <div class="calc-row">
+                  <input type="number" class="calc-input" placeholder="lbs" min="0" step="5">
+                  <span class="calc-unit">→</span>
+                  <div class="calc-result">
+                    <span class="calc-drop"><span class="calc-drop-pct">-20%</span></span>
+                    <span class="calc-drop"><span class="calc-drop-pct">-30%</span></span>
+                    <span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>
+                  </div>
+                </div>
               </div>
-              <div class="calc-result"></div>
             </div>`;
         } else if (ex.b === 'rp') {
           calc = `
             <div class="calc" data-type="rp">
-              <div class="calc-title">Rest-Pause Calculator</div>
-              <div class="calc-row">
-                <input type="number" class="calc-input" placeholder="10" min="1" max="20" value="10">
-                <span class="calc-unit">reps</span>
-              </div>
-              <div class="calc-result">
-                <span class="rp-set">10</span>
-                <span class="rp-arrow">→ 15s →</span>
-                <span class="rp-set">5</span>
-                <span class="rp-arrow">→ 15s →</span>
-                <span class="rp-set">3</span>
+              <div class="calc-inner">
+                <div class="calc-row">
+                  <input type="number" class="calc-input" placeholder="reps" min="1" max="30" value="10">
+                  <span class="calc-unit">→</span>
+                  <div class="calc-result">
+                    <span class="rp-set">100%</span>
+                    <span class="rp-arrow">15s</span>
+                    <span class="rp-set">50%</span>
+                    <span class="rp-arrow">15s</span>
+                    <span class="rp-set">30%</span>
+                  </div>
+                </div>
               </div>
             </div>`;
         }
@@ -700,38 +705,61 @@ function render() {
     e.target.classList.add('on');
   });
 
+  // Badge click to toggle calculator
+  document.querySelectorAll('.badge').forEach(badge => {
+    badge.addEventListener('click', e => {
+      e.stopPropagation();
+      const ex = badge.closest('.ex');
+      const calc = ex.querySelector('.calc');
+      if (calc) {
+        calc.classList.toggle('open');
+        badge.classList.toggle('active');
+        if (calc.classList.contains('open')) {
+          calc.querySelector('.calc-input').focus();
+        }
+      }
+    });
+  });
+
   // Calculator handlers
   document.querySelectorAll('.calc').forEach(calc => {
     const input = calc.querySelector('.calc-input');
     const result = calc.querySelector('.calc-result');
     const type = calc.dataset.type;
 
-    input.addEventListener('input', () => {
+    const updateCalc = () => {
       const val = parseFloat(input.value) || 0;
 
       if (type === 'ds') {
         const drops = calcDropSet(val);
         if (val > 0) {
           result.innerHTML = drops.map(d => `
-            <div class="calc-drop">
+            <span class="calc-drop">
               <span class="calc-drop-pct">-${d.pct}%</span>
-              <span class="calc-drop-wt">${d.wt} lbs</span>
-            </div>
+              <span class="calc-drop-wt">${d.wt}</span>
+            </span>
           `).join('');
         } else {
-          result.innerHTML = '';
+          result.innerHTML = `
+            <span class="calc-drop"><span class="calc-drop-pct">-20%</span></span>
+            <span class="calc-drop"><span class="calc-drop-pct">-30%</span></span>
+            <span class="calc-drop"><span class="calc-drop-pct">-40%</span></span>
+          `;
         }
       } else if (type === 'rp') {
-        const reps = calcRestPause(Math.round(val));
+        const r = Math.round(val) || 10;
+        const reps = calcRestPause(r);
         result.innerHTML = `
           <span class="rp-set">${reps[0]}</span>
-          <span class="rp-arrow">→ 15s →</span>
+          <span class="rp-arrow">15s</span>
           <span class="rp-set">${reps[1]}</span>
-          <span class="rp-arrow">→ 15s →</span>
+          <span class="rp-arrow">15s</span>
           <span class="rp-set">${reps[2]}</span>
         `;
       }
-    });
+    };
+
+    input.addEventListener('input', updateCalc);
   });
 
   // Highlight active nav on scroll
