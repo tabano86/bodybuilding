@@ -746,10 +746,12 @@ const calcDrops = w => w > 0 ? [20, 30, 40].map(p => ({ p, w: Math.round(w * (1 
 const calcRP = r => { const n = r || 10; return [n, Math.round(n * 0.5), Math.round(n * 0.3)]; };
 const calcPcts = orm => orm ? [95, 90, 85, 80, 75, 70].map(p => ({ p, w: Math.round(orm * p/100 / 5) * 5 })) : [];
 
+// ========== DOM HELPERS ==========
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
 // ========== RENDER ==========
 function render() {
-  const $ = s => document.querySelector(s);
-  const $$ = s => document.querySelectorAll(s);
 
   const nav = `<nav><div class="nav-inner">${
     DATA.days.map((d, i) => `<a href="#d${i}">${d.d}</a>`).join('')
