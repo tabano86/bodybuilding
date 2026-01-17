@@ -97,7 +97,6 @@
     .day {
       margin-top: 24px;
       border-radius: 12px;
-      overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
       border-left: 3px solid var(--day-accent, var(--border));
@@ -114,20 +113,17 @@
       position: sticky;
       top: 54px;
       z-index: 50;
-      background: var(--surface-2);
+      background: #111;
       padding: 16px;
+      border-radius: 12px 12px 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
-      transition: box-shadow 0.2s, background 0.2s;
     }
     .day-head.stuck {
-      background: rgba(17,17,17,0.97);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px var(--day-accent, var(--border));
-    }
-    .day.active .day-head {
-      border-left: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+      border-radius: 0;
     }
     .day.active {
       border-color: var(--day-accent);
@@ -146,11 +142,9 @@
       height: 8px;
       border-radius: 50%;
       background: var(--day-accent, var(--text-3));
-      opacity: 0.7;
     }
     .day.active .day-title::before {
-      opacity: 1;
-      box-shadow: 0 0 8px var(--day-accent);
+      box-shadow: 0 0 6px var(--day-accent);
     }
     .day-title span {
       color: var(--text-2);
