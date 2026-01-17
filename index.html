@@ -209,14 +209,30 @@
     .cue { color: var(--green); }
     .warn { color: var(--yellow); }
 
-    /* Badges */
+    /* Badges - interactive */
     .badge {
       font-size: 10px;
       font-weight: 700;
-      padding: 2px 5px;
+      padding: 2px 6px 2px 5px;
       border-radius: 3px;
       margin-left: 6px;
       vertical-align: middle;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .badge::after {
+      content: ' ▾';
+      font-size: 8px;
+      opacity: 0.6;
+    }
+    .badge:hover {
+      border-color: currentColor;
+      opacity: 0.9;
+    }
+    .badge.active::after {
+      content: ' ▴';
     }
     .b-ds { background: var(--red-dim); color: var(--red); }
     .b-rp { background: var(--purple-dim); color: var(--purple); }
@@ -356,6 +372,145 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
+    }
+
+    /* Tools */
+    .tools {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .tools-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .tools-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tools-title::before {
+      content: '⚡';
+      font-size: 14px;
+    }
+    .tools-toggle {
+      font-size: 12px;
+      color: var(--text-3);
+      transition: transform 0.2s;
+    }
+    .tools.open .tools-toggle {
+      transform: rotate(180deg);
+    }
+    .tools-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-out;
+    }
+    .tools.open .tools-body {
+      max-height: 300px;
+    }
+    .tools-content {
+      padding-top: 16px;
+    }
+    .orm-calc {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .orm-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .orm-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .orm-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .orm-input {
+      width: 72px;
+      padding: 10px 12px;
+      font-size: 16px;
+      font-weight: 600;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      color: var(--text);
+      text-align: center;
+    }
+    .orm-input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .orm-input::placeholder {
+      color: var(--text-3);
+      font-weight: 400;
+    }
+    .orm-equals {
+      font-size: 18px;
+      color: var(--text-3);
+      margin-top: 16px;
+    }
+    .orm-result {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 16px;
+    }
+    .orm-1rm {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+    .orm-1rm-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .orm-1rm.empty {
+      color: var(--text-3);
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .orm-percentages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .orm-pct {
+      padding: 6px 10px;
+      background: var(--surface-2);
+      border-radius: 6px;
+      font-size: 12px;
+      display: flex;
+      gap: 6px;
+      align-items: baseline;
+    }
+    .orm-pct-label {
+      color: var(--text-3);
+      font-weight: 500;
+    }
+    .orm-pct-value {
+      color: var(--text);
+      font-weight: 600;
     }
     .rule {
       padding: 12px 0;
@@ -654,12 +809,61 @@ function calcRestPause(reps) {
   return [r, Math.round(r * 0.5), Math.round(r * 0.3)];
 }
 
+function calc1RM(weight, reps) {
+  if (!weight || weight <= 0 || !reps || reps <= 0) return null;
+  if (reps === 1) return weight;
+  // Epley formula - accurate for 1-15 rep range
+  return Math.round(weight * (1 + reps / 30));
+}
+
+function getTrainingWeights(orm) {
+  if (!orm) return [];
+  return [
+    { pct: 95, wt: Math.round(orm * 0.95 / 5) * 5 },
+    { pct: 90, wt: Math.round(orm * 0.90 / 5) * 5 },
+    { pct: 85, wt: Math.round(orm * 0.85 / 5) * 5 },
+    { pct: 80, wt: Math.round(orm * 0.80 / 5) * 5 },
+    { pct: 75, wt: Math.round(orm * 0.75 / 5) * 5 },
+    { pct: 70, wt: Math.round(orm * 0.70 / 5) * 5 }
+  ];
+}
+
 function render() {
   const root = document.getElementById('root');
 
   const nav = `<nav><div class="nav-inner">${DATA.days.map((d,i) =>
     `<a href="#d${i}">${d.d}</a>`
   ).join('')}<a href="#rules">?</a></div></nav>`;
+
+  const tools = `
+    <div class="tools" id="tools">
+      <div class="tools-header">
+        <span class="tools-title">1RM Calculator</span>
+        <span class="tools-toggle">▼</span>
+      </div>
+      <div class="tools-body">
+        <div class="tools-content">
+          <div class="orm-calc">
+            <div class="orm-inputs">
+              <div class="orm-field">
+                <span class="orm-label">Weight</span>
+                <input type="number" class="orm-input" id="orm-weight" placeholder="185" min="0" step="5" inputmode="decimal">
+              </div>
+              <div class="orm-field">
+                <span class="orm-label">Reps</span>
+                <input type="number" class="orm-input" id="orm-reps" placeholder="8" min="1" max="30" inputmode="numeric">
+              </div>
+              <span class="orm-equals">=</span>
+              <div class="orm-result">
+                <span class="orm-1rm empty" id="orm-result">Enter weight × reps</span>
+                <span class="orm-1rm-label">Estimated 1RM</span>
+              </div>
+            </div>
+            <div class="orm-percentages" id="orm-percentages"></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
 
   const days = DATA.days.map((day, di) => `
     <div class="day" id="d${di}" data-day="${di}">
@@ -746,7 +950,44 @@ function render() {
 
   const footer = `<footer>Train hard. Recover smart.</footer>`;
 
-  root.innerHTML = `${nav}<div class="container">${days}${rules}</div>${footer}`;
+  root.innerHTML = `${nav}<div class="container">${tools}${days}${rules}</div>${footer}`;
+
+  // Tools toggle
+  const toolsEl = document.getElementById('tools');
+  toolsEl.querySelector('.tools-header').addEventListener('click', () => {
+    toolsEl.classList.toggle('open');
+  });
+
+  // 1RM Calculator
+  const ormWeight = document.getElementById('orm-weight');
+  const ormReps = document.getElementById('orm-reps');
+  const ormResult = document.getElementById('orm-result');
+  const ormPercentages = document.getElementById('orm-percentages');
+
+  const updateORM = () => {
+    const w = parseFloat(ormWeight.value) || 0;
+    const r = parseInt(ormReps.value) || 0;
+    const orm = calc1RM(w, r);
+
+    if (orm) {
+      ormResult.textContent = orm + ' lbs';
+      ormResult.classList.remove('empty');
+      const pcts = getTrainingWeights(orm);
+      ormPercentages.innerHTML = pcts.map(p => `
+        <span class="orm-pct">
+          <span class="orm-pct-label">${p.pct}%</span>
+          <span class="orm-pct-value">${p.wt}</span>
+        </span>
+      `).join('');
+    } else {
+      ormResult.textContent = 'Enter weight × reps';
+      ormResult.classList.add('empty');
+      ormPercentages.innerHTML = '';
+    }
+  };
+
+  ormWeight.addEventListener('input', updateORM);
+  ormReps.addEventListener('input', updateORM);
 
   // Exercise swap
   document.querySelector('.container').addEventListener('click', e => {
