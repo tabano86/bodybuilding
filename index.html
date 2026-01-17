@@ -78,6 +78,13 @@
     }
     nav a:hover { color: var(--text-2); background: var(--surface-2); }
     nav a.active { color: var(--text); background: var(--surface-3); }
+    nav a:nth-child(1).active { color: #ef4444; } /* Mon */
+    nav a:nth-child(2).active { color: #f97316; } /* Tue */
+    nav a:nth-child(3).active { color: #eab308; } /* Wed */
+    nav a:nth-child(4).active { color: #22c55e; } /* Thu */
+    nav a:nth-child(5).active { color: #3b82f6; } /* Fri */
+    nav a:nth-child(6).active { color: #8b5cf6; } /* Sat */
+    nav a:nth-child(7).active { color: #ec4899; } /* Sun */
 
     /* Container */
     .container {
@@ -88,13 +95,21 @@
 
     /* Day */
     .day {
-      margin-top: 12px;
+      margin-top: 24px;
       border-radius: 12px;
       overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
+      border-left: 3px solid var(--day-accent, var(--border));
     }
     .day:first-child { margin-top: 16px; }
+    .day[data-day="0"] { --day-accent: #ef4444; } /* Mon - Red */
+    .day[data-day="1"] { --day-accent: #f97316; } /* Tue - Orange */
+    .day[data-day="2"] { --day-accent: #eab308; } /* Wed - Yellow */
+    .day[data-day="3"] { --day-accent: #22c55e; } /* Thu - Green */
+    .day[data-day="4"] { --day-accent: #3b82f6; } /* Fri - Blue */
+    .day[data-day="5"] { --day-accent: #8b5cf6; } /* Sat - Purple */
+    .day[data-day="6"] { --day-accent: #ec4899; } /* Sun - Pink */
     .day-head {
       position: sticky;
       top: 54px;
@@ -105,11 +120,37 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    .day-head.stuck {
+      background: rgba(17,17,17,0.97);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px var(--day-accent, var(--border));
+    }
+    .day.active .day-head {
+      border-left: none;
+    }
+    .day.active {
+      border-color: var(--day-accent);
     }
     .day-title {
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .day-title::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--day-accent, var(--text-3));
+      opacity: 0.7;
+    }
+    .day.active .day-title::before {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--day-accent);
     }
     .day-title span {
       color: var(--text-2);
@@ -359,11 +400,11 @@
       .nav-inner { padding: 12px 0; gap: 4px; }
       nav a { font-size: 14px; padding: 10px 16px; }
       .container { padding: 0 16px 32px; }
-      .day { margin-top: 16px; }
+      .day { margin-top: 28px; }
       .day-head { padding: 18px 20px; top: 62px; }
       .day-title { font-size: 17px; }
       .ex { padding: 16px 20px; }
-      .section { margin-top: 16px; padding: 20px; }
+      .section { margin-top: 20px; padding: 20px; }
       .ex-name { font-size: 16px; }
       .ex-notes { font-size: 14px; }
     }
@@ -626,7 +667,7 @@ function render() {
   ).join('')}<a href="#rules">?</a></div></nav>`;
 
   const days = DATA.days.map((day, di) => `
-    <div class="day" id="d${di}">
+    <div class="day" id="d${di}" data-day="${di}">
       <div class="day-head">
         <div class="day-title">${day.d} <span>· ${day.t}</span></div>
         <div class="day-meta">
@@ -781,19 +822,41 @@ function render() {
     input.addEventListener('input', updateCalc);
   });
 
-  // Highlight active nav on scroll
+  // Highlight active nav and day on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
+        // Update nav
         document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
         const activeLink = document.querySelector(`nav a[href="#${id}"]`);
         if (activeLink) activeLink.classList.add('active');
+        // Update active day
+        document.querySelectorAll('.day').forEach(d => d.classList.remove('active'));
+        entry.target.classList.add('active');
       }
     });
   }, { threshold: 0.3, rootMargin: '-60px 0px -60% 0px' });
 
   document.querySelectorAll('.day').forEach(day => observer.observe(day));
+
+  // Detect sticky headers
+  const navHeight = window.innerWidth >= 768 ? 62 : 54;
+  const stickyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const dayHead = entry.target.querySelector('.day-head');
+      if (dayHead) {
+        // When the top of the day card goes above the nav, the header is stuck
+        if (!entry.isIntersecting && entry.boundingClientRect.top < navHeight) {
+          dayHead.classList.add('stuck');
+        } else {
+          dayHead.classList.remove('stuck');
+        }
+      }
+    });
+  }, { threshold: 0, rootMargin: `-${navHeight}px 0px 0px 0px` });
+
+  document.querySelectorAll('.day').forEach(day => stickyObserver.observe(day));
 }
 
 render();
