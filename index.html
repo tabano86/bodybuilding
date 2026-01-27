@@ -553,7 +553,7 @@ const DATA = {
         ["Hammer Strength Row","<span class='cue'>Neutral grip handles.</span> Chest on pad, drive elbows back."],
         ["Seal Row","Flat bench elevated. <span class='cue'>Overhand grip.</span> Chest supported = zero spinal load."],
         ["Hammer Strength Low Row","<span class='cue'>Neutral grip.</span> Chest on pad. Drive elbows past torso."]]},
-      {s:"3×8-12", v:[
+      {s:"3×8-12", i:"Lat Width", v:[
         ["Wide-Grip Lat Pulldown","<span class='cue'>Hands 6\" outside shoulders.</span> Lean 15°. Elbows to ribs."],
         ["Close-Grip Pulldown (V-Bar)","<span class='cue'>V-bar, neutral grip.</span> Pull to sternum."],
         ["Assisted Pull-Up","<span class='cue'>Wide overhand grip.</span> Full dead hang to chin over bar."],
@@ -575,21 +575,21 @@ const DATA = {
         ["High Cable Rear Fly","<span class='cue'>Cables at head height, crossed.</span>"]]}
     ]},
     {d:"Wed", t:"Arms + Delts", g:"Pump", c:"20-30m", ex:[
-      {s:"3×10-12", v:[
+      {s:"3×10-12", i:"Long Head", v:[
         ["Overhead Cable Extension (Rope)","<span class='cue'>Low pulley, face away.</span> Full stretch. Spread rope at top."],
         ["Overhead Cable Extension (EZ)","<span class='cue'>EZ-bar, narrow grip.</span> Elbows by ears."],
         ["Dual Cable Overhead Extension","<span class='cue'>D-handles, between stacks.</span>"],
         ["Seated Overhead DB Extension","<span class='cue'>Single DB, diamond grip.</span> Lower behind head."]]},
-      {s:"3×10-12", b:"ds", v:[
+      {s:"3×10-12", i:"Lateral Head", b:"ds", v:[
         ["Tricep Pressdown (Straight Bar)","<span class='cue'>Overhand, shoulder-width.</span> Lock out HARD. Pin elbows."],
         ["Tricep Pressdown (V-Bar)","<span class='cue'>V-bar, neutral.</span> Heavier load. Full lockout."],
         ["Tricep Pressdown (Rope)","<span class='cue'>Rope.</span> Spread at bottom for lateral head."],
         ["Single-Arm Pressdown","<span class='cue'>D-handle.</span> Unilateral."]]},
-      {s:"3×10-12", v:[
+      {s:"3×10-12", i:"Long Head Stretch", v:[
         ["Incline Dumbbell Curl","45-60° bench. <span class='cue'>Supinate as you curl.</span> Max long head stretch."],
         ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span> Same stretch as incline."],
         ["Preacher Curl (EZ)","<span class='cue'>Narrow grip on inner angles.</span> Pad at armpit."]]},
-      {s:"2×8-12", v:[
+      {s:"2×8-12", i:"Peak", v:[
         ["EZ Bar Cable Curl","<span class='cue'>Narrow grip.</span> Full ROM + 4-5 partials."],
         ["Straight Bar Cable Curl","<span class='cue'>Shoulder-width.</span> Constant tension."],
         ["Machine Preacher Curl","Pad eliminates momentum. Full stretch."],
@@ -605,12 +605,12 @@ const DATA = {
         ["Cable Crunch","<span class='cue'>Rope, high pulley.</span> Curl ribs to hips. Spine-neutral."]]}
     ]},
     {d:"Thu", t:"Legs", g:"Main Day", c:"45-60m", ex:[
-      {s:"4×10-15", b:"rp", v:[
+      {s:"4×10-15", i:"Stretched Position", b:"rp", v:[
         ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down.</span> Stretched position—most growth stimulus."],
         ["Lying Leg Curl","<span class='cue'>Hips flat—don't let them rise.</span> Toes down."],
         ["Single-Leg Lying Curl","Unilateral. Address imbalances."],
         ["Kneeling Leg Curl","<span class='cue'>Hip extended throughout.</span>"]]},
-      {s:"3×10-12", v:[
+      {s:"3×10-12", i:"Shortened Position", v:[
         ["Lying Leg Curl","<span class='cue'>Hips flat.</span> Shortened-position work after seated stretch. Toes down."],
         ["Single-Leg Lying Curl","Unilateral. Fix imbalances."],
         ["Kneeling Leg Curl","<span class='cue'>Hip extended throughout.</span> Zero spinal load."],
@@ -651,7 +651,7 @@ const DATA = {
         ["Pec Deck","Squeeze 2s at contraction."],
         ["Flat Dumbbell Fly","<span class='cue'>Slight elbow bend.</span> Deep stretch."],
         ["High-to-Low Cable Fly","<span class='cue'>Pulleys high.</span> Lower chest emphasis."]]},
-      {s:"3×10-15/side", v:[
+      {s:"3×10-15/side", i:"Lower Lats", v:[
         ["Single-Arm Lat Pulldown","<span class='cue'>D-handle.</span> Pull to HIP POCKET. Lower lat sweep."],
         ["Close-Grip Pulldown","<span class='cue'>V-bar.</span> Pull to sternum."],
         ["Straight-Arm Pulldown","<span class='cue'>Rope, split at bottom.</span>"]]},
@@ -691,19 +691,19 @@ const DATA = {
         ["Cable Lateral Raise","<span class='cue'>Cross behind.</span> Go light, go long."],
         ["Machine Lateral Raise","No cheating. High reps."],
         ["Leaning Cable Lateral","<span class='cue'>Brutal stretch at bottom.</span>"]]},
-      {s:"3×10-12", v:[
+      {s:"3×10-12", i:"Long Head", v:[
         ["Overhead Cable Extension (Rope)","<span class='cue'>Face away.</span> Long head stretch."],
         ["Overhead Cable Extension (EZ)","Elbows by ears."],
         ["Seated Overhead DB Extension","<span class='cue'>Diamond grip.</span> Lower behind head."]]},
-      {s:"3×10-12", b:"ds", v:[
+      {s:"3×10-12", i:"Lateral Head", b:"ds", v:[
         ["Tricep Pressdown (Rope)","<span class='cue'>Spread at bottom.</span> Pump finisher."],
         ["Tricep Pressdown (V-Bar)","Heavier load option."],
         ["Single-Arm Pressdown","Unilateral."]]},
-      {s:"3×10-12", v:[
+      {s:"3×10-12", i:"Long Head Stretch", v:[
         ["Incline Dumbbell Curl","<span class='cue'>45°, supinate at top.</span> Long head stretch."],
         ["Bayesian Cable Curl","<span class='cue'>D-handle behind you.</span> Same stretch as incline."],
         ["Preacher Curl (EZ)","Pad at armpit height. Full stretch at bottom."]]},
-      {s:"2×10-12", v:[
+      {s:"2×10-12", i:"Peak", v:[
         ["Cable Curl (EZ Bar)","<span class='cue'>Narrow grip.</span> Constant tension."],
         ["Straight Bar Cable Curl","Great pump."],
         ["Hammer Curl","<span class='cue'>Neutral grip.</span> Brachialis."],
