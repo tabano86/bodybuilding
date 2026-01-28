@@ -525,13 +525,13 @@
 <script>
 const DATA = {
   days: [
-    {d:"Mon", t:"Chest + Delts", g:"Upper Chest", c:"25-40m", ex:[
+    {d:"Mon", t:"Chest + Delts", g:"Upper Chest", c:"30-45m", ex:[
       {s:"1×6-8 + 2×8-12", v:[
         ["Incline Barbell Press","30-35° bench. <span class='cue'>Medium grip—forearms vertical at bottom.</span> Touch just below clavicle. Don't lock out."],
         ["Smith Incline Press","Same 30-35° angle. Fixed bar path = safe failure."],
         ["Hammer Strength Incline","Plate-loaded. Adjust seat so handles align with upper chest."],
         ["Incline Dumbbell Press","30-35° bench. <span class='cue'>Neutral grip at bottom, rotate to pronated at top.</span>"]]},
-      {s:"3×8-12", v:[
+      {s:"4×8-12", v:[
         ["Flat Barbell Bench","<span class='cue'>Medium grip—forearms vertical at bottom.</span> Slight arch. Drive through chest."],
         ["Hammer Strength Flat","Plate-loaded. Handles at nipple line."],
         ["Smith Flat Press","Fixed path. Set safeties 1\" above chest."],
@@ -604,7 +604,7 @@ const DATA = {
         ["Decline Crunch","Hands across chest. Curl up, don't sit up."],
         ["Cable Crunch","<span class='cue'>Rope, high pulley.</span> Curl ribs to hips. Spine-neutral."]]}
     ]},
-    {d:"Thu", t:"Legs", g:"Main Day", c:"45-60m", ex:[
+    {d:"Thu", t:"Legs", g:"Main Day", c:"55-75m", ex:[
       {s:"4×10-15", i:"Stretched Position", b:"rp", v:[
         ["Seated Leg Curl","Hams first. <span class='cue'>Toes pointed down.</span> Stretched position—most growth stimulus."],
         ["Lying Leg Curl","<span class='cue'>Hips flat—don't let them rise.</span> Toes down."],
@@ -615,7 +615,7 @@ const DATA = {
         ["Single-Leg Lying Curl","Unilateral. Fix imbalances."],
         ["Kneeling Leg Curl","<span class='cue'>Hip extended throughout.</span> Zero spinal load."],
         ["Seated Leg Curl (Light)","Different from first exercise—go lighter, slower, squeeze harder."]]},
-      {s:"1×8-12 + 2×10-15", v:[
+      {s:"1×8-12 + 3×10-15", v:[
         ["Leg Press","<span class='cue'>Feet shoulder-width, mid-height.</span> Don't lock knees. Full depth."],
         ["Belt Squat","Zero spinal load. <span class='cue'>Toes slightly out.</span> Full ROM."],
         ["Pendulum Squat","Arc motion allows deep ROM. <span class='cue'>Heels elevated if needed.</span>"],
@@ -629,6 +629,11 @@ const DATA = {
         ["Leg Extension","<span class='cue'>Toes up.</span> Hold 1s at full contraction."],
         ["Single-Leg Extension","Feel the VMO."],
         ["Sissy Squat","<span class='cue'>Lean back, knees forward.</span> Deep quad stretch."]]},
+      {s:"3×12-15", i:"Glutes", v:[
+        ["Machine Hip Thrust","<span class='cue'>Pad at hip crease.</span> Squeeze 2s at top. Full lockout."],
+        ["Cable Kickback","<span class='cue'>Ankle strap.</span> Slight forward lean. Squeeze glute at top."],
+        ["Single-Leg Press (Glute Focus)","<span class='cue'>Foot high on platform.</span> Press through heel."],
+        ["Glute Drive Machine","<span class='cue'>Back pad support.</span> Drive hips to ceiling."]]},
       {s:"3×15-20", v:[
         ["Standing Calf Raise","<span class='cue'>Straight legs, big toe.</span> Gastroc focus."],
         ["Leg Press Calf Raise","<span class='cue'>Full 4s negative, 2s squeeze.</span>"],
@@ -663,13 +668,17 @@ const DATA = {
       {s:"15-20 each", gi:true, v:[
         ["Lateral + Rear Fly Giant Set","<span class='cue'>DBs for both.</span> Laterals → Rear fly. ×3 rounds, 60-90s rest."]]}
     ]},
-    {d:"Sat", t:"Weak Points", g:"Recovery", c:"15-20m", ex:[
+    {d:"Sat", t:"Weak Points", g:"Recovery", c:"25-35m", ex:[
       {s:"3×12-15", v:[
         ["Seated Leg Curl","<span class='cue'>Toes down.</span> Blood flow—keep it light."],
         ["Lying Leg Curl","Feel the squeeze."],
         ["Single-Leg Curl","Address imbalances."]]},
-      {s:"2×12-15", v:[
-        ["Leg Extension","<span class='cue'>Toes up.</span> Light. Maintenance."],
+      {s:"3×12-15", v:[
+        ["Leg Press","<span class='cue'>Moderate weight.</span> Full depth, controlled tempo."],
+        ["Belt Squat","Zero spinal load. Volume accumulation."],
+        ["Hack Squat","<span class='cue'>Light weight.</span> Focus on quad squeeze."]]},
+      {s:"3×12-15", v:[
+        ["Leg Extension","<span class='cue'>Toes up.</span> Light. Pump and squeeze."],
         ["Single-Leg Extension","Feel the VMO."],
         ["Sissy Squat","Bodyweight only."]]},
       {s:"4×15-20", v:[
@@ -733,8 +742,10 @@ const DATA = {
       ["Upper chest","2×/wk (Mon, Fri)"],
       ["Side delts","4×/wk (Mon, Wed, Fri, Sun)"],
       ["Rear delts","3×/wk (Tue, Fri, Sat)"],
-      ["Arms","2×/wk (Wed, Sun)"],
+      ["Quads","2×/wk (Thu, Sat)"],
       ["Hamstrings","2×/wk (Thu, Sat)"],
+      ["Glutes","1×/wk (Thu)"],
+      ["Arms","2×/wk (Wed, Sun)"],
       ["Calves","3×/wk (Thu, Sat, Sun)"]]},
     {t:"Missed Day", items:[
       ["7-day split","No dedicated makeup—swap or skip"],
